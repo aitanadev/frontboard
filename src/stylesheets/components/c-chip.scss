@@ -1,0 +1,68 @@
+.c-chip {
+  // font-size: 20px;
+  display: inline-flex;
+  color: var(--color--pale-2);
+  padding: 0.1em 0.5em;
+  margin: -0.1em 0.4em;
+  
+  border: 1px solid transparent;
+  border-radius: 100px;
+  gap: var(--spacing-xs);
+  line-height: var(--line-height);
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  // justify-content: flex-start;
+  justify-content: center;
+
+  vertical-align: middle;
+  cursor: default;
+  text-shadow: var(--text-shadow--light);
+  background-color: var(--color--light-3);
+
+  align-self: center;
+
+  &a, &button, &.c-action {
+    cursor: pointer;
+  }
+
+  &.v-semi {
+    background-color: var(--color--light-2);
+  }
+  &.v-solid {
+    box-shadow: 0 0 10px 0px rgb(0 0 0 / 10%);
+    background-color: var(--color--light-2);
+    border-color: var(--color--pale-1);
+    // outline: 1px solid var(--color--pale-1); // review pixel glitch
+  }
+  #{$hoverSelector} {
+    &a, &button, &.c-action {
+      box-shadow: 0 0 10px 0px rgb(0 0 0 / 10%);
+      border-color: var(--color--pale-1);
+      // outline: 1px solid var(--color--pale-2); // review pixel glitch
+    }
+  }
+  .c-action {
+    padding: 0.1em 0.4em;
+    margin: -0.2em 0;
+    border-radius: 100px;
+    align-items: center;
+    &:first-child {
+      margin-left: -0.6em;
+    }
+    &:last-child {
+      margin-right: -0.6em;
+    }
+    #{$hoverSelector} {
+      &a, &button, &.c-action {
+        border-color: var(--color--pale-2);
+      }
+    }
+    .fi {
+      margin: -0.4em;
+      padding: 0.4em;
+      // margin: -4px 0;
+      // padding: 4px 0;
+    }
+  }
+}

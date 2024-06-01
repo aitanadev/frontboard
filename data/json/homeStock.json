@@ -1,0 +1,443 @@
+[
+  {
+    "name": "purchases",
+    "model": "Purchase",
+    "data": [
+      {
+        "id": "1081",
+        "date": "Sun, 21 Apr 2024 00:35:33 GMT",
+        "dealer": "Lidl",
+        "purchaseLines": [
+          {
+            "id": "100000",
+            "type": "PurchaseLine"
+          },
+          {
+            "id": "100001",
+            "type": "PurchaseLine"
+          },
+          {
+            "id": "100020",
+            "type": "PurchaseLine"
+          },
+          {
+            "id": "100021",
+            "type": "PurchaseLine"
+          }
+        ]
+      },
+      {
+        "id": "100024",
+        "date": "Thu, 02 May 2024 21:32:40 GMT",
+        "dealer": "Primaprix",
+        "purchaseLines": [
+          {
+            "id": "100023",
+            "type": "PurchaseLine"
+          },
+          {
+            "id": "100025",
+            "type": "PurchaseLine"
+          }
+        ]
+      },
+      {
+        "id": "100027",
+        "date": "Thu, 02 May 2024 21:34:08 GMT",
+        "dealer": "Aldi",
+        "purchaseLines": [
+          {
+            "id": "100026",
+            "type": "PurchaseLine"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "purchaseLines",
+    "model": "PurchaseLine",
+    "hidden": true,
+    "data": [
+      {
+        "id": "100000",
+        "asset": {
+          "id": "10005",
+          "type": "Asset"
+        },
+        "amount": 5,
+        "price": 12,
+        "bargain": true
+      },
+      {
+        "id": "100001",
+        "asset": {
+          "id": "10006",
+          "type": "Asset"
+        },
+        "amount": 2,
+        "price": 5
+      },
+      {
+        "id": "100020",
+        "asset": {
+          "id": "100004",
+          "type": "Asset"
+        },
+        "amount": 1
+      },
+      {
+        "id": "100021",
+        "asset": {
+          "id": "100005",
+          "type": "Asset"
+        },
+        "amount": 1
+      },
+      {
+        "id": "100023",
+        "asset": {
+          "id": "100002",
+          "type": "Asset"
+        },
+        "amount": 1,
+        "price": 2,
+        "bargain": true
+      },
+      {
+        "id": "100025",
+        "asset": {
+          "id": "10007",
+          "type": "Asset"
+        },
+        "amount": 1,
+        "price": 3
+      },
+      {
+        "id": "100026",
+        "asset": {
+          "id": "100007",
+          "type": "Asset"
+        },
+        "amount": 2,
+        "price": 2,
+        "bargain": true
+      }
+    ]
+  },
+  {
+    "name": "taxonomies",
+    "model": "Taxonomy",
+    "data": [
+      {
+        "id": "10001",
+        "name": "Alimentación",
+        "tone": {
+          "id": "1004",
+          "type": "Color"
+        },
+        "categories": [
+          {
+            "id": "1061",
+            "type": "Category"
+          },
+          {
+            "id": "1059",
+            "type": "Category"
+          },
+          {
+            "id": "1058",
+            "type": "Category"
+          },
+          {
+            "id": "100159",
+            "type": "Category"
+          }
+        ]
+      },
+      {
+        "id": "10002",
+        "name": "Limpieza",
+        "tone": {
+          "id": "1011",
+          "type": "Color"
+        },
+        "categories": [
+          {
+            "id": "1077",
+            "type": "Category"
+          },
+          {
+            "id": "1078",
+            "type": "Category"
+          },
+          {
+            "id": "1079",
+            "type": "Category"
+          }
+        ]
+      },
+      {
+        "id": "10003",
+        "name": "Medicamentos",
+        "tone": {
+          "id": "1009",
+          "type": "Color"
+        },
+        "categories": [
+          {
+            "id": "1083",
+            "type": "Category"
+          },
+          {
+            "id": "1084",
+            "type": "Category"
+          },
+          {
+            "id": "1086",
+            "type": "Category"
+          },
+          {
+            "id": "1087",
+            "type": "Category"
+          }
+        ]
+      },
+      {
+        "id": "10004",
+        "name": "Jardinería",
+        "tone": {
+          "id": "1008",
+          "type": "Color"
+        },
+        "categories": [
+          {
+            "id": "1062",
+            "type": "Category"
+          },
+          {
+            "id": "1063",
+            "type": "Category"
+          },
+          {
+            "id": "1064",
+            "type": "Category"
+          },
+          {
+            "id": "1082",
+            "type": "Category"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "categories",
+    "model": "Category",
+    "hidden": true,
+    "data": [
+      {
+        "id": "1058",
+        "name": "Leche vegetal"
+      },
+      {
+        "id": "1059",
+        "name": "Legumbres"
+      },
+      {
+        "id": "1061",
+        "name": "Frutas"
+      },
+      {
+        "id": "1062",
+        "name": "Máquinas"
+      },
+      {
+        "id": "1063",
+        "name": "Herramientas"
+      },
+      {
+        "id": "1064",
+        "name": "Huerto"
+      },
+      {
+        "id": "1077",
+        "name": "Higiene"
+      },
+      {
+        "id": "1078",
+        "name": "Detergentes"
+      },
+      {
+        "id": "1079",
+        "name": "Utensilios"
+      },
+      {
+        "id": "1082",
+        "name": "Agua"
+      },
+      {
+        "id": "1083",
+        "name": "Jarabes"
+      },
+      {
+        "id": "1084",
+        "name": "Asma"
+      },
+      {
+        "id": "1085",
+        "name": "Relax"
+      },
+      {
+        "id": "1086",
+        "name": "Cremas"
+      },
+      {
+        "id": "1087",
+        "name": "Pastillas"
+      },
+      {
+        "id": "100159",
+        "name": "Verduras"
+      }
+    ]
+  },
+  {
+    "name": "assets",
+    "model": "Asset",
+    "data": [
+      {
+        "id": "10005",
+        "name": "Fairy",
+        "unitBase": 1000,
+        "unitAmount": 5000,
+        "barcode": "876300857400063987",
+        "note": "",
+        "runOut": 1,
+        "taxonomy": {
+          "id": "10002",
+          "type": "Taxonomy"
+        },
+        "categories": [
+          {
+            "id": "1077",
+            "type": "Category"
+          },
+          {
+            "id": "1078",
+            "type": "Category"
+          }
+        ]
+      },
+      {
+        "id": "10006",
+        "name": "Leche de arroz",
+        "unitBase": 1000,
+        "unitAmount": 6000,
+        "barcode": "800000987654388780",
+        "note": "",
+        "runOut": 3000,
+        "taxonomy": {
+          "id": "10001",
+          "type": "Taxonomy"
+        },
+        "categories": []
+      },
+      {
+        "id": "10007",
+        "name": "Papel higiénico",
+        "unitBase": 1,
+        "unitAmount": 32,
+        "barcode": "899000440054087659",
+        "note": "",
+        "runOut": 2,
+        "taxonomy": {
+          "id": "10002",
+          "type": "Taxonomy"
+        },
+        "categories": []
+      },
+      {
+        "id": "100002",
+        "name": "Lentejas",
+        "unitBase": 1000,
+        "unitAmount": 3000,
+        "barcode": "899000340067887673",
+        "note": "",
+        "runOut": 1000,
+        "taxonomy": {
+          "id": "10001",
+          "type": "Taxonomy"
+        },
+        "categories": []
+      },
+      {
+        "id": "100003",
+        "name": "Probióticos",
+        "unitBase": 1,
+        "unitAmount": 1,
+        "barcode": "899000340067887602",
+        "runOut": 1,
+        "taxonomy": {
+          "id": "10003",
+          "type": "Taxonomy"
+        },
+        "categories": []
+      },
+      {
+        "id": "100004",
+        "name": "Guantes",
+        "unitBase": 1,
+        "unitAmount": 1,
+        "barcode": "899000300067887642",
+        "runOut": 1,
+        "taxonomy": {
+          "id": "10004",
+          "type": "Taxonomy"
+        },
+        "categories": []
+      },
+      {
+        "id": "100005",
+        "name": "Abono NPK",
+        "unitBase": 1,
+        "unitAmount": 9,
+        "barcode": "899003400067887645",
+        "note": "",
+        "runOut": 2,
+        "taxonomy": {
+          "id": "10004",
+          "type": "Taxonomy"
+        },
+        "categories": []
+      },
+      {
+        "id": "100006",
+        "name": "Champú Nata Fresa",
+        "unitBase": 1,
+        "unitAmount": 3,
+        "barcode": "899003400067887612",
+        "note": "",
+        "runOut": 1,
+        "taxonomy": {
+          "id": "10002",
+          "type": "Taxonomy"
+        },
+        "categories": []
+      },
+      {
+        "id": "100007",
+        "name": "Cuchilla desbrozadora",
+        "unitBase": 1,
+        "unitAmount": 2,
+        "barcode": "899003400067883985",
+        "runOut": 1,
+        "taxonomy": {
+          "id": "10004",
+          "type": "Taxonomy"
+        },
+        "categories": []
+      }
+    ]
+  }
+]

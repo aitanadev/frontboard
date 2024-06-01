@@ -1,0 +1,19 @@
+.c-alert {
+  border-style: none;
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: var(--border-radius);
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--gap);
+
+  color: var(--color--dark-1);
+  background-color: var(--color--light-3);
+  border-color: var(--color);
+
+  #{$hoverSelector} {
+    color: var(--color--dark-1);
+  }
+}

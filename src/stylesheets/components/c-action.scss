@@ -1,0 +1,85 @@
+.c-action {
+  position: relative;
+  padding: var(--spacing-xs) var(--spacing-m);
+  display: inline-flex;
+  border-style: solid;
+  border-width: var(--border-width);
+  border-radius: var(--border-radius);
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--gap);
+  cursor: pointer;
+  user-select: none;
+  color: var(--color--dark-1);
+  background-color: transparent;
+  border-color: transparent;
+  text-shadow: var(--text-shadow--light);
+  white-space: nowrap;
+
+  &.v-semi {
+    color: var(--color--dark-1);
+    background-color: var(--color--light-3);
+    background-image: var(--background-image--out);
+    border-color: var(--color--pale-1);
+    text-shadow: var(--text-shadow--light);
+  }
+  
+  &.v-solid {
+    color: var(--color--light-3);
+    background-color: var(--color--dark-1);
+    background-image: var(--background-image--out);
+    border-color: var(--color--dark-1);
+    text-shadow: var(--text-shadow--dark);
+  }
+
+  #{$focusSelector} {
+    background-color: var(--color--light-1);
+    color: var(--color--light-3);
+    text-shadow: var(--text-shadow--dark);
+    z-index: 1;
+  }
+  #{$hoverSelector} {
+    color: var(--color--white);
+    background-color: var(--color);
+    border-color: var(--color--dark-1);
+    text-shadow: var(--text-shadow--dark);
+    z-index: 1;
+    &.v-solid {
+      border-color: var(--color--dark-2);
+    }
+  }
+  #{$focusSelector} {
+    border-color: var(--color--primary);
+  }
+  #{$disabledSelector} {
+    color: var(--color--pale-1);
+    background-color: var(--color--light-3);
+    border-color: transparent;
+    text-shadow: var(--text-shadow--light);
+    cursor: not-allowed;
+    &.v-semi {
+      border-color: transparent;
+    }
+    &.v-solid {
+      border-color: transparent;
+    }
+  }
+  .c-chip {
+    cursor: pointer;
+    padding: 0px 3px;
+    margin: -2px 0;
+    align-items: center;
+    &:first-child {
+      margin-left: -3px;
+    }
+    &:last-child {
+      margin-right: -3px;
+    }
+    .fi {
+      margin: -3px 0;
+      padding: 3px 0;
+    }
+  }
+}

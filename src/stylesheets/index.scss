@@ -1,0 +1,148 @@
+$hoverSelector: '&.s-hover, &:hover';
+$focusSelector: '&.s-focus, &:focus-within, &:focus, &[active]'; // '&.s-active, &[active], &:active, &:focus-within, &:focus';
+$disabledSelector: '&.s-disabled, &[disabled], &:disabled';
+
+.--ds {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  color: var(--color--dark-1);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+
+  .fi {
+    line-height: var(--line-height);
+    &::before {
+      display: block;
+      display: inline-block;
+      vertical-align: top;
+      line-height: inherit !important;
+    }
+  }
+
+  @import "reset";
+  @import "components";
+
+  // Darkmode variations
+  .v-darkmode {
+    --text-shadow--dark: none;
+    --text-shadow--light: none;
+    .c-input, .c-action {
+      text-shadow: none !important;
+    }
+  }
+
+  // Embeded spinner svg animation
+  .u-loading {
+    &::before {
+      background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' stroke='rgba(0,0,0,0.4)' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cstyle%3E.spinner_V8m1%7Btransform-origin:center;animation:spinner_zKoa 2s linear infinite%7D.spinner_V8m1 circle%7Bstroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite%7D@keyframes spinner_zKoa%7B100%25%7Btransform:rotate(360deg)%7D%7D@keyframes spinner_YpZS%7B0%25%7Bstroke-dasharray:0 150;stroke-dashoffset:0%7D47.5%25%7Bstroke-dasharray:42 150;stroke-dashoffset:-16%7D95%25,100%25%7Bstroke-dasharray:42 150;stroke-dashoffset:-59%7D%7D%3C/style%3E%3Cg class='spinner_V8m1'%3E%3Ccircle cx='12' cy='12' r='9.5' fill='none' stroke-width='3'%3E%3C/circle%3E%3C/g%3E%3C/svg%3E");
+      display: block;
+      content: "";
+      width: 16px;
+      height: 16px;
+      margin-right: 0.5em;
+      align-self: center;
+      margin-top: -1px;
+    }
+  }
+
+  // Invisible scroll
+  .u-scrolled {
+    overflow: scroll;
+    max-height: 300px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      display: none;
+    }
+  }
+
+  // Only to use in documentation examples
+  .ds-section {
+    padding: 20px;
+  }
+  .v-flex-row {
+    display: flex;
+    gap: var(--gap);
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  .v-flex-col {
+    display: flex;
+    gap: var(--gap);
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+  .v-flex-grow {
+    flex-grow: 1;
+  }
+}
+
+// Waiting to better place: ...
+
+.--ds {
+  .c-draggable__handler {
+    cursor: move;
+  }
+  .c-draggable__handler--grabber::before {
+    display: inline-block;
+    content: ":::";
+    color: var(--color);
+    border-radius: var(--border-radius);
+    padding: 0 var(--spacing-s);
+  }
+}
+
+/*
+.v-dance {
+  animation:wiggle 1.5s linear infinite;
+}
+
+@keyframes wiggle {
+  0% {
+    transform:rotateZ(0);
+  }
+  10% {
+    transform:rotateZ(-5deg);
+  }
+  20% {
+    transition:rotateZ(2deg);
+  }
+  30% {
+    transition:rotateZ(-6deg);
+  }
+  40% {
+    transform:rotateZ(6deg);
+  }
+  50% {
+    transform:rotateZ(-4deg);
+  }
+  60% {
+    transform:rotateZ(6deg);
+  }
+  70% {
+    transform:rotateZ(-6deg);
+  }
+  80% {
+    transform:rotateZ(2deg);
+  }
+  90% {
+    transform:rotateZ(-5deg);
+  }
+  100% {
+    transition:rotateZ(0);
+  }
+}
+*/

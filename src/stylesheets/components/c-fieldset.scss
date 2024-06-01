@@ -1,0 +1,48 @@
+.c-fieldset {
+  display: flex;
+  border-style: none;
+  padding: var(--spacing-xxl);
+  gap: var(--spacing-xl) var(--spacing-xxl);
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: var(--spacing-l);
+  min-inline-size: unset;
+  // overflow: auto;
+  > .c-scheme-wrp {
+    margin: var(--spacing-xl) calc(var(--spacing-l)* -1 + var(--spacing-xxl)* -1);
+    border: 1px solid var(--color--pale-1);
+    border-style: solid none;
+    width: 100%;
+  }
+}
+
+.c-fieldset__item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--spacing-m);
+  justify-content: flex-start;
+  max-width: 450px;
+  width: 100%;
+  // flex-wrap: wrap;
+  flex-wrap: nowrap;
+  > * {
+    // flex-grow: 1;
+    // min-width: 280px;
+    // max-width: 100%;
+  }
+  > label {
+    padding: var(--spacing-xs) 0;
+    width: 120px;
+    max-width: 100%;
+    display: flex;
+    gap: var(--spacing-s);
+    white-space: normal;
+  }
+  .c-scheme-field {
+    .c-input, .c-field {
+      // width: 100%
+    }
+  }
+}

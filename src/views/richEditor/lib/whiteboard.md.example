@@ -1,0 +1,64 @@
+# Here is your whiteboard
+
+* Accelerate your personal ideation process. 🚀
+* Your whiteboard is private and accessible only to you. 🔒
+
+---
+
+## Basics: Visualizing components
+
+Selecting the `html` language option for a `code block` you can write **HTML** and **CSS classes** with **instant preview**
+
+```html
+  <template><button class="c-action t-primary">Sampled</button></template>
+```
+
+You can use available **components** too
+
+```html
+<template>
+  <Selector :options="options" v-model="selection" />
+  <div>Current selection: {{ selection }}</div>
+</template>
+<script>
+({
+  options: ['Option 1','Option 2','Option 3','Option 4'],
+  selection: 'Option 3'
+})
+</script>
+```
+
+## Advanced: Prototyping web components
+
+Selecting the `Webcomponent` language option for a `code block` you can prototype complete components using **HTML templates**, **Javascript** and **CSS rules** like a **SFC** with **instant preview**
+
+```webcomponent
+<template>
+  <div class="example">{{ text }}</div>
+</template>
+
+<script>
+({
+ data: {
+   text: ''
+ },
+ mounted(){
+   this.text = 'Write here your prototypes'
+ }
+})
+</script>
+<style>
+.example {
+  border: 1px dashed currentColor;
+  padding: 6px;
+  border-radius: 3px;
+}
+</style>
+```
+
+### Summarizing your thoughts
+
+* [x] Schedule kick-off meeting
+* [ ] Redefine objectives
+* [ ] Update dropdown controller
+* [ ] Develop communication plan

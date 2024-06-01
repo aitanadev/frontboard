@@ -1,0 +1,60 @@
+.c-radio, input[type="radio"] {
+  color: var(--color--pale-1);
+  box-shadow: 0 0 2px 1px rgb(0 0 0 / 10%) inset;
+  display: inline-flex;
+  appearance: none;
+  background-color: currentColor;
+  margin: 0;
+  width: 16px !important;
+  height: 16px !important;
+  border: 1px solid var(--color--pale-2);
+  border-radius: 100px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  cursor: pointer;
+  vertical-align: text-bottom;
+  line-height: 1em;
+  align-self: center;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 6px;
+    width: 6px;
+    border-radius: 10px;
+    background-color: transparent;
+    margin-left: 4px;
+    transition: background-color 60ms ease-in-out;
+  }
+  #{$hoverSelector} {
+    color: var(--color--light-2);
+  }
+  #{$focusSelector} {
+    background-color: var(--color--primary--light-2);
+  }
+  &:checked {
+    color: var(--color--primary--dark-1);
+    // border-style: none;
+    &::after {
+      background-color: var(--color--white);
+    }
+    #{$hoverSelector} {
+      color: var(--color--primary);
+    }
+    #{$focusSelector} {
+      background-color: var(--color--primary);
+    }
+  }
+  #{$disabledSelector} {
+    cursor: not-allowed;
+    color: var(--color--default-pale-1);
+  }
+  #{$disabledSelector} {
+    &:checked {
+      color: var(--color--primary--pale-1);
+    }
+  }
+}

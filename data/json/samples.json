@@ -1,0 +1,182 @@
+[
+  {
+    "name": "users",
+    "model": "User",
+    "data": [
+      {
+        "id": "1001",
+        "name": "Aitana",
+        "lastName": "Gallego Martín",
+        "active": true,
+        "login": "aitanadev",
+        "birthDate": "Sat, 06 Nov 1982 00:00:00 GMT",
+        "color": {
+          "id": "1015",
+          "type": "Color"
+        },
+        "picture": [
+          {
+            "id": "100221",
+            "type": "File"
+          },
+          {
+            "id": "100222",
+            "type": "File"
+          }
+        ],
+        "bio": "☁️🦒☁️",
+        "colors": [
+          {
+            "type": "Color",
+            "name": "user color 1",
+            "hue": 48,
+            "saturation": 91,
+            "lightness": 50,
+            "users": [
+              {
+                "type": "User",
+                "name": "u1",
+                "lastName": "",
+                "active": false,
+                "login": "",
+                "picture": [],
+                "colors": []
+              },
+              {
+                "type": "User",
+                "name": "u2",
+                "lastName": "",
+                "active": false,
+                "login": "",
+                "picture": [],
+                "colors": []
+              },
+              {
+                "type": "User",
+                "name": "u3",
+                "lastName": "",
+                "active": false,
+                "login": "",
+                "picture": [],
+                "colors": []
+              }
+            ]
+          },
+          {
+            "type": "Color",
+            "name": "user color 2",
+            "hue": 145,
+            "saturation": 86,
+            "lightness": 48,
+            "users": [
+              {
+                "type": "User",
+                "name": "1",
+                "lastName": "",
+                "active": false,
+                "login": "",
+                "picture": [],
+                "colors": []
+              },
+              {
+                "type": "User",
+                "name": "2",
+                "lastName": "",
+                "active": false,
+                "login": "",
+                "picture": [],
+                "colors": []
+              },
+              {
+                "type": "User",
+                "name": "3",
+                "lastName": "",
+                "active": false,
+                "login": "",
+                "picture": [],
+                "colors": []
+              },
+              {
+                "type": "User",
+                "name": "4",
+                "lastName": "",
+                "active": false,
+                "login": "",
+                "picture": [],
+                "colors": []
+              }
+            ]
+          },
+          {
+            "type": "Color",
+            "name": "user color 3",
+            "hue": 202,
+            "saturation": 94,
+            "lightness": 50,
+            "users": []
+          },
+          {
+            "type": "Color",
+            "name": "user color 4",
+            "hue": 322,
+            "saturation": 77,
+            "lightness": 62,
+            "users": []
+          }
+        ]
+      },
+      {
+        "id": "1002",
+        "name": "Natalia",
+        "lastName": "Gallego Heras",
+        "active": true,
+        "login": "",
+        "birthDate": "Thu, 05 Jan 1995 00:00:00 GMT",
+        "color": {
+          "id": "1009",
+          "type": "Color"
+        },
+        "picture": [
+          {
+            "id": "100223",
+            "type": "File"
+          }
+        ],
+        "bio": "🦥",
+        "colors": [
+          {
+            "type": "Color",
+            "name": "user color 1",
+            "hue": 171,
+            "saturation": 85,
+            "lightness": 54,
+            "users": []
+          },
+          {
+            "type": "Color",
+            "name": "user color 2",
+            "hue": 318,
+            "saturation": 100,
+            "lightness": 82,
+            "users": []
+          }
+        ]
+      },
+      {
+        "id": "100216",
+        "name": "User 3",
+        "lastName": "LN",
+        "active": false,
+        "login": "",
+        "birthDate": "Thu, 28 May 1992 18:11:23 GMT",
+        "color": {
+          "id": "1011",
+          "type": "Color"
+        },
+        "picture": [],
+        "bio": "...",
+        "colors": []
+      }
+    ]
+  }
+]

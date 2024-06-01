@@ -1,0 +1,529 @@
+[
+  {
+    "name": "colors",
+    "model": "Color",
+    "data": [
+      {
+        "id": "1003",
+        "name": "red",
+        "hue": 344,
+        "saturation": 68,
+        "lightness": 51,
+        "users": []
+      },
+      {
+        "id": "1004",
+        "name": "orange",
+        "hue": 29,
+        "saturation": 81,
+        "lightness": 50,
+        "users": []
+      },
+      {
+        "id": "1005",
+        "name": "amber",
+        "hue": 42,
+        "saturation": 91,
+        "lightness": 50,
+        "users": []
+      },
+      {
+        "id": "1006",
+        "name": "yellow",
+        "hue": 56,
+        "saturation": 83,
+        "lightness": 50,
+        "users": []
+      },
+      {
+        "id": "1007",
+        "name": "lime",
+        "hue": 77,
+        "saturation": 80,
+        "lightness": 50,
+        "users": []
+      },
+      {
+        "id": "1008",
+        "name": "green",
+        "hue": 100,
+        "saturation": 78,
+        "lightness": 51,
+        "users": []
+      },
+      {
+        "id": "1009",
+        "name": "cyan",
+        "hue": 164,
+        "saturation": 69,
+        "lightness": 49,
+        "users": []
+      },
+      {
+        "id": "1010",
+        "name": "azure",
+        "hue": 202,
+        "saturation": 79,
+        "lightness": 50,
+        "users": []
+      },
+      {
+        "id": "1011",
+        "name": "blue",
+        "hue": 219,
+        "saturation": 73,
+        "lightness": 51,
+        "users": []
+      },
+      {
+        "id": "1012",
+        "name": "violet",
+        "hue": 265,
+        "saturation": 61,
+        "lightness": 54,
+        "users": []
+      },
+      {
+        "id": "1013",
+        "name": "purple",
+        "hue": 287,
+        "saturation": 60,
+        "lightness": 50,
+        "users": []
+      },
+      {
+        "id": "1014",
+        "name": "magenta",
+        "hue": 310,
+        "saturation": 61,
+        "lightness": 50,
+        "users": []
+      },
+      {
+        "id": "1015",
+        "name": "rose",
+        "hue": 329,
+        "saturation": 75,
+        "lightness": 50,
+        "users": []
+      },
+      {
+        "id": "1016",
+        "name": "carbon",
+        "hue": 190,
+        "saturation": 10,
+        "lightness": 53,
+        "users": []
+      },
+      {
+        "id": "1017",
+        "name": "grey",
+        "hue": 238,
+        "saturation": 6,
+        "lightness": 50,
+        "users": []
+      }
+    ]
+  },
+  {
+    "name": "colorShadowsDefault",
+    "model": "ColorShadow",
+    "data": [
+      {
+        "id": "1018",
+        "name": "dark-3",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": -44
+      },
+      {
+        "id": "1019",
+        "name": "dark-2",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": -37
+      },
+      {
+        "id": "1020",
+        "name": "dark-1",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": -14
+      },
+      {
+        "id": "1021",
+        "name": "default",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0
+      },
+      {
+        "id": "1022",
+        "name": "light-1",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 15
+      },
+      {
+        "id": "1023",
+        "name": "light-2",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 30
+      },
+      {
+        "id": "1024",
+        "name": "light-3",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 44
+      },
+      {
+        "id": "1025",
+        "name": "pale-1",
+        "hue": 0,
+        "saturation": -50,
+        "lightness": 25
+      },
+      {
+        "id": "1026",
+        "name": "pale-2",
+        "hue": 0,
+        "saturation": -50,
+        "lightness": -10
+      },
+      {
+        "id": "1027",
+        "name": "pale-3",
+        "hue": 0,
+        "saturation": -50,
+        "lightness": -40
+      },
+      {
+        "name": "black",
+        "hue": 0,
+        "saturation": -50,
+        "lightness": -45
+      },
+      {
+        "name": "white",
+        "hue": 0,
+        "saturation": -50,
+        "lightness": 46
+      }
+    ]
+  },
+  {
+    "name": "colorShadowsDarkMode",
+    "model": "ColorShadow",
+    "data": [
+      {
+        "id": "1028",
+        "name": "dark-3",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -51
+      },
+      {
+        "id": "1029",
+        "name": "dark-2",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -49
+      },
+      {
+        "id": "1030",
+        "name": "dark-1",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -4
+      },
+      {
+        "id": "1031",
+        "name": "default",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -12
+      },
+      {
+        "id": "1032",
+        "name": "light-1",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -23
+      },
+      {
+        "id": "1033",
+        "name": "light-2",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -48
+      },
+      {
+        "id": "1034",
+        "name": "light-3",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -42
+      },
+      {
+        "id": "1035",
+        "name": "pale-1",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -28
+      },
+      {
+        "id": "1036",
+        "name": "pale-2",
+        "hue": 0,
+        "saturation": -59,
+        "lightness": -5
+      },
+      {
+        "id": "1037",
+        "name": "pale-3",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -10
+      },
+      {
+        "name": "black",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -49
+      },
+      {
+        "name": "white",
+        "hue": 0,
+        "saturation": -35,
+        "lightness": -39
+      }
+    ]
+  },
+  {
+    "name": "colorTones",
+    "model": "ColorTone",
+    "data": [
+      {
+        "id": "1038",
+        "name": "default",
+        "color": {
+          "id": "1016",
+          "type": "Color"
+        }
+      },
+      {
+        "id": "1039",
+        "name": "secondary",
+        "color": {
+          "id": "1017",
+          "type": "Color"
+        }
+      },
+      {
+        "id": "1040",
+        "name": "primary",
+        "color": {
+          "id": "1010",
+          "type": "Color"
+        }
+      },
+      {
+        "id": "1041",
+        "name": "info",
+        "color": {
+          "id": "1009",
+          "type": "Color"
+        }
+      },
+      {
+        "id": "1042",
+        "name": "success",
+        "color": {
+          "id": "1007",
+          "type": "Color"
+        }
+      },
+      {
+        "id": "1043",
+        "name": "warning",
+        "color": {
+          "id": "1005",
+          "type": "Color"
+        }
+      },
+      {
+        "id": "1044",
+        "name": "error",
+        "color": {
+          "id": "1003",
+          "type": "Color"
+        }
+      }
+    ]
+  },
+  {
+    "name": "baseCSSVars",
+    "model": "CSSVar",
+    "data": [
+      {
+        "id": "1047",
+        "name": "border-radius",
+        "value": 4,
+        "format": "px"
+      },
+      {
+        "id": "1048",
+        "name": "spacing-xs",
+        "value": "4",
+        "format": "px"
+      },
+      {
+        "id": "1049",
+        "name": "spacing-s",
+        "value": "5",
+        "format": "px"
+      },
+      {
+        "id": "1050",
+        "name": "spacing-m",
+        "value": "8",
+        "format": "px"
+      },
+      {
+        "id": "1051",
+        "name": "spacing-l",
+        "value": "11",
+        "format": "px"
+      },
+      {
+        "id": "1052",
+        "name": "spacing-xl",
+        "value": "15",
+        "format": "px"
+      },
+      {
+        "id": "1053",
+        "name": "spacing-xxl",
+        "value": "21",
+        "format": "px"
+      },
+      {
+        "name": "font-family",
+        "value": "-apple-system, system-ui, BlinkMacSystemFont, \"Segoe UI\", Roboto, Ubuntu",
+        "format": "value"
+      },
+      {
+        "name": "font-family--code",
+        "value": "Monaco,Menlo,Consolas,Courier New,monospace !important",
+        "format": "value"
+      },
+      {
+        "name": "line-height",
+        "value": "calc(1em + 4px)",
+        "format": "value"
+      },
+      {
+        "name": "font-weight--regular",
+        "value": "400",
+        "format": "value"
+      },
+      {
+        "name": "font-weight--medium",
+        "value": "500",
+        "format": "value"
+      },
+      {
+        "name": "font-weight--semibold",
+        "value": "600",
+        "format": "value"
+      },
+      {
+        "name": "font-weight--bold",
+        "value": "700",
+        "format": "value"
+      },
+      {
+        "name": "font-weight",
+        "value": "var(--font-weight--regular)",
+        "format": "value"
+      },
+      {
+        "name": "font-size--xs",
+        "value": "9px",
+        "format": "value"
+      },
+      {
+        "name": "font-size--s",
+        "value": "10px",
+        "format": "value"
+      },
+      {
+        "name": "font-size--m",
+        "value": "12px",
+        "format": "value"
+      },
+      {
+        "name": "font-size--l",
+        "value": "14px",
+        "format": "value"
+      },
+      {
+        "name": "font-size--xl",
+        "value": "18px",
+        "format": "value"
+      },
+      {
+        "name": "font-size--xxl",
+        "value": "22px",
+        "format": "value"
+      },
+      {
+        "name": "font-size",
+        "value": "var(--font-size--m)",
+        "format": "value"
+      },
+      {
+        "name": "border-width",
+        "value": "1px",
+        "format": "value"
+      },
+      {
+        "name": "box-shadow",
+        "value": "0 4px 10px rgb(0 0 0 / 20%)",
+        "format": "value"
+      },
+      {
+        "name": "box-shadow--inset",
+        "value": "2px 2px 7px -6px var(--color--dark-1) inset",
+        "format": "value"
+      },
+      {
+        "name": "background-image--out",
+        "value": "linear-gradient(to top, rgb(0 0 0 / 4%) 0px, rgb(255 255 255 / 7%) 15px 100%)",
+        "format": "value"
+      },
+      {
+        "name": "background-image--in",
+        "value": "linear-gradient(rgb(0 0 0 / 4%) 0px, rgb(255 255 255 / 4%) 5px 100%)",
+        "format": "value"
+      },
+      {
+        "name": "text-shadow--dark",
+        "value": "0px 0px 2px rgb(0 0 0 / 40%)",
+        "format": "value"
+      },
+      {
+        "name": "text-shadow--light",
+        "value": "0px 0px 2px rgb(255 255 255 / 90%)",
+        "format": "value"
+      },
+      {
+        "name": "gap",
+        "value": "var(--spacing-s)",
+        "format": "value"
+      }
+    ]
+  }
+]
