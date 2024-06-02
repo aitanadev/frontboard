@@ -79,6 +79,7 @@ export default class Field extends Scheme {
     return {
       key: {},
       col: { type: Boolean, default: true },
+      filterable: { type: Boolean, default: true },
       field: { type: Boolean, default: true },
       size: { type: Number, default: 160 },
       sticky: { options: [

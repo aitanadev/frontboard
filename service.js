@@ -150,7 +150,7 @@ async function apiDB() {
         between: 'BETWEEN',
         in: 'IN',
         lessThan: '<',
-        graterThan: '>',
+        greaterThan: '>',
         lessThanOrEqualTo: '<=',
         greaterThanOrEqualTo: '>=',
         and: 'AND'

@@ -1,5 +1,26 @@
 <template>
-  <span class="c-scheme-field__viewer" v-if="viewer || field.readonly || field.isComputedReadonly || field.key === 'id'">
+  <span class="c-scheme-field__filter" v-if="filter" @input="onInput" @change="onInput">
+    <div class="c-field" v-if="field.range">
+      <input type="number" class="c-input" v-model="formAccesor" :min="field.min" :max="field.max">
+      <input type="range" v-model="formAccesor" :min="field.min" :max="field.max">
+    </div>
+
+    <Selector class="c-field" v-else-if="field.class" useObject :options="field.options ? field.options(form) : field.class[0].cache" v-model="formAccesor" multiple optionValue="uid" optionText="name"/>
+
+    <Selector class="c-field" v-else-if="field.options" :options="Array.isArray(field.options) ? field.options : field.options(form)" v-model="formAccesor" multiple/>
+
+    <template v-else-if="field.multiple || isFile">::NotImplemented::</template>
+
+    <input v-else-if="field.type === Number" type="number" class="c-input" v-model="formAccesor" :min="field.min" :max="field.max">
+
+    <input v-else-if="field.type === Boolean" type="checkbox" class="c-checkbox" v-model="formAccesor" @input.stop>
+
+    <DateField v-else-if="field.type === Date" v-model="formAccesor" clearable />
+
+    <input v-else class="c-input" type="text" v-model="formAccesor">
+  </span>
+
+  <span class="c-scheme-field__viewer" v-else-if="viewer || field.readonly || field.isComputedReadonly || field.key === 'id'">
 
     <FileField v-if="isFile" :form="form" :field="field" :viewer="viewer"/>
 
@@ -24,30 +45,7 @@
     <div v-else v-html="marked || formAccesor"></div>
   </span>
 
-  <span class="c-scheme-field__filter" v-else-if="filter" @input="$emit('input', $event)" @change="$emit('input', $event)">
-    <div class="c-scheme-field__filters" v-if="field.range">
-      <div class="c-field">
-        <input type="number" class="c-input" v-model="formAccesor" :min="field.min" :max="field.max">
-        <input type="range" v-model="formAccesor" :min="field.min" :max="field.max">
-      </div>
-    </div>
-
-    <Selector class="c-field" v-else-if="field.class" useObject :options="field.options ? field.options(form) : field.class[0].cache" v-model="formAccesor" multiple optionValue="uid" optionText="name"/>
-
-    <Selector class="c-field" v-else-if="field.options" :options="Array.isArray(field.options) ? field.options : field.options(form)" v-model="formAccesor" multiple/>
-
-    <template v-else-if="field.multiple || isFile">::NotImplemented::</template>
-
-    <input v-else-if="field.type === Number" type="number" class="c-input" v-model="formAccesor" :min="field.min" :max="field.max">
-
-    <input v-else-if="field.type === Boolean" type="checkbox" class="c-checkbox" v-model="formAccesor" @input.stop>
-
-    <DateField v-model="formAccesor" v-else-if="field.type === Date" clearable />
-
-    <input v-else class="c-input" type="text" v-model="formAccesor">
-  </span>
-
-  <span class="c-scheme-field__input" v-else @input="$emit('input', $event)" @change="$emit('input', $event)">
+  <span class="c-scheme-field__input" v-else @input="onInput" @change="onInput">
     <FileField v-if="isFile" :form="form" :field="field"/>
 
     <div class="c-field" v-else-if="field.range">
@@ -106,12 +104,20 @@ export default {
     },
     formAccesor: {
       get() {
-        return this.form[this.fieldKey || this.field.key]
+        const value = this.form[this.fieldKey || this.field.key]
+        // return (this.field.type === Number && !value) ? 0 : value
+        return value
       },
       set(value) {
-        this.form[this.fieldKey || this.field.key] = value
-        // this.$emit('input', value)
+        this.form[this.fieldKey || this.field.key] = this.field.type === Number ? Number(value) : value
+        if (this.form.__ob__) this.form.__ob__.dep.notify()
       }
+    }
+  },
+
+  methods: {
+    onInput(event) {
+      this.$emit('input', event)
     }
   }
 }

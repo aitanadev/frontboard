@@ -14,8 +14,8 @@
           <!-- <input type="checkbox" v-model="palette.miniVariation" class="c-checkbox"> -->
           <!-- <input type="checkbox" v-model="miniVariation" class="c-checkbox"> -->
           <!-- <Selector v-model="selectedCols" useObject multiple optionText="label" optionValue="key" :options="seletableCols" @input="refresh" class="c-scheme__columns-selector"/><! -- REVIEW refresh call -->
-          <button v-if="filters.length > 0" type="button" class="c-action t-error v-semi" @click="filters.splice(0, filters.length)"><i class="fi fi-rr-clear-alt"></i>{{ i18n('common.removeAllFilters') }}</button>
-          <button type="button" class="c-action t-primary v-semi" @click="filters.push([{field: undefined, operator: 'equalTo'}])"><i class="fi fi-rr-filter"></i>{{ i18n('common.addFilter') }}</button>
+          <button v-if="filters.length > 0" type="button" class="c-action t-error v-semi" @click="filters.splice(0, filters.length);loadPage()"><i class="fi fi-rr-clear-alt"></i>{{ i18n('common.removeAllFilters') }}</button>
+          <button type="button" class="c-action t-primary v-semi" @click="filters.push([{field: undefined}])"><i class="fi fi-rr-filter"></i>{{ i18n('common.addFilter') }}</button>
           <button type="button" class="c-action t-primary v-semi" @click="addEntity"><i class="fi fi-rr-plus"></i>{{ i18n('common.addRow', {name: i18n(`models.${schemeClass.name}`, 1, schemeClass.name.toLowerCase())}).capitalize() }}</button>
           <slot name="actions"></slot>
           <!--
@@ -30,12 +30,13 @@
             <div class="c-scheme__filter__operands" v-for="(operand, operandKey) in filter">
               <div class="c-scheme__filter__selector">
                 <!-- <button type="button" class="c-action t-error v-semi" @click="filters.splice(key, 1)"><i class="fi fi-rr-clear-alt"></i></button> -->
-                <button type="button" class="c-action t-error v-semi" @click="filter.length > 1 ? filter.splice(operandKey, 1) : filters.splice(key, 1)"><i class="fi fi-rr-clear-alt"></i></button>
+                <button type="button" class="c-action t-error v-semi" @click="filter.length > 1 ? filter.splice(operandKey, 1) : filters.splice(key, 1);loadPage()"><i class="fi fi-rr-clear-alt"></i></button>
                 <!-- <pre>{{ JSON.stringify(schemeClass.fields, undefined, '  ') }}</pre> -->
-                <Selector v-model="operand.field" useObject :options="schemeClass.fields" optionText="label" optionValue="key" />
-                <Selector v-if="operand.field" v-model="operand.operator" useObject :options="filtersOperatorsOptions" optionText="label" optionValue="key" />
+                <Selector v-model="operand.field" useObject :options="schemeClass.fields.filter(field => field.filterable)" optionText="label" optionValue="key" @input="operand.operator = [Number, Date].includes(operand.field.type) ? 'between' : ((operand.field.class || operand.field.multiple) ? 'in' : 'like')" />
+                <Selector v-if="operand.field && [Number, Date].includes(operand.field.type)" v-model="operand.operator" :options="filtersOperatorsOptions" @input="$forceUpdate()" />
               </div>
               <div class="c-scheme__filter__operand" v-if="operand.field && operand.operator">
+                <!-- {{ operand.operator }} -->
                 <template v-if="operand.operator === 'between'">
                   <!-- Try to store operation values as array in the operator key, like BETWEEN: [1,2] or IN: [1,2,3] etc -->
                   <component :is="operand.field.component" fieldKey="between" :form="operand" :field="operand.field" filter @input="loadPage"/>
@@ -44,7 +45,7 @@
                 <template v-else>
                   <component :is="operand.field.component" :fieldKey="operand.operator" :form="operand" :field="operand.field" filter @input="loadPage"/>
                 </template>
-                <button v-if="operandKey === filter.length - 1" type="button" class="c-action v-semi" @click="filter.push({field: undefined, operator: 'equalTo'})"><i class="fi fi-rr-plus"></i>Or</button>
+                <button v-if="operandKey === filter.length - 1" type="button" class="c-action v-semi" @click="filter.push({field: undefined})"><i class="fi fi-rr-plus"></i>Or</button>
               </div>
             </div>
             <!-- <Selector v-model="operand.operator" useObject :options="['includes', 'in', 'between', 'greater', 'less']"/> -->
@@ -104,18 +105,19 @@
             </DatagridRecord>
           </template>
           <template #expand>
-            <SchemeDetail v-if="currentEntity" :schemeClass="currentEntity.Class" :use="currentEntity" :key="currentEntity.uid" @close="showList" @input="onDetailSave" :metadata="metadata"/>
+            <SchemeDetail v-if="currentEntity" :schemeClass="currentEntity.Class" :use="currentEntity" :key="currentEntity.uid" @close="showList" @input="onDetailSave" :metadata="metadata" :api="api"/>
           </template>
         </Datagrid>
       </div>
     </div>
-    <SchemeDetail v-if="currentEntity && !miniVariation" :schemeClass="currentEntity.Class" :use="currentEntity" :key="currentEntity.uid" @close="showList" @input="onDetailSave" :metadata="metadata"/>
+    <SchemeDetail v-if="currentEntity && !miniVariation" :schemeClass="currentEntity.Class" :use="currentEntity" :key="currentEntity.uid" @close="showList" @input="onDetailSave" :metadata="metadata" :api="api"/>
   </div>
 </template>
 
 <script>
 
 import Vue from 'vue'
+import API from '#services/API'
 import Scheme from '#services/Scheme'
 import Field from '#models/internals/Field'
 import palette from '#services/palette'
@@ -128,7 +130,7 @@ export default {
     schemeClass: { type: Function, required: true },
     value: { type: Array },
     field: { type: Object },
-    filterHandler: { type: Function }
+    api: { type: Boolean }
     // entity: { type: Object }
   },
 
@@ -151,7 +153,8 @@ export default {
     selectedCols: [],
     inlineEditForm: undefined,
     selectable: false,
-    sortable: true
+    sortable: true,
+    handler: undefined
   }),
 
   watch: {
@@ -162,6 +165,7 @@ export default {
   },
 
   created() {
+    if (this.api) this.handler = this.SQLiteHandler
     window.SchemeList = this
     this.filters = this.schemeClass.filters = this.schemeClass.filters || []
     this.seletableCols = this.schemeClass.fields.filter(field => !field.multiple)
@@ -184,14 +188,14 @@ export default {
 
     filtersOperatorsOptions() {
       return [
-        'like',
-        'between',
-        'equalTo',
-        // 'in',
-        'lessThan',
-        'graterThan',
-        'lessThanOrEqualTo',
-        'greaterThanOrEqualTo'
+        // {value: 'like', text: this.i18n('filters.operators.like')},
+        {value: 'between', text: this.i18n('filters.operators.between')},
+        {value: 'equalTo', text: this.i18n('filters.operators.equalTo')},
+        // {value: 'in', text: this.i18n('filters.operators.in')},
+        {value: 'lessThan', text: this.i18n('filters.operators.lessThan')},
+        {value: 'greaterThan', text: this.i18n('filters.operators.greaterThan')},
+        {value: 'lessThanOrEqualTo', text: this.i18n('filters.operators.lessThanOrEqualTo')},
+        {value: 'greaterThanOrEqualTo', text: this.i18n('filters.operators.greaterThanOrEqualTo')}
       ]
     },
 
@@ -306,7 +310,7 @@ export default {
     },
     save() {
       if (!this.metadata) {
-        this.inlineEditForm.save()
+        this.inlineEditForm.save(this.api)
       } else {
         this.inlineEditForm.apply()
       }
@@ -323,7 +327,7 @@ export default {
           this.addEntity()
         }
         */
-        if (!this.indexed && !this.schemeClass.sqlite) {
+        if (!this.indexed && !this.api) {
           this.list.push(entity)
         } else {
           this.loadPage()
@@ -351,7 +355,7 @@ export default {
       // this.loadPage()
     },
     async removeEntity(entity) {
-      await entity.delete()
+      await entity.delete(this.api)
       const list = this.list || this.currentPage
       const index = list.indexOf(entity)
       // console.log('remove index', this, entity)
@@ -361,17 +365,44 @@ export default {
         // this.loadPage()
       }
     },
+    SQLiteHandler(filters) {
+      const queryFilter = []
+      if (filters.length > 0) {
+        console.log('filtering', filters)
+        filters.forEach(filter => {
+          queryFilter.push(filter.map(operand => {
+            const field = operand.field
+            const key = field.key
+            const operandValueKeys = Object.keys(operand).filter(key => !['field', 'operator'].includes(key))
+            const operandValues = Object.fromEntries(operandValueKeys.map(key => [key, operand[key]]))
+            return {[key]: operandValues}
+          }))
+        })
+      }
+
+      console.log('QUERY', JSON.stringify(queryFilter))
+
+      return API.get('sqlite/' + this.schemeClass.plural.toKebabCase(), { params: { filter: JSON.stringify(queryFilter) } }).then(response => {
+        response.data.forEach(entry => {
+          entry.type = this.schemeClass.name
+        })
+        return Scheme.populate(response.data)
+        // console.info('Saved', { formated, stringified })
+      })
+    },
     testRow(row, field, filterValue) {
+      console.log('filterValue', {row, field, filterValue})
       const key = field.key
       if (field.class || field.options) {
         if (field.multiple) {
+          if (filterValue.length === 0) return true
           return row[key].some(option => filterValue.includes(option))
         } else {
+          if (!filterValue) return true
           return filterValue.includes(row[key])
         }
-      } else if (!filterValue) {
-        return true
       } else if (typeof filterValue === 'string') {
+        if (!filterValue) return true
         return row[key].toLowerCase().includes(filterValue.toLowerCase())
       } else {
         // console.log('check if for', key, 'item', row, 'has', row[key], '===', filterValue)
@@ -385,14 +416,23 @@ export default {
         return this.filters.every(filter => {
           return filter.some(operand => {
             const field = operand.field
-            if (operand.operator === 'between') {
-              const greaterThan = Number(operand.between) || undefined //= [undefined, null].includes(row['>' + field.key]) ? true :
-              const lessThan = Number(operand.and) || undefined
-              const isGreaterThan = [undefined, null].includes(greaterThan) ? true : (row[field.key] >= greaterThan)
-              const isLessThan = [undefined, null].includes(lessThan) ? true : (row[field.key] <= lessThan)
+            const operator = operand.operator
+            if (operator === 'between') {
+              const greaterThan = Number(operand.between) || 0 //= [undefined, null].includes(row['>' + field.key]) ? true :
+              const lessThan = Number(operand.and) || 0
+              const isGreaterThan = [undefined, null, ''].includes(greaterThan) ? true : (row[field.key] >= greaterThan)
+              const isLessThan = [undefined, null, ''].includes(lessThan) ? true : (row[field.key] <= lessThan)
               return isGreaterThan && isLessThan
+            } else if (['lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'].includes(operator)) {
+              const compartors = {
+                lessThan: (a, b) => a > b,
+                greaterThan: (a, b) => a < b,
+                lessThanOrEqualTo: (a, b) => a >= b,
+                greaterThanOrEqualTo: (a, b) => a <= b
+              }
+              const operatorValue = Number(operand[operator]) || 0
+              return [undefined, null, ''].includes(operatorValue) ? true : compartors[operator](operatorValue, row[field.key], operand[operator][1])
             } else {
-              // console.log('filter value is', field, filter, filterValue)
               const filterValue = operand[operand.operator]
               return this.testRow(row, field, filterValue)
             }
@@ -408,8 +448,8 @@ export default {
         this.totalEntries = filteredList.length
         this.currentPage = filteredList
         // this.$nextTick().then(this.refresh)
-      } else if (this.filterHandler) {
-        const filteredList = await this.filterHandler(this.filters)
+      } else if (this.handler) {
+        const filteredList = await this.handler(this.filters)
         this.totalEntries = filteredList.length
         this.currentPage = filteredList
       } else {
@@ -435,7 +475,7 @@ export default {
     mark (field, text) {
       if (!text) return String(text)
       text = String(text)
-      const fieldOperands = this.filters.filter(filter => filter.filter(operand => operand.field === field)).flat()
+      const fieldOperands = this.filters.filter(filter => filter.some(operand => operand.field === field)).flat()
       if (fieldOperands.length > 0) {
         const filterText = fieldOperands.map(operand => operand[operand.operator]).filter(textItem => typeof textItem === 'string')
         if (filterText.length > 0) {
@@ -814,14 +854,6 @@ export default {
     &>.c-input {
       flex-grow: 1;
     }
-  }
-  .c-scheme-field__filters {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: var(--spacing-xs);
-    flex-wrap: wrap;
   }
   .c-scheme__filter__selector {
     display: flex;

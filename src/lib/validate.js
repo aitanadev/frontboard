@@ -44,8 +44,8 @@ class Validation {
     // const defaultDotText = 'validate.default'
     const validation = this.rule(value, entity)
     const valid = validation && typeof validation !== 'string'
-    const dotText = typeof validation === 'string' ? validation : ('validate.' + this.name)
-    return valid ? undefined : i18n(dotText, this.params)
+    const node = typeof validation === 'string' ? validation : ('validate.' + this.name)
+    return valid ? undefined : i18n(node, this.params)
 
     // const message = vuei18n.te(i18n) ? vuei18n.t(i18n, this.params) : defaultMessage
     // return this.rule(value, args) ? false : message

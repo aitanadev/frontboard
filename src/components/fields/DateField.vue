@@ -194,6 +194,7 @@ export default {
 
   methods: {
     setLapse() {
+      if (!this.currentDate) return
       const diff = Math.abs(Date.now() - this.currentDate.getTime())
       const factors = {
         days: Math.floor(diff / 1000 / 60 / 60 / 24), // TODO: add months and years grouping

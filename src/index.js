@@ -80,14 +80,20 @@ function syncTranslations() {
   /*
   I18n.translations = [
     new APP.models.Translation({
-      dotText: 'example.dot.text',
+      node: 'example.dot.text',
       texts: ['Example message for ${name}!'],
       number: false
     })
   ]
   window.i18nTest = i18n('example.dot.text', {name: 'Aitana'}, 'not found :(')
   */
-  APP.translations = I18n.translations = Object.fromEntries(Object.values(APP.databases.translations.collections).map(language => [language.name, language.data]))
+  APP.translations = I18n.translations = Object.fromEntries(Object.values(APP.databases.translations.collections).map(collection => [collection.name, collection.data]))
+  Object.entries(APP.translations).map(([groupName, group]) => {
+    if (groupName === 'translations') return
+    group.forEach(translation => {
+      translation.node = groupName + '.' + translation.node
+    })
+  })
   Object.defineProperty(APP, 'language', {
     get() {
       return I18n.language

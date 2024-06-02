@@ -13,7 +13,8 @@
       -->
       <div class="c-scheme__toolbar">
         <button
-          v-if="frozen && !metadata && form.getMutation()"
+          v-if="frozen && !metadata"
+          :disabled="!form.getMutation()"
           type="button"
           class="c-action t-secondary v-semi"
           @click="reset"
@@ -42,13 +43,13 @@
     </div>
     <div class="c-tabs-content">
       <div v-if="currentCrudTab === 'example'">Example content</div>
-      <SchemeList v-else-if="currentCrudTab" :value="form[currentCrudTab.key]" :field="currentCrudTab" :entity="entity" :schemeClass="currentCrudTab.class[0]" @input="onSaveList(currentCrudTab, $event)"/>
+      <SchemeList v-else-if="currentCrudTab" :value="form[currentCrudTab.key]" :field="currentCrudTab" :entity="entity" :schemeClass="currentCrudTab.class[0]" @input="onSaveList(currentCrudTab, $event)" :api="api"/>
       <form v-else-if="!currentCrudTab && form" ref="form" class="c-scheme__detail" @keydown.enter.stop.prevent="save">
         <!-- <div class="c-chip">{{ entity.id }}</div> -->
         <draggable tag="fieldset" class="c-scheme__fieldset c-dragable c-fieldset" draggable=".c-draggable__item" handle=".c-draggable__handler" :list="fields">
           <template v-for="field in fields">
             <template v-if="!form.$fields[field.key].hidden && !field.tab">
-              <SchemeList v-if="field.crud && field.class" :value="form[field.key]" :field="field" :entity="entity" :schemeClass="field.class[0]" @input="onSaveList(field, $event)" class="c-draggable__item"/>
+              <SchemeList v-if="field.crud && field.class" :value="form[field.key]" :field="field" :entity="entity" :schemeClass="field.class[0]" @input="onSaveList(field, $event)" class="c-draggable__item" :api="api"/>
               <div v-else class="c-draggable__item c-fieldset__item" :class="{'c-scheme__invent': field.isInvent}">
                 <label class="c-draggable__handler">
                   <!-- <tooltip :content="i18n('common.help.lightTables')"> -->
@@ -85,6 +86,7 @@ export default {
   props: {
     schemeClass: { type: Function, required: true },
     metadata: { type: Boolean },
+    api: { type: Boolean },
     id: { type: String },
     use: { type: Object }
   },
@@ -212,7 +214,7 @@ export default {
       console.info('· save form:', this.form)
       // this.parentDetails.forEach(detail => detail.form.save())
 
-      await this.form.save()
+      await this.form.save(this.api)
 
       this.$emit('input', this.entity)
 

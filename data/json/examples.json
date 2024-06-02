@@ -65,8 +65,8 @@
           {
             "type": "Color",
             "name": "user color 2",
-            "hue": 145,
-            "saturation": 86,
+            "hue": 157,
+            "saturation": 66,
             "lightness": 48,
             "users": [
               {

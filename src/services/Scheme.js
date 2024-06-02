@@ -228,11 +228,11 @@ class Scheme {
   }
   */
 
-  async create(payload) {
+  async create(payload, api) {
     if (!payload) payload = this
     console.log('Making PUT', payload)
-    if (this.Class.sqlite) {
-      const table = 'api-users'
+    if (api) {
+      const table = this.Class.plural.toKebabCase()
       const response = await API.put(`sqlite/${table}/`, { payload: JSON.stringify(payload) }, {
         headers: {
         'Content-Type': 'multipart/form-data'
@@ -248,12 +248,12 @@ class Scheme {
     return this.apply(payload)
   }
 
-  async update(payload) {
+  async update(payload, api) {
     if (!payload) payload = this
     console.log('Making PATCH', this, payload)
-    if (this.Class.sqlite) {
+    if (api) {
       payload.id = this.id
-      const table = 'api-users'
+      const table = this.Class.plural.toKebabCase()
       const response = await API.patch(`sqlite/${table}/` + this.id, { payload: JSON.stringify(payload) }, {
         headers: {
         'Content-Type': 'multipart/form-data'
@@ -274,13 +274,13 @@ class Scheme {
     /* */
   }
 
-  async delete() {
+  async delete(api) {
     if (this.#parent && !this.#formObject) throw new Error('Form object can not delete directly')
     // if (!this.id) throw new Error('Can´t delete no-id entity')
 
     console.log('Making DELETE', this)
-    if (this.Class.sqlite) {
-      const table = 'api-users'
+    if (api) {
+      const table = this.Class.plural.toKebabCase()
       const response = await API.delete(`sqlite/${table}/` + this.id)
       console.log('DELETE response', response)
     }
@@ -310,7 +310,7 @@ class Scheme {
     // }
   }
 
-  async save() {
+  async save(api) {
     if (!this.#parent) throw new Error('Only Form object can save')
     window.schemeSaveFilesFlag = true
     const payload = this.getMutation()
@@ -321,11 +321,11 @@ class Scheme {
         return Promise.resolve()
       } else {
         console.info('· saved!', this, payload)
-        return await this.update(payload)
+        return await this.update(payload, api)
       }
     } else {
       console.info('· creating', this)
-      return await this.create(payload)
+      return await this.create(payload, api)
     }
   }
 
@@ -481,11 +481,11 @@ class Scheme {
           field.fill(fieldConfig)
           field.component = fieldConfig.component
           // User.fields.name.label
-          const fieldsetTranslations = APP.databases.translations.collections.fieldsets.data
-          const fieldTranslation = fieldsetTranslations.find(translation => translation.dotText === `${Class.name}.fields.${field.key}.label`)
+          const node = `fieldsets.${Class.name}.fields.${field.key}.label`
+          const fieldsetTranslations = APP.databases.translations.collections.translations.data
+          const fieldTranslation = fieldsetTranslations.find(translation => translation.node === node)
           if (!fieldTranslation) {
-            const dotText = `${Class.name}.fields.${field.key}.label`
-            fieldsetTranslations.push(new Scheme.models.Translation({id: Scheme.UidIndex++, dotText}))
+            fieldsetTranslations.push(new Scheme.models.Translation({id: Scheme.UidIndex++, node}))
           }
 
           field.fieldset = fieldset

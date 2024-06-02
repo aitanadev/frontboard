@@ -6,7 +6,7 @@ export default class Translation extends Scheme {
   }
 
   get label() {
-    return this.dotText
+    return this.node
   }
 
   translate(context = {}) {
@@ -18,7 +18,7 @@ export default class Translation extends Scheme {
       '2': this.textMultiple
     }
     const text = texts[number] ? texts[number] : this.text
-    // console.log('text', {dotPath: this.dotText, number, text, textUnique: this.textUnique})
+    // console.log('text', {dotPath: this.node, number, text, textUnique: this.textUnique})
     if (!text) return undefined
     try {
       // TODO: Securize
@@ -30,9 +30,13 @@ export default class Translation extends Scheme {
 
   static { this.install() }
 
+  static config = {
+    freeze: false
+  }
+
   static schema() {
     return {
-      dotText: {
+      node: {
       },
       number: {
         type: Boolean

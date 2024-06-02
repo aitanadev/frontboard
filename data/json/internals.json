@@ -2,7 +2,7 @@
   {
     "name": "config",
     "data": {
-      "uidIndex": 100253
+      "uidIndex": 100370
     }
   },
   {
@@ -217,34 +217,6 @@
         ]
       },
       {
-        "id": "36",
-        "name": "EnumOption",
-        "fields": [
-          {
-            "id": "37",
-            "type": "Field"
-          },
-          {
-            "id": "38",
-            "type": "Field"
-          }
-        ]
-      },
-      {
-        "id": "39",
-        "name": "Enum",
-        "fields": [
-          {
-            "id": "40",
-            "type": "Field"
-          },
-          {
-            "id": "41",
-            "type": "Field"
-          }
-        ]
-      },
-      {
         "id": "42",
         "name": "PurchaseLine",
         "fields": [
@@ -366,6 +338,10 @@
           },
           {
             "id": "100011",
+            "type": "Field"
+          },
+          {
+            "id": "100253",
             "type": "Field"
           },
           {
@@ -641,6 +617,7 @@
         "id": "1",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 142,
         "default": "New user"
@@ -649,6 +626,7 @@
         "id": "2",
         "key": "lastName",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 168,
         "default": ""
@@ -657,6 +635,7 @@
         "id": "3",
         "key": "active",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 151,
         "default": false
@@ -665,6 +644,7 @@
         "id": "4",
         "key": "login",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 138,
         "default": ""
@@ -673,6 +653,7 @@
         "id": "5",
         "key": "birthDate",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 302
       },
@@ -680,6 +661,7 @@
         "id": "6",
         "key": "color",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 153,
         "class": [
@@ -690,6 +672,7 @@
         "id": "7",
         "key": "bio",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 187,
         "textarea": true
@@ -698,6 +681,7 @@
         "id": "8",
         "key": "colors",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 297,
         "tab": true,
@@ -712,6 +696,7 @@
         "id": "9",
         "key": "age",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 91
       },
@@ -719,6 +704,7 @@
         "id": "11",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 177,
         "default": ""
@@ -727,6 +713,7 @@
         "id": "12",
         "key": "hue",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 215,
         "default": 0,
@@ -738,6 +725,7 @@
         "id": "13",
         "key": "saturation",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 213,
         "default": 100,
@@ -749,6 +737,7 @@
         "id": "14",
         "key": "lightness",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 208,
         "default": 50,
@@ -760,6 +749,7 @@
         "id": "15",
         "key": "users",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 160,
         "tab": false,
@@ -774,6 +764,7 @@
         "id": "17",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "default": ""
@@ -782,6 +773,7 @@
         "id": "18",
         "key": "color",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "class": [
@@ -792,6 +784,7 @@
         "id": "20",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -799,6 +792,7 @@
         "id": "22",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 170
       },
@@ -806,6 +800,7 @@
         "id": "23",
         "key": "tone",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "class": [
@@ -816,6 +811,7 @@
         "id": "24",
         "key": "categories",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 434,
         "crud": true,
@@ -828,6 +824,7 @@
         "id": "26",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 167
       },
@@ -835,6 +832,7 @@
         "id": "27",
         "key": "unitBase",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 160,
         "options": [
@@ -853,6 +851,7 @@
         "id": "28",
         "key": "unitAmount",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 160,
         "default": 1000,
@@ -862,6 +861,7 @@
         "id": "29",
         "key": "barcode",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -869,6 +869,7 @@
         "id": "30",
         "key": "note",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 160,
         "textarea": true
@@ -877,6 +878,7 @@
         "id": "31",
         "key": "runOut",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 137
       },
@@ -884,6 +886,7 @@
         "id": "32",
         "key": "taxonomy",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 145,
         "class": [
@@ -894,6 +897,7 @@
         "id": "33",
         "key": "categories",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 266,
         "multiple": true,
@@ -905,6 +909,7 @@
         "id": "34",
         "key": "amount",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 83,
         "default": 1
@@ -913,6 +918,7 @@
         "id": "35",
         "key": "tone",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 160,
         "hidden": true
@@ -921,6 +927,7 @@
         "id": "37",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -928,6 +935,7 @@
         "id": "38",
         "key": "value",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -935,6 +943,7 @@
         "id": "40",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -942,6 +951,7 @@
         "id": "41",
         "key": "options",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "crud": true,
@@ -954,6 +964,7 @@
         "id": "43",
         "key": "asset",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "class": [
@@ -964,6 +975,7 @@
         "id": "44",
         "key": "amount",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 74
       },
@@ -971,6 +983,7 @@
         "id": "45",
         "key": "price",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 97
       },
@@ -978,6 +991,7 @@
         "id": "46",
         "key": "bargain",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 72
       },
@@ -985,6 +999,7 @@
         "id": "47",
         "key": "name",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 129,
         "hidden": true
@@ -993,6 +1008,7 @@
         "id": "49",
         "key": "date",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 192
       },
@@ -1000,6 +1016,7 @@
         "id": "50",
         "key": "dealer",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1007,6 +1024,7 @@
         "id": "51",
         "key": "purchaseLines",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 160,
         "crud": true,
@@ -1019,6 +1037,7 @@
         "id": "52",
         "key": "name",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 159,
         "hidden": true
@@ -1027,6 +1046,7 @@
         "id": "54",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 201,
         "default": ""
@@ -1035,6 +1055,7 @@
         "id": "55",
         "key": "value",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 606,
         "default": ""
@@ -1043,6 +1064,7 @@
         "id": "56",
         "key": "format",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 212,
         "default": "value"
@@ -1051,6 +1073,7 @@
         "id": "57",
         "key": "px",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 160,
         "hidden": true
@@ -1059,6 +1082,7 @@
         "id": "58",
         "key": "color",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 160,
         "hidden": true
@@ -1067,6 +1091,7 @@
         "id": "60",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 123,
         "default": ""
@@ -1075,6 +1100,7 @@
         "id": "61",
         "key": "hue",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 208,
         "default": 0,
@@ -1086,6 +1112,7 @@
         "id": "62",
         "key": "saturation",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 204,
         "default": 0,
@@ -1097,6 +1124,7 @@
         "id": "63",
         "key": "lightness",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 215,
         "default": 0,
@@ -1108,6 +1136,7 @@
         "id": "65",
         "key": "key",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 172,
         "sticky": false
@@ -1116,6 +1145,7 @@
         "id": "66",
         "key": "size",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 65,
         "sticky": false,
@@ -1125,6 +1155,7 @@
         "id": "67",
         "key": "sticky",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 142,
         "options": [
@@ -1142,6 +1173,7 @@
         "id": "68",
         "key": "fixed",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1149,6 +1181,7 @@
         "id": "69",
         "key": "crud",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1156,6 +1189,7 @@
         "id": "70",
         "key": "expand",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1163,6 +1197,7 @@
         "id": "71",
         "key": "multiple",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1170,6 +1205,7 @@
         "id": "72",
         "key": "class",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1177,6 +1213,7 @@
         "id": "73",
         "key": "default",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1184,6 +1221,7 @@
         "id": "74",
         "key": "min",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1191,6 +1229,7 @@
         "id": "75",
         "key": "max",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1198,6 +1237,7 @@
         "id": "76",
         "key": "position",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "default": 0
@@ -1206,6 +1246,7 @@
         "id": "77",
         "key": "label",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1213,6 +1254,7 @@
         "id": "79",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 192
       },
@@ -1220,6 +1262,7 @@
         "id": "80",
         "key": "fields",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 160,
         "crud": true,
@@ -1232,6 +1275,7 @@
         "id": "100008",
         "key": "type",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1239,6 +1283,7 @@
         "id": "100009",
         "key": "tab",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1246,6 +1291,7 @@
         "id": "100010",
         "key": "tone",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 160,
         "hidden": true
@@ -1254,6 +1300,7 @@
         "id": "100011",
         "key": "col",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60,
         "default": true
@@ -1262,6 +1309,7 @@
         "id": "100012",
         "key": "field",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60,
         "default": true
@@ -1270,6 +1318,7 @@
         "id": "100013",
         "key": "fieldset",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1277,6 +1326,7 @@
         "id": "100014",
         "key": "isComputedReadonly",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1284,6 +1334,7 @@
         "id": "100015",
         "key": "isInvent",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1291,6 +1342,7 @@
         "id": "100016",
         "key": "textarea",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1298,6 +1350,7 @@
         "id": "100018",
         "key": "metadata",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1305,13 +1358,15 @@
         "id": "100022",
         "key": "options",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 405
       },
       {
         "id": "100029",
-        "key": "dotText",
+        "key": "node",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 270
       },
@@ -1319,6 +1374,7 @@
         "id": "100030",
         "key": "texts",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "multiple": true
@@ -1327,6 +1383,7 @@
         "id": "100031",
         "key": "number",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 92
       },
@@ -1334,6 +1391,7 @@
         "id": "100033",
         "key": "label",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 160,
         "hidden": true
@@ -1342,6 +1400,7 @@
         "id": "100035",
         "key": "textsEN",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 160,
         "multiple": true
@@ -1350,6 +1409,7 @@
         "id": "100036",
         "key": "textsES",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 160,
         "multiple": true
@@ -1358,6 +1418,7 @@
         "id": "100037",
         "key": "model",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 184
       },
@@ -1365,6 +1426,7 @@
         "id": "100038",
         "key": "model",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "hidden": true
@@ -1373,6 +1435,7 @@
         "id": "100039",
         "key": "hidden",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1380,6 +1443,7 @@
         "id": "100040",
         "key": "readonly",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1387,6 +1451,7 @@
         "id": "100089",
         "key": "textEN",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 247
       },
@@ -1394,6 +1459,7 @@
         "id": "100091",
         "key": "textES",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 221
       },
@@ -1401,6 +1467,7 @@
         "id": "100126",
         "key": "range",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 60
       },
@@ -1408,6 +1475,7 @@
         "id": "100144",
         "key": "textZeroEN",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1415,6 +1483,7 @@
         "id": "100146",
         "key": "textZeroES",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1422,6 +1491,7 @@
         "id": "100148",
         "key": "textUniqueEN",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1429,6 +1499,7 @@
         "id": "100150",
         "key": "textUniqueES",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1436,6 +1507,7 @@
         "id": "100152",
         "key": "textMultipleEN",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1443,6 +1515,7 @@
         "id": "100154",
         "key": "textMultipleES",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1450,6 +1523,7 @@
         "id": "100160",
         "key": "value",
         "col": true,
+        "filterable": false,
         "field": true,
         "size": 183,
         "min": 10
@@ -1458,6 +1532,7 @@
         "id": "100162",
         "key": "component",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "hidden": true
@@ -1466,6 +1541,7 @@
         "id": "100167",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 88,
         "default": ""
@@ -1474,6 +1550,7 @@
         "id": "100169",
         "key": "timestamp",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1481,6 +1558,7 @@
         "id": "100171",
         "key": "url",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "default": ""
@@ -1489,6 +1567,7 @@
         "id": "100173",
         "key": "width",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 114,
         "default": 0
@@ -1497,6 +1576,7 @@
         "id": "100175",
         "key": "height",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 109,
         "default": 0
@@ -1505,6 +1585,7 @@
         "id": "100177",
         "key": "size",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 86,
         "default": 0
@@ -1513,6 +1594,7 @@
         "id": "100179",
         "key": "type",
         "col": false,
+        "filterable": true,
         "field": true,
         "size": 76
       },
@@ -1520,6 +1602,7 @@
         "id": "100181",
         "key": "ext",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 52
       },
@@ -1527,6 +1610,7 @@
         "id": "100183",
         "key": "isImage",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1534,6 +1618,7 @@
         "id": "100185",
         "key": "contents",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "textarea": true
@@ -1542,6 +1627,7 @@
         "id": "100187",
         "key": "picture",
         "col": false,
+        "filterable": false,
         "field": true,
         "size": 160,
         "multiple": true,
@@ -1554,6 +1640,7 @@
         "id": "100189",
         "key": "lastModified",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 189
       },
@@ -1561,6 +1648,7 @@
         "id": "100191",
         "key": "mime",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 137
       },
@@ -1568,6 +1656,7 @@
         "id": "100226",
         "key": "name",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "default": "New user"
@@ -1576,6 +1665,7 @@
         "id": "100228",
         "key": "lastName",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "default": ""
@@ -1584,6 +1674,7 @@
         "id": "100230",
         "key": "active",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "default": false
@@ -1592,6 +1683,7 @@
         "id": "100232",
         "key": "login",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "default": ""
@@ -1600,6 +1692,7 @@
         "id": "100234",
         "key": "birthDate",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1607,6 +1700,7 @@
         "id": "100236",
         "key": "color",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "class": [
@@ -1617,6 +1711,7 @@
         "id": "100238",
         "key": "picture",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "multiple": false,
@@ -1629,6 +1724,7 @@
         "id": "100240",
         "key": "bio",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "textarea": true
@@ -1637,6 +1733,7 @@
         "id": "100242",
         "key": "colors",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160,
         "crud": true,
@@ -1650,6 +1747,7 @@
         "id": "100244",
         "key": "age",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1657,6 +1755,7 @@
         "id": "100246",
         "key": "tone",
         "col": false,
+        "filterable": true,
         "field": false,
         "size": 160,
         "hidden": true
@@ -1665,6 +1764,7 @@
         "id": "100248",
         "key": "tone",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 160
       },
@@ -1672,12 +1772,22 @@
         "id": "100250",
         "key": "image",
         "col": true,
+        "filterable": true,
         "field": true,
         "size": 119,
         "class": [
           null
         ],
         "metadata": true
+      },
+      {
+        "id": "100253",
+        "key": "filterable",
+        "col": true,
+        "filterable": true,
+        "field": true,
+        "size": 160,
+        "default": true
       }
     ]
   }
