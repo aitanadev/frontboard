@@ -32,7 +32,7 @@
       <menu class="c-scheme__tabs c-tabs">
         <slot name="listview"></slot>
         <!-- <li><button type="button" class="c-action t-secondary" @click="$emit('close')"><i class="fi fi-rr-cross"></i></button></li> -->
-        <span class="c-chip v-semi">{{ i18n(`models.${schemeClass.name}`, 1, schemeClass.name.toSpaces()).capitalize() }}</span>
+        <span class="c-chip v-semi">{{ i18n(`Scheme.${schemeClass.name}`, 1, schemeClass.name.toSpaces()).capitalize() }}</span>
         <li><h2 class="c-action v-semi" @click="currentCrudTab = undefined">{{ entity.toString() }}</h2></li>
         <!-- <li @click="currentCrudTab = 'example'"><button type="button" class="c-action v-semi" :active="currentCrudTab === 'example'">Example tab</button></li> -->
         <li v-for="field in crudFields" @click="currentCrudTab = field">
@@ -48,7 +48,7 @@
         <!-- <div class="c-chip">{{ entity.id }}</div> -->
         <draggable tag="fieldset" class="c-scheme__fieldset c-dragable c-fieldset" draggable=".c-draggable__item" handle=".c-draggable__handler" :list="fields">
           <template v-for="field in fields">
-            <template v-if="!form.$fields[field.key].hidden && !field.tab">
+            <template v-if="field.field && !field.tab && !form.$fields[field.key].hidden">
               <SchemeList v-if="field.crud && field.class" :value="form[field.key]" :field="field" :entity="entity" :schemeClass="field.class[0]" @input="onSaveList(field, $event)" class="c-draggable__item" :api="api"/>
               <div v-else class="c-draggable__item c-fieldset__item" :class="{'c-scheme__invent': field.isInvent}">
                 <label class="c-draggable__handler">

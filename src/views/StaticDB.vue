@@ -75,8 +75,8 @@ export default {
               name: 'HomeStock',
               options: Object.values(StaticDB.databases.homeStock.collections).toSorted(category => category.hidden ? 1 : -1)
             },
-            ...Object.values(StaticDB.databases.examples.collections).toSorted(category => category.hidden ? 1 : -1)
-            // ...Object.values(APP.models).filter(Class => Class.sqlite).map(Class => ({ Class, SQLite: true, id: Class.name, name: Class.name }))
+            ...Object.values(StaticDB.databases.examples.collections).toSorted(category => category.hidden ? 1 : -1),
+            ...Object.values(APP.models).filter(Class => Class.sqlite).map(Class => ({ Class, SQLite: true, id: Class.name, name: Class.name }))
           ]
         },
         {

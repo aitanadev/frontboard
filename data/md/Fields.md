@@ -49,6 +49,7 @@ Fields CSS clases make it easy to composed mixed inputs with labeling and action
       <div class="c-field">
         <input id="i4" type="checkbox">
         <input id="i6" type="radio">
+        <input id="i7" type="checkbox" class="c-switch">
         <div class="c-input">
           <div class="c-chip v-solid">
             <div class="c-action"><span class="fi fi-rs-heart"></span></div>

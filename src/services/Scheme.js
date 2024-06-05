@@ -180,7 +180,7 @@ class Scheme {
   parse() {
     // TODO: Avoid to transform no-id entities to handle as metadata
     const parsed = Object.transform(this, prop => {
-      if (Object.keys(this.Class.schema).includes(prop.key) || prop.key === 'id' || prop.key === 'type') {
+      if (Object.keys(this.Class.schema).includes(prop.key) || prop.key === 'id' || prop.key === '$type') {
         if (typeof prop.value === 'object' && prop.value.constructor.name === 'Date') prop.value = prop.value.toUTCString()
 
         const stringified = Scheme.stringify(prop.value, this.Class.data[prop.key]?.metadata)
@@ -425,8 +425,8 @@ class Scheme {
     // console.log('resolve', input, fill)
     if (Scheme.isScheme(input)) return input
     if (!input.id) throw new Error('Missing id value')
-    if (!input.type) throw new Error('Missing type value')
-    const className = input.type
+    if (!input.$type && !input.type) throw new Error('Missing type value')
+    const className = input.$type || input.type
     const Class = Scheme.models[className]
     if (!Class) throw new Error('Uninitialized class: ' + className)
 
@@ -441,7 +441,7 @@ class Scheme {
         } else if (metadata) {
           return value.parse()
         } else {
-          return { id: value.id, type: value.Class.name }
+          return { id: value.id, $type: value.Class.name }
         }
       }
       return value
@@ -481,11 +481,11 @@ class Scheme {
           field.fill(fieldConfig)
           field.component = fieldConfig.component
           // User.fields.name.label
-          const node = `fieldsets.${Class.name}.fields.${field.key}.label`
-          const fieldsetTranslations = APP.databases.translations.collections.translations.data
-          const fieldTranslation = fieldsetTranslations.find(translation => translation.node === node)
+          const node = `Scheme.${Class.name}.${field.key}.label`
+          const translations = APP.databases.translations.collections.translations.data
+          const fieldTranslation = translations.find(translation => translation.node === node)
           if (!fieldTranslation) {
-            fieldsetTranslations.push(new Scheme.models.Translation({id: Scheme.UidIndex++, node}))
+            translations.push(new Scheme.models.Translation({id: Scheme.UidIndex++, node}))
           }
 
           field.fieldset = fieldset
@@ -578,7 +578,7 @@ class Scheme {
     }
 
     /* */
-    Class.descriptors.type = {
+    Class.descriptors.$type = {
       configurable: true,
       enumerable: true,
       get() {

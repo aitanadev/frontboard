@@ -21,7 +21,7 @@ export class I18n extends String {
     const { node, context, placeHolder } = this
     const translationBlockPath = node.split('.')
     const translation = I18n.translations.translations.find(translation => translation.node === translationBlockPath.join('.'))
-    return (translation && translation.translate(context)) || placeHolder || node
+    return (translation && translation.translate(context)) || placeHolder || node // .split('.').pop()
   }
 
   static #language = 'ES'

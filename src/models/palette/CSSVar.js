@@ -47,6 +47,17 @@ export default class CSSVar extends Scheme {
     }
   }
 
+  static computed() {
+    return {
+      px: {
+        col: false
+      },
+      color: {
+        col: false
+      }
+    }
+  }
+
   static schema() {
     return {
       name: { default: '' },

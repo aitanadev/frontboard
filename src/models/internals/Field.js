@@ -39,7 +39,7 @@ export default class Field extends Scheme {
   get label() {
     if (this.key && this.key[0] === '$') return ''
     const preset = this.key ? this.key.toSpaces().capitalize() : this.key
-    return this.fieldset ? i18n(`fieldsets.${this.fieldset.name}.fields.${this.key}.label`, preset).capitalize() : preset
+    return this.fieldset ? i18n(`Scheme.${this.fieldset.name}.${this.key}.label`, preset).capitalize() : preset
   }
 
   get component() {
@@ -59,7 +59,7 @@ export default class Field extends Scheme {
   }
 
   format(value) {
-    return value
+    return this.formater ? this.formater(value) : value
   }
 
   static { this.install() }
@@ -70,38 +70,112 @@ export default class Field extends Scheme {
 
   static computed() {
     return {
-      model: {},
-      component: {}
+      fieldset: {
+        readonly: true
+      },
+      model: {
+        readonly: true
+      },
+      label: {
+        col: false
+      },
+      component: {
+        readonly: true,
+        formater(value) {
+          return value?.options.name
+        }
+      }
     }
   }
 
   static schema() {
     return {
       key: {},
-      col: { type: Boolean, default: true },
-      filterable: { type: Boolean, default: true },
-      field: { type: Boolean, default: true },
-      size: { type: Number, default: 160 },
-      sticky: { options: [
-        {text: 'Left', value: 'left'},
-        {text: 'Right', value: 'right'}
-      ]},
-      // model: {},
-      tab: { type: Boolean },
-      fixed: { type: Boolean },
-      crud: { type: Boolean },
-      multiple: { type: Boolean },
-      class: {},
-      metadata: { type: Boolean },
-      options: {},
-      type: {},
-      default: {},
-      hidden: { type: Boolean },
-      readonly: { type: Boolean },
-      textarea: { type: Boolean },
-      range: { type: Boolean },
-      min: { type: Number },
-      max: { type: Number }
+      field: {
+        type: Boolean,
+        default: true
+      },
+      col: {
+        type: Boolean,
+        default: true
+      },
+      filterable: {
+        type: Boolean,
+        default: true
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      crud: {
+        type: Boolean,
+        default: false
+      },
+      tab: {
+        type: Boolean,
+        default: false
+      },
+      metadata: {
+        type: Boolean,
+        default: false
+      },
+      textarea: {
+        type: Boolean,
+        default: false
+      },
+      range: {
+        type: Boolean,
+        default: false
+      },
+      size: {
+        type: Number,
+        default: 160
+      },
+      type: {
+        default: () => String,
+        readonly: true,
+        formater(value) {
+          return value.name
+        }
+      },
+      sticky: {
+        options: [
+          {text: 'none', value: false},
+          {text: 'left', value: 'left'},
+          {text: 'right', value: 'right'}
+        ],
+        default: false
+      },
+      min: {
+        type: Number
+      },
+      max: {
+        type: Number
+      },
+      hidden: {
+        col: false,
+        type: Boolean,
+        readonly: true
+      },
+      class: {
+        readonly: true
+      },
+      options: {
+        col: false,
+        readonly: true
+      },
+      default: {
+        col: false,
+        readonly: true
+      },
+      formater: {
+        col: false,
+        readonly: true
+      }
     }
   }
 }

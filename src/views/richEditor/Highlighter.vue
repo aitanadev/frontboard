@@ -119,14 +119,14 @@ export default {
     onError (event) {
       const { error, vm, info } = event.detail
       if (vm && vm.closestComponent && vm.closestComponent('Runner') === this.lastRunner) {
-        this.destroyRunner()
+        // this.destroyRunner()
         this.errors.push(error.toString())
       }
     },
     onWarn (event) {
       const { message, vm, trace } = event.detail
       if (vm && vm.closestComponent && vm.closestComponent('Runner') === this.lastRunner) {
-        this.destroyRunner()
+        // this.destroyRunner()
         this.warnings.push(message.toString())
       }
     },
@@ -137,7 +137,7 @@ export default {
       const content = this.node.textContent
       if (force !== true && content === this.lastContent) return
       this.lastContent = content
-      this.destroyRunner()
+      // this.destroyRunner()
       this.errors = []
       this.warnings = []
       await this.$nextTick()
@@ -165,12 +165,14 @@ export default {
       })
     },
     */
+    /*
     destroyRunner () {
       if (this.lastRunner) {
         // this.lastRunner.$destroy() // TODO: REview weird error
-        this.$refs.mounter.textContent = ''
+
       }
     },
+    */
     parseWebcomponent (webcomponent) {
       try {
         const webcomponentRegex = /(?:<template>\s*((?:.|\n)*)\s*<\/template>)\s*(?:<script>\s*((?:.|\n)*)\s*<\/script>)?\s*(?:<style>\s*((?:.|\n)*)\s*<\/style>)?\s*/gm
@@ -194,6 +196,7 @@ export default {
         const component = document.createElement('component')
         base.appendChild(style)
         base.appendChild(component)
+        this.$refs.mounter.textContent = ''
         this.$refs.mounter.appendChild(base)
 
         const evalConfig = js ? eval(js) : {} // eslint-disable-line no-eval
@@ -262,7 +265,7 @@ export default {
 
 .c-hightlighter__runner {
   width: 100%;
-  margin: 0 0 21px;
+  margin: 0 0 var(--spacing-l);
   border: 1px solid var(--color--pale-1);
   border-width: 1px 1px 1px 1px;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
@@ -277,25 +280,24 @@ export default {
   overflow: auto;
 }
 .c-hightlighter__runner__contents {
-  margin: 20px;
+  margin: var(--spacing-xl);
   min-height: 0;
   max-height: 100%;
 }
 .c-hightlighter__error, .c-hightlighter__warning {
-  padding: 12px;
+  padding: var(--spacing-m);
   margin: 0 0 18px;
   border-radius: var(--border-radius);
   box-shadow: 0px 8px 7px -9px #6a6a6a;
+  margin: var(--spacing-l);
 }
 .c-hightlighter__error {
-  color: #d03a3a;
-  background-color: #ffd8d8;
-  border: 1px solid #d03a3a;
+  background-color: var(--color--error--light-3);
+  border: 1px solid var(--color--error);
 }
 .c-hightlighter__warning {
-  color: #e4aa00;
-  background-color: #fff5d8;
-  border: 1px solid #e4aa00;
+  background-color: var(--color--warning--light-3);
+  border: 1px solid var(--color--warning);
 }
 .c-hightlighter__hljs {
   padding: 16px 18px;

@@ -19,7 +19,8 @@ export default class Fieldset extends Scheme {
       fields: {
         class: Field,
         multiple: true,
-        crud: true
+        crud: true,
+        col: false
       }
     }
   }

@@ -19,7 +19,7 @@ Datagrid supports:
 </template>
 <script>
 ({
- records: [
+  records: [
     {id: '1', name: 'name', data: 10, value: true},
     {id: '2', name: 'name', data: 10, value: true},
     {id: '3', name: 'name', data: 10, value: true},
@@ -50,6 +50,73 @@ Datagrid supports:
 </script>
 ```
 <!--- section --->
+# Grouped
+
+```html
+<template>
+  <Datagrid grouped :cols="cols" :records="records"/>
+</template>
+<script>
+({
+  records: [
+    [
+      { name: 'group 1' },
+      [
+        {id: '1', name: 'name', data: 10, value: true},
+        {id: '2', name: 'name', data: 10, value: true},
+        {id: '3', name: 'name', data: 10, value: true},
+        {id: '4', name: 'name', data: 10, value: true},
+        {id: '5', name: 'name', data: 10, value: true},
+        {id: '6', name: 'name', data: 10, value: true},
+        {id: '7', name: 'name', data: 10, value: true},
+        {id: '8', name: 'name', data: 10, value: true},
+        {id: '9', name: 'name', data: 10, value: true},
+        {id: '10', name: 'name', data: 10, value: true},
+        {id: '11', name: 'name', data: 10, value: true},
+        {id: '12', name: 'name', data: 10, value: true},
+        {id: '13', name: 'name', data: 10, value: true},
+        {id: '14', name: 'name', data: 10, value: true},
+        {id: '15', name: 'name', data: 10, value: true},
+        {id: '16', name: 'name', data: 10, value: true},
+        {id: '17', name: 'name', data: 10, value: true},
+        {id: '18', name: 'name end', data: 10, value: true}
+      ]
+    ],
+    [
+      { name: 'group 2' },
+      [
+        {id: '1', name: 'name', data: 10, value: true},
+        {id: '2', name: 'name', data: 10, value: true},
+        {id: '3', name: 'name', data: 10, value: true},
+        {id: '4', name: 'name', data: 10, value: true},
+        {id: '5', name: 'name', data: 10, value: true},
+        {id: '6', name: 'name', data: 10, value: true},
+        {id: '7', name: 'name', data: 10, value: true},
+        {id: '8', name: 'name', data: 10, value: true},
+        {id: '9', name: 'name', data: 10, value: true},
+        {id: '10', name: 'name', data: 10, value: true},
+        {id: '11', name: 'name', data: 10, value: true},
+        {id: '12', name: 'name', data: 10, value: true},
+        {id: '13', name: 'name', data: 10, value: true},
+        {id: '14', name: 'name', data: 10, value: true},
+        {id: '15', name: 'name', data: 10, value: true},
+        {id: '16', name: 'name', data: 10, value: true},
+        {id: '17', name: 'name', data: 10, value: true},
+        {id: '18', name: 'name end', data: 10, value: true}
+      ]
+    ],
+  ],
+  cols: [
+    {key: 'id', col: true, size: 100, sticky: 'left', label: 'Id'},
+    {key: 'name', col: true, size: 200, sticky: false, label: 'Name'},
+    {key: 'data', col: true, size: 200, sticky: false, label: 'Data'},
+    {key: 'value', col: true, size: 200, sticky: false, label: 'Value'},
+    {key: 'actions', col: true, size: 100, sticky: 'right', label: 'Actions'}
+  ]
+})
+</script>
+```
+<!--- section --->
 # Injected contents
 
 ```html
@@ -62,24 +129,26 @@ Datagrid supports:
       {key: 'value', col: true, size: 300, sticky: 'right', label: 'Value'}
     ]"
   >
-    <record>
-      <cell>1</cell><cell><strong>name 1</strong></cell><cell>😀</cell><cell>true</cell>
-    </record>
-    <record>
-      <cell>2</cell><cell><em>name 2</em></cell><cell>🙂</cell><cell>false</cell>
-    </record>
-    <record>
-      <cell>3</cell><cell>name 3</cell><cell>😁</cell><cell>true</cell>
-    </record>
-    <record>
-      <cell>4</cell><cell>name 4</cell><cell>😃</cell><cell>false</cell>
-    </record>
-    <record>
-      <cell>5</cell><cell>name 5</cell><cell>😄</cell><cell>true</cell>
-    </record>
-    <record>
-      <cell>6</cell><cell>name 6</cell><cell>🙃</cell><cell>false</cell>
-    </record>
+    <template #data>
+      <data-record>
+        <data-cell>123</data-cell><data-cell><strong>name 1</strong></data-cell><data-cell>😀</data-cell><data-cell>true</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>2</data-cell><data-cell><em>name 2</em></data-cell><data-cell>🙂</data-cell><data-cell>false</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>3</data-cell><data-cell>name 3</data-cell><data-cell>😁</data-cell><data-cell>true</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>4</data-cell><data-cell>name 4</data-cell><data-cell>😃</data-cell><data-cell>false</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>5</data-cell><data-cell>name 5</data-cell><data-cell>😄</data-cell><data-cell>true</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>6</data-cell><data-cell>name 6</data-cell><data-cell>🙃</data-cell><data-cell>false</data-cell>
+      </data-record>
+    </template>
   </Datagrid>
 </template>
 ```
@@ -103,61 +172,124 @@ Datagrid supports:
     ]"
     @selectionChange="window.selection = $event;$forceUpdate()"
   >
-    <record>
-      <cell>1</cell><cell><strong>name 1</strong></cell><cell>😀</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>2</cell><cell><em>name 2</em></cell><cell>🙂</cell><cell>false</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>3</cell><cell>name 3</cell><cell>😁</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>4</cell><cell>name 4</cell><cell>😃</cell><cell>false</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>5</cell><cell>name 5</cell><cell>😄</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>6</cell><cell>name 6</cell><cell>🙃</cell><cell>false</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>1</cell><cell><strong>name 1</strong></cell><cell>😀</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>2</cell><cell><em>name 2</em></cell><cell>🙂</cell><cell>false</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>3</cell><cell>name 3</cell><cell>😁</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>4</cell><cell>name 4</cell><cell>😃</cell><cell>false</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>5</cell><cell>name 5</cell><cell>😄</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>6</cell><cell>name 6</cell><cell>🙃</cell><cell>false</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>1</cell><cell><strong>name 1</strong></cell><cell>😀</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>2</cell><cell><em>name 2</em></cell><cell>🙂</cell><cell>false</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>3</cell><cell>name 3</cell><cell>😁</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>4</cell><cell>name 4</cell><cell>😃</cell><cell>false</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>5</cell><cell>name 5</cell><cell>😄</cell><cell>true</cell><cell>...</cell>
-    </record>
-    <record>
-      <cell>6</cell><cell>name 6</cell><cell>🙃</cell><cell>false</cell><cell>...</cell>
-    </record>
+    <template #data>
+      <data-record>
+        <data-cell>1</data-cell><data-cell><strong>name 1</strong></data-cell><data-cell>😀</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>2</data-cell><data-cell><em>name 2</em></data-cell><data-cell>🙂</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>3</data-cell><data-cell>name 3</data-cell><data-cell>😁</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>4</data-cell><data-cell>name 4</data-cell><data-cell>😃</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>5</data-cell><data-cell>name 5</data-cell><data-cell>😄</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>6</data-cell><data-cell>name 6</data-cell><data-cell>🙃</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>1</data-cell><data-cell><strong>name 1</strong></data-cell><data-cell>😀</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>2</data-cell><data-cell><em>name 2</em></data-cell><data-cell>🙂</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>3</data-cell><data-cell>name 3</data-cell><data-cell>😁</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>4</data-cell><data-cell>name 4</data-cell><data-cell>😃</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>5</data-cell><data-cell>name 5</data-cell><data-cell>😄</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>6</data-cell><data-cell>name 6</data-cell><data-cell>🙃</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>1</data-cell><data-cell><strong>name 1</strong></data-cell><data-cell>😀</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>2</data-cell><data-cell><em>name 2</em></data-cell><data-cell>🙂</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>3</data-cell><data-cell>name 3</data-cell><data-cell>😁</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>4</data-cell><data-cell>name 4</data-cell><data-cell>😃</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>5</data-cell><data-cell>name 5</data-cell><data-cell>😄</data-cell><data-cell>true</data-cell><data-cell>...</data-cell>
+      </data-record>
+      <data-record>
+        <data-cell>6</data-cell><data-cell>name 6</data-cell><data-cell>🙃</data-cell><data-cell>false</data-cell><data-cell>...</data-cell>
+      </data-record>
+    </template>
   </Datagrid>
-  {{ window.selection?.map(record => record.data) }}
+  {{ window.selection?.map(record => record.dataHTML) }}
+</template>
+```
+<!--- section --->
+# Injected grouped contents
+
+```html
+<template>
+  <Datagrid
+    grouped
+    :cols="[
+      {key: 'id', col: true, size: 80, sticky: 'left', label: 'Id'},
+      {key: 'name', col: true, size: 200, sticky: false, label: 'Name'},
+      {key: 'data', col: true, size: 150, sticky: false, label: 'Data'},
+      {key: 'value', col: true, size: 300, sticky: 'right', label: 'Value'}
+    ]"
+  >
+    <template #data>
+      <data-group>
+        <data-group-header><data-cell></data-cell><data-cell><h3>Group 1</h3></data-cell><data-cell></data-cell><data-cell></data-cell></data-group-header>
+        <data-record>
+          <data-cell>123</data-cell><data-cell><strong>name 1</strong></data-cell><data-cell>😀</data-cell><data-cell>true</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>2</data-cell><data-cell><em>name 2</em></data-cell><data-cell>🙂</data-cell><data-cell>false</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>3</data-cell><data-cell>name 3</data-cell><data-cell>😁</data-cell><data-cell>true</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>4</data-cell><data-cell>name 4</data-cell><data-cell>😃</data-cell><data-cell>false</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>5</data-cell><data-cell>name 5</data-cell><data-cell>😄</data-cell><data-cell>true</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>6</data-cell><data-cell>name 6</data-cell><data-cell>🙃</data-cell><data-cell>false</data-cell>
+        </data-record>
+      </data-group>
+      <data-group>
+        <data-group-header><data-cell></data-cell><data-cell><h3>Group 2</h3></data-cell><data-cell></data-cell><data-cell></data-cell></data-group-header>
+        <data-record>
+          <data-cell>123</data-cell><data-cell><strong>name 1</strong></data-cell><data-cell>😀</data-cell><data-cell>true</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>2</data-cell><data-cell><em>name 2</em></data-cell><data-cell>🙂</data-cell><data-cell>false</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>3</data-cell><data-cell>name 3</data-cell><data-cell>😁</data-cell><data-cell>true</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>4</data-cell><data-cell>name 4</data-cell><data-cell>😃</data-cell><data-cell>false</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>5</data-cell><data-cell>name 5</data-cell><data-cell>😄</data-cell><data-cell>true</data-cell>
+        </data-record>
+        <data-record>
+          <data-cell>6</data-cell><data-cell>name 6</data-cell><data-cell>🙃</data-cell><data-cell>false</data-cell>
+        </data-record>
+      </data-group>
+    </template>
+  </Datagrid>
 </template>
 ```

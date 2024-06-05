@@ -2,7 +2,7 @@
   <div v-if="!isHidden" class="--ds c-frontboard" :class="{'v-darkmode': darkModeActive}"><!-- remove --darkmode class -->
     <div class="c-frontboard__toolbar">
       <div>
-        <span class="c-frontboard__logo"><span>🦦</span> Frontboard <i class="fi fi-rr-check"></i></span>
+        <span class="c-frontboard__logo"><span>🦦</span> Frontboard <i class="fi fi-br-check"></i></span>
         <span class="c-frontboard__title">{{ title }}</span>
       </div>
       <div>

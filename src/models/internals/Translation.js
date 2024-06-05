@@ -6,7 +6,7 @@ export default class Translation extends Scheme {
   }
 
   get label() {
-    return this.node
+    return this.node // TODO: review
   }
 
   translate(context = {}) {
@@ -18,7 +18,7 @@ export default class Translation extends Scheme {
       '2': this.textMultiple
     }
     const text = texts[number] ? texts[number] : this.text
-    // console.log('text', {dotPath: this.node, number, text, textUnique: this.textUnique})
+    // console.log('text', {dotPath: this.node, number, text})
     if (!text) return undefined
     try {
       // TODO: Securize
@@ -34,36 +34,41 @@ export default class Translation extends Scheme {
     freeze: false
   }
 
+  static computed() {
+    return {
+      label: {
+        col: false,
+        field: false
+      }
+    }
+  }
+
   static schema() {
     return {
       node: {
       },
       number: {
-        type: Boolean
+        type: Boolean,
+        default: false
       },
-      text: {
+      text: { // textUnique
         i18n: true
+      },
+      textUnique: {
+        i18n: true,
+        col: false,
+        hidden: (entity) => !entity.number
       },
       textMultiple: {
         i18n: true,
+        col: false,
         hidden: (entity) => !entity.number
       },
       textZero: {
         i18n: true,
-        hidden: (entity) => !entity.number
-      },
-      textUnique: {
-        i18n: true,
-        hidden: (entity) => !entity.number
-      }
-      /*
-      texts: {
-        i18n: true,
-        multiple: true,
         col: false,
         hidden: (entity) => !entity.number
       }
-      */
     }
   }
 }
