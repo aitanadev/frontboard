@@ -60,11 +60,18 @@ export class StaticDB {
       }
       if (collection.Class) {
         console.log('collection', collection.Class.name)
-        formated.data = collection.data.map(row => {
-          const parsed = row.parse()
-          delete parsed.type
-          return parsed
-        })
+        if (collection.Class.name === 'Field') {
+          formated.data = collection.data.map(row => {
+            const { id, key, size } = row
+            return { id, key, size }
+          })
+        } else {
+          formated.data = collection.data.map(row => {
+            const parsed = row.parse()
+            delete parsed.$type
+            return parsed
+          })
+        }
       } else {
         formated.data = collection.data
       }

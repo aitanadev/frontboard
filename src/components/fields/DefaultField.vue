@@ -5,9 +5,9 @@
       <input type="range" v-model="formAccesor" :min="field.min" :max="field.max">
     </div>
 
-    <Selector class="c-field" v-else-if="field.class" useObject :options="field.options ? field.options(form) : field.class[0].cache" v-model="formAccesor" multiple optionValue="uid" optionText="name"/>
+    <Selector class="c-field" v-else-if="field.class" useObject :options="field.class[0].cache" v-model="formAccesor" multiple optionValue="uid" optionText="name"/>
 
-    <Selector class="c-field" v-else-if="field.options" :options="Array.isArray(field.options) ? field.options : field.options(form)" v-model="formAccesor" multiple/>
+    <Selector class="c-field es-este" v-else-if="field.options" useObject :options="Array.isArray(field.options) ? field.options : field.options()" v-model="formAccesor" multiple/>
 
     <template v-else-if="field.multiple || isFile">::NotImplemented::</template>
 
@@ -24,6 +24,8 @@
 
     <FileField v-if="isFile" :form="form" :field="field" :viewer="viewer"/>
 
+    <div v-else-if="field.options && !field.class">{{ i18n(`Scheme.${form.Class.name}.${field.key}.options.${(Array.isArray(field.options) ? field.options : field.options(form)).find(option => option.value === formAccesor)?.text}`) }}</div>
+
     <div class="c-scheme__multiple" v-else-if="Array.isArray(formAccesor)">
       <template v-for="valueItem in formAccesor">
         <SchemeChip v-if="Scheme.isScheme(valueItem)" readOnly :entity="valueItem"/>
@@ -33,16 +35,18 @@
 
     <SchemeChip v-else-if="Scheme.isScheme(formAccesor)" readOnly :entity="formAccesor"/>
 
-    <div v-else-if="field.type && field.type === Boolean">
-      <span v-if="formAccesor"><i class="fi fi-rr-check-circle">&nbsp;</i>{{ i18n('common.yes') }}</span>
-      <span v-else><i class="fi fi-rr-cross-circle">&nbsp;</i>{{ i18n('common.no') }}</span>
+    <div v-else-if="typeof formAccesor === 'boolean'">
+      <span class="c-field__yes" v-if="formAccesor"><i class="fi fi-rr-check-circle">&nbsp;</i>{{ i18n('common.yes') }}</span>
+      <span class="c-field__no" v-else><i class="fi fi-rr-cross-circle">&nbsp;</i>{{ i18n('common.no') }}</span>
     </div>
 
     <div v-else-if="field.type && field.type === Number"><pre>{{ formAccesor }}</pre></div>
 
     <div v-else-if="field.type && field.type === Date"><pre>{{ formAccesor ? formAccesor.toLocaleDateString() : '' }}</pre></div>
 
-    <div v-else v-html="marked || formAccesor"></div>
+    <div v-else-if="formAccesor === undefined">- - -</div>
+
+    <div v-else v-html="marked || field.format(formAccesor)"></div>
   </span>
 
   <span class="c-scheme-field__input" v-else @input="onInput" @change="onInput">
@@ -132,5 +136,11 @@ export default {
     flex-grow: 1;
 
     padding: var(--spacing-xs);
+  }
+  .c-field__yes {
+    color: var(--color--success--dark-1);
+  }
+  .c-field__no {
+    color: var(--color--error--dark-1);
   }
 </style>

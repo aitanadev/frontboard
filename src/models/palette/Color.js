@@ -87,8 +87,6 @@ export default class Color extends Scheme {
   static computed() {
     return {
       value: {
-        min: 10,
-        as: 'a',
         component: 'ColorField'
       }
     }
@@ -124,7 +122,8 @@ export default class Color extends Scheme {
         class: User,
         multiple: true,
         metadata: true,
-        crud: true
+        crud: true,
+        col: false
       }
     }
   }

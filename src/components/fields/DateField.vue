@@ -222,7 +222,7 @@ export default {
     onChange() {
       const {day, month, year, hours, minutes} = this
       const currentDate = this.currentDate = new Date(this.currentDate.getTime())
-      console.log('date text:', currentDate, {day, month, year, hours, minutes})
+      // console.log('date text:', currentDate, {day, month, year, hours, minutes})
       this.$emit('input', currentDate)
       // this.$forceUpdate()
     }

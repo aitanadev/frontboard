@@ -4,7 +4,7 @@
       <div class="c-scheme__header">
         <!-- <SchemeBreadcrumb/> -->
         <div class="c-scheme__title">
-          <slot name="title"><h2>{{ field ? field.label : i18n(`models.${schemeClass.name}`, 2, schemeClass.plural.toSpaces()).capitalize() }}</h2></slot>
+          <slot name="title"><h2>{{ field ? field.label : i18n(`Scheme.${schemeClass.name}`, 2, schemeClass.plural.toSpaces()).capitalize() }}</h2></slot>
         </div>
         <div class="c-scheme__toolbar">
           <!--
@@ -16,7 +16,7 @@
           <!-- <Selector v-model="selectedCols" useObject multiple optionText="label" optionValue="key" :options="seletableCols" @input="refresh" class="c-scheme__columns-selector"/><! -- REVIEW refresh call -->
           <button v-if="filters.length > 0" type="button" class="c-action t-error v-semi" @click="filters.splice(0, filters.length);loadPage()"><i class="fi fi-rr-clear-alt"></i>{{ i18n('common.removeAllFilters') }}</button>
           <button type="button" class="c-action t-primary v-semi" @click="filters.push([{field: undefined}])"><i class="fi fi-rr-filter"></i>{{ i18n('common.addFilter') }}</button>
-          <button type="button" class="c-action t-primary v-semi" @click="addEntity"><i class="fi fi-rr-plus"></i>{{ i18n('common.addRow', {name: i18n(`models.${schemeClass.name}`, 1, schemeClass.name.toLowerCase())}).capitalize() }}</button>
+          <button type="button" class="c-action t-primary v-semi" @click="addEntity"><i class="fi fi-rr-plus"></i>{{ i18n('common.addRow', {name: i18n(`Scheme.${schemeClass.name}`, 1, schemeClass.name.toLowerCase())}).capitalize() }}</button>
           <slot name="actions"></slot>
           <!--
           <span v-if="totalPages > 1" class="c-scheme__pagination">
@@ -33,7 +33,7 @@
                 <button type="button" class="c-action t-error v-semi" @click="filter.length > 1 ? filter.splice(operandKey, 1) : filters.splice(key, 1);loadPage()"><i class="fi fi-rr-clear-alt"></i></button>
                 <!-- <pre>{{ JSON.stringify(schemeClass.fields, undefined, '  ') }}</pre> -->
                 <Selector v-model="operand.field" useObject :options="schemeClass.fields.filter(field => field.filterable)" optionText="label" optionValue="key" @input="operand.operator = [Number, Date].includes(operand.field.type) ? 'between' : ((operand.field.class || operand.field.multiple) ? 'in' : 'like')" />
-                <Selector v-if="operand.field && [Number, Date].includes(operand.field.type)" v-model="operand.operator" :options="filtersOperatorsOptions" @input="$forceUpdate()" />
+                <Selector v-if="operand.field && [Number, Date].includes(operand.field.type)" v-model="operand.operator" :options="getFieldOperatorsOptions(operand.field)" @input="$forceUpdate()" />
               </div>
               <div class="c-scheme__filter__operand" v-if="operand.field && operand.operator">
                 <!-- {{ operand.operator }} -->
@@ -186,19 +186,6 @@ export default {
 
   computed: {
 
-    filtersOperatorsOptions() {
-      return [
-        // {value: 'like', text: this.i18n('filters.operators.like')},
-        {value: 'between', text: this.i18n('filters.operators.between')},
-        {value: 'equalTo', text: this.i18n('filters.operators.equalTo')},
-        // {value: 'in', text: this.i18n('filters.operators.in')},
-        {value: 'lessThan', text: this.i18n('filters.operators.lessThan')},
-        {value: 'greaterThan', text: this.i18n('filters.operators.greaterThan')},
-        {value: 'lessThanOrEqualTo', text: this.i18n('filters.operators.lessThanOrEqualTo')},
-        {value: 'greaterThanOrEqualTo', text: this.i18n('filters.operators.greaterThanOrEqualTo')}
-      ]
-    },
-
     metadata () {
       return this.field && this.field.metadata
     },
@@ -262,9 +249,27 @@ export default {
   },
 
   methods: {
+    getFieldOperatorsOptions(field) {
+      const isDate = field.type === Date
+      const options = [
+        // {value: 'like', text: this.i18n('filters.operators.like')},
+        {value: 'between', text: this.i18n('filters.operators.between')},
+        {value: 'equalTo', text: this.i18n('filters.operators.equalTo')},
+        // {value: 'in', text: this.i18n('filters.operators.in')},
+        {value: 'lessThan', text: this.i18n(`filters.operators.${isDate ? 'before' : 'lessThan'}`)},
+        {value: 'greaterThan', text: this.i18n(`filters.operators.${isDate ? 'after' : 'greaterThan'}`)}
+      ]
+      // if (!isDate) {
+        options.push(
+          {value: 'lessThanOrEqualTo', text: this.i18n(`filters.operators.${isDate ? 'beforeOrEqualTo' : 'lessThanOrEqualTo'}`)},
+          {value: 'greaterThanOrEqualTo', text: this.i18n(`filters.operators.${isDate ? 'afterOrEqualTo' : 'greaterThanOrEqualTo'}`)}
+        )
+      // }
+      return options
+    },
     onFocusOut(event) {
       // console.log('focusout')
-      if (!this.$refs.datagrid.$refs.tbody?.$el.contains(document.activeElement)) {
+      if (!this.$refs.datagrid.$refs.table?.contains(document.activeElement)) {
         this.blurRow()
       }
     },
@@ -384,7 +389,7 @@ export default {
 
       return API.get('sqlite/' + this.schemeClass.plural.toKebabCase(), { params: { filter: JSON.stringify(queryFilter) } }).then(response => {
         response.data.forEach(entry => {
-          entry.type = this.schemeClass.name
+          entry.$type = this.schemeClass.name
         })
         return Scheme.populate(response.data)
         // console.info('Saved', { formated, stringified })

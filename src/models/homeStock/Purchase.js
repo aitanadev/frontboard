@@ -13,6 +13,15 @@ export default class Purchase extends Scheme {
 
   static { this.install() }
 
+  static computed() {
+    return {
+      name: {
+        col: false,
+        field: false
+      }
+    }
+  }
+
   static schema() {
     return {
       date: {
@@ -26,7 +35,8 @@ export default class Purchase extends Scheme {
       purchaseLines: {
         class: PurchaseLine,
         crud: true,
-        multiple: true
+        multiple: true,
+        col: false
       }
     }
   }

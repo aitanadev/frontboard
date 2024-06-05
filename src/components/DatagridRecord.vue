@@ -5,18 +5,7 @@
     tabindex="0"
   >
     <template v-for="(col, index) in cols">
-      <!-- review v-if col.col, move to upper scope -->
-      <td
-        v-if="col.col"
-        :style="{
-          left: col.sticky === 'left' ? (cols.slice(0, index).reduce((acumulator, col) => acumulator + col.size, 0) + 'px') : 'unset',
-          right: col.sticky === 'right' ? (cols.slice(index + 1).reduce((acumulator, col) => acumulator + col.size, 0) + 'px') : 'unset',
-          // backgroundColor: record.tone ? `var(--color--${record.tone.name}--light-3)` : undefined
-        }"
-        :class="col.sticky ? ('--sticky-'+ col.sticky) : ''"
-        :key="col.key"
-      >
-        <!-- v-bind="col.attributes" -->
+      <td v-if="col.col" v-bind="colBind(col)">
         <div class="c-datagrid__cell">
           <slot :name="'cell.' + col.key" v-bind="{ record, col }">
             <div v-if="col.key === '$'">
@@ -44,6 +33,20 @@ export default {
     sortable: { type: Boolean },
     selectable: { type: Boolean},
     selected: { type: Boolean }
+  },
+
+  methods: {
+    colBind(col) {
+      const index = this.cols.indexOf(col)
+      return {
+        style: {
+          left: col.sticky === 'left' ? (this.cols.slice(0, index).reduce((acumulator, col) => acumulator + col.size, 0) + 'px') : 'unset',
+          right: col.sticky === 'right' ? (this.cols.slice(index + 1).reduce((acumulator, col) => acumulator + col.size, 0) + 'px') : 'unset'
+        },
+        class: col.sticky ? ('--sticky-' + col.sticky) : '',
+        key: col.key
+      }
+    }
   }
 }
 </script>

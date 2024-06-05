@@ -310,7 +310,7 @@
         "name": "default",
         "color": {
           "id": "1016",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -318,7 +318,7 @@
         "name": "secondary",
         "color": {
           "id": "1017",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -326,7 +326,7 @@
         "name": "primary",
         "color": {
           "id": "1010",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -334,7 +334,7 @@
         "name": "info",
         "color": {
           "id": "1009",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -342,7 +342,7 @@
         "name": "success",
         "color": {
           "id": "1007",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -350,7 +350,7 @@
         "name": "warning",
         "color": {
           "id": "1005",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -358,7 +358,7 @@
         "name": "error",
         "color": {
           "id": "1003",
-          "type": "Color"
+          "$type": "Color"
         }
       }
     ]

@@ -6,66 +6,76 @@
       {
         "id": "100032",
         "node": "common.example.dot.text",
+        "number": false,
         "textEN": "Hello ${name}!",
         "textES": "Hola ${name}!"
       },
       {
         "id": "100135",
         "node": "common.addRow",
+        "number": false,
         "textEN": "Add ${name}",
         "textES": "Añadir ${name}"
       },
       {
         "id": "100137",
         "node": "common.addFilter",
+        "number": false,
         "textEN": "Add filter",
         "textES": "Añadir filtro"
       },
       {
         "id": "100156",
         "node": "common.save",
+        "number": false,
         "textEN": "save",
         "textES": "guardar"
       },
       {
         "id": "100157",
         "node": "common.yes",
+        "number": false,
         "textEN": "yes",
         "textES": "sí"
       },
       {
         "id": "100158",
         "node": "common.no",
+        "number": false,
         "textEN": "no",
         "textES": "no"
       },
       {
         "id": "100164",
         "node": "common.removeAllFilters",
+        "number": false,
         "textEN": "Remove filters",
         "textES": "Quitar filtros"
       },
       {
         "id": "100224",
         "node": "common.reset",
+        "number": false,
         "textEN": "reset",
         "textES": "restablecer"
       },
       {
         "id": "100041",
         "node": "validate.maxChars",
+        "number": false,
         "textEN": "Max characters number is ${max}",
         "textES": "Máximo ${max} caracteres"
       },
       {
         "id": "100042",
         "node": "validate.minChars",
+        "number": false,
         "textEN": "At least ${min} characters",
         "textES": "Requiere al menos ${min} caracteres"
       },
       {
         "id": "100136",
-        "node": "models.Translation",
+        "node": "Scheme.Translation",
         "number": true,
         "textEN": "translation",
         "textES": "traducción",
@@ -74,7 +84,7 @@
       },
       {
         "id": "100139",
-        "node": "models.Asset",
+        "node": "Scheme.Asset",
         "number": true,
         "textEN": "asset",
         "textES": "artículo",
@@ -83,7 +93,7 @@
       },
       {
         "id": "100140",
-        "node": "models.Purchase",
+        "node": "Scheme.Purchase",
         "number": true,
         "textEN": "purchase",
         "textES": "compra",
@@ -92,7 +102,7 @@
       },
       {
         "id": "100141",
-        "node": "models.PurchaseLine",
+        "node": "Scheme.PurchaseLine",
         "number": true,
         "textEN": "asset",
         "textES": "artículo",
@@ -101,7 +111,7 @@
       },
       {
         "id": "100142",
-        "node": "models.Taxonomy",
+        "node": "Scheme.Taxonomy",
         "number": true,
         "textEN": "category",
         "textES": "categoría",
@@ -110,7 +120,7 @@
       },
       {
         "id": "100143",
-        "node": "models.Category",
+        "node": "Scheme.Category",
         "number": true,
         "textEN": "tag",
         "textES": "etiqueta",
@@ -119,7 +129,7 @@
       },
       {
         "id": "100165",
-        "node": "models.User",
+        "node": "Scheme.User",
         "number": true,
         "textEN": "user",
         "textES": "usuario",
@@ -128,596 +138,782 @@
       },
       {
         "id": "100043",
-        "node": "fieldsets.User.fields.name.label",
+        "node": "Scheme.User.name.label",
+        "number": false,
         "textEN": "name",
         "textES": "nombre"
       },
       {
         "id": "100044",
-        "node": "fieldsets.User.fields.lastName.label",
+        "node": "Scheme.User.lastName.label",
+        "number": false,
         "textEN": "lastname",
         "textES": "apellidos"
       },
       {
         "id": "100045",
-        "node": "fieldsets.User.fields.active.label",
+        "node": "Scheme.User.active.label",
+        "number": false,
         "textEN": "activated",
         "textES": "activado"
       },
       {
         "id": "100046",
-        "node": "fieldsets.User.fields.login.label",
+        "node": "Scheme.User.login.label",
+        "number": false,
         "textEN": "login",
         "textES": "alias"
       },
       {
         "id": "100047",
-        "node": "fieldsets.User.fields.birthDate.label",
+        "node": "Scheme.User.birthDate.label",
+        "number": false,
         "textEN": "birth date",
         "textES": "fecha de nacimiento"
       },
       {
         "id": "100048",
-        "node": "fieldsets.User.fields.color.label",
+        "node": "Scheme.User.color.label",
+        "number": false,
         "textEN": "color",
         "textES": "color"
       },
       {
         "id": "100049",
-        "node": "fieldsets.User.fields.bio.label",
+        "node": "Scheme.User.bio.label",
+        "number": false,
         "textEN": "bio",
         "textES": "bio"
       },
       {
         "id": "100050",
-        "node": "fieldsets.User.fields.colors.label",
+        "node": "Scheme.User.colors.label",
+        "number": false,
         "textEN": "colors",
         "textES": "colores"
       },
       {
         "id": "100051",
-        "node": "fieldsets.User.fields.age.label",
+        "node": "Scheme.User.age.label",
+        "number": false,
         "textEN": "age",
         "textES": "edad"
       },
       {
         "id": "100052",
-        "node": "fieldsets.Color.fields.name.label"
+        "node": "Scheme.Color.name.label",
+        "number": false,
+        "textEN": "name",
+        "textES": "nombre"
       },
       {
         "id": "100053",
-        "node": "fieldsets.Color.fields.hue.label"
+        "node": "Scheme.Color.hue.label",
+        "number": false,
+        "textEN": "hue",
+        "textES": "tono"
       },
       {
         "id": "100054",
-        "node": "fieldsets.Color.fields.saturation.label"
+        "node": "Scheme.Color.saturation.label",
+        "number": false,
+        "textEN": "saturation",
+        "textES": "saturación"
       },
       {
         "id": "100055",
-        "node": "fieldsets.Color.fields.lightness.label"
+        "node": "Scheme.Color.lightness.label",
+        "number": false,
+        "textEN": "lightness",
+        "textES": "luminosidad"
       },
       {
         "id": "100056",
-        "node": "fieldsets.Color.fields.users.label"
+        "node": "Scheme.Color.users.label",
+        "number": false,
+        "textEN": "users",
+        "textES": "usuarios"
       },
       {
         "id": "100057",
-        "node": "fieldsets.ColorTone.fields.name.label"
+        "node": "Scheme.ColorTone.name.label",
+        "number": false,
+        "textEN": "",
+        "textES": ""
       },
       {
         "id": "100058",
-        "node": "fieldsets.ColorTone.fields.color.label"
+        "node": "Scheme.ColorTone.color.label",
+        "number": false
       },
       {
         "id": "100059",
-        "node": "fieldsets.Category.fields.name.label",
+        "node": "Scheme.Category.name.label",
+        "number": false,
         "textEN": "Name",
         "textES": "Nombre"
       },
       {
         "id": "100060",
-        "node": "fieldsets.Taxonomy.fields.name.label",
+        "node": "Scheme.Taxonomy.name.label",
+        "number": false,
         "textEN": "Name",
         "textES": "Nombre"
       },
       {
         "id": "100061",
-        "node": "fieldsets.Taxonomy.fields.tone.label",
+        "node": "Scheme.Taxonomy.tone.label",
+        "number": false,
         "textEN": "Color",
         "textES": "Color"
       },
       {
         "id": "100062",
-        "node": "fieldsets.Taxonomy.fields.categories.label",
+        "node": "Scheme.Taxonomy.categories.label",
+        "number": false,
         "textEN": "Tags",
         "textES": "Etiquetas"
       },
       {
         "id": "100063",
-        "node": "fieldsets.Asset.fields.name.label",
+        "node": "Scheme.Asset.name.label",
+        "number": false,
         "textEN": "Name",
         "textES": "Nombre"
       },
       {
         "id": "100064",
-        "node": "fieldsets.Asset.fields.unitBase.label",
+        "node": "Scheme.Asset.unitBase.label",
+        "number": false,
         "textEN": "Unit",
         "textES": "Unidad"
       },
       {
         "id": "100065",
-        "node": "fieldsets.Asset.fields.unitAmount.label"
+        "node": "Scheme.Asset.unitAmount.label",
+        "number": false
       },
       {
         "id": "100066",
-        "node": "fieldsets.Asset.fields.barcode.label",
+        "node": "Scheme.Asset.barcode.label",
+        "number": false,
         "textEN": "Barcode",
         "textES": "Código de barras"
       },
       {
         "id": "100067",
-        "node": "fieldsets.Asset.fields.note.label",
+        "node": "Scheme.Asset.note.label",
+        "number": false,
         "textEN": "Notes",
         "textES": "Notas"
       },
       {
         "id": "100068",
-        "node": "fieldsets.Asset.fields.runOut.label",
+        "node": "Scheme.Asset.runOut.label",
+        "number": false,
         "textEN": "Limit to notify",
         "textES": "Limite de aviso"
       },
       {
         "id": "100069",
-        "node": "fieldsets.Asset.fields.taxonomy.label",
+        "node": "Scheme.Asset.taxonomy.label",
+        "number": false,
         "textEN": "Category",
         "textES": "Categoría"
       },
       {
         "id": "100070",
-        "node": "fieldsets.Asset.fields.categories.label",
+        "node": "Scheme.Asset.categories.label",
+        "number": false,
         "textEN": "Tags",
         "textES": "Etiquetas"
       },
       {
         "id": "100071",
-        "node": "fieldsets.Asset.fields.amount.label",
+        "node": "Scheme.Asset.amount.label",
+        "number": false,
         "textEN": "Amount",
         "textES": "Cantidad"
       },
       {
         "id": "100072",
-        "node": "fieldsets.Asset.fields.tone.label",
+        "node": "Scheme.Asset.tone.label",
+        "number": false,
         "textEN": "Color",
         "textES": "Color"
       },
       {
         "id": "100073",
-        "node": "fieldsets.EnumOption.fields.name.label"
+        "node": "Scheme.EnumOption.name.label",
+        "number": false
       },
       {
         "id": "100074",
-        "node": "fieldsets.EnumOption.fields.value.label"
+        "node": "Scheme.EnumOption.value.label",
+        "number": false
       },
       {
         "id": "100075",
-        "node": "fieldsets.Enum.fields.name.label"
+        "node": "Scheme.Enum.name.label",
+        "number": false
       },
       {
         "id": "100076",
-        "node": "fieldsets.Enum.fields.options.label"
+        "node": "Scheme.Enum.options.label",
+        "number": false
       },
       {
         "id": "100077",
-        "node": "fieldsets.PurchaseLine.fields.asset.label",
+        "node": "Scheme.PurchaseLine.asset.label",
+        "number": false,
         "textEN": "Asset",
         "textES": "Artículo"
       },
       {
         "id": "100078",
-        "node": "fieldsets.PurchaseLine.fields.amount.label",
+        "node": "Scheme.PurchaseLine.amount.label",
+        "number": false,
         "textEN": "Amount",
         "textES": "Cantidad"
       },
       {
         "id": "100079",
-        "node": "fieldsets.PurchaseLine.fields.price.label",
+        "node": "Scheme.PurchaseLine.price.label",
+        "number": false,
         "textEN": "Price",
         "textES": "Precio"
       },
       {
         "id": "100080",
-        "node": "fieldsets.PurchaseLine.fields.bargain.label",
+        "node": "Scheme.PurchaseLine.bargain.label",
+        "number": false,
         "textEN": "Bargain",
         "textES": "Oferta"
       },
       {
         "id": "100081",
-        "node": "fieldsets.PurchaseLine.fields.tone.label"
+        "node": "Scheme.PurchaseLine.tone.label",
+        "number": false
       },
       {
         "id": "100082",
-        "node": "fieldsets.PurchaseLine.fields.name.label",
+        "node": "Scheme.PurchaseLine.name.label",
+        "number": false,
         "textEN": "Name",
         "textES": "Nombre"
       },
       {
         "id": "100083",
-        "node": "fieldsets.Purchase.fields.date.label",
+        "node": "Scheme.Purchase.date.label",
+        "number": false,
         "textEN": "Date",
         "textES": "Fecha"
       },
       {
         "id": "100084",
-        "node": "fieldsets.Purchase.fields.dealer.label",
+        "node": "Scheme.Purchase.dealer.label",
+        "number": false,
         "textEN": "Dealer",
         "textES": "Comercio"
       },
       {
         "id": "100085",
-        "node": "fieldsets.Purchase.fields.purchaseLines.label",
+        "node": "Scheme.Purchase.purchaseLines.label",
+        "number": false,
         "textEN": "Assets",
         "textES": "Artículos"
       },
       {
         "id": "100086",
-        "node": "fieldsets.Purchase.fields.name.label",
+        "node": "Scheme.Purchase.name.label",
+        "number": false,
         "textEN": "Name",
         "textES": "Nombre"
       },
       {
         "id": "100087",
-        "node": "fieldsets.Translation.fields.node.label"
+        "node": "Scheme.Translation.node.label",
+        "number": false
       },
       {
         "id": "100088",
-        "node": "fieldsets.Translation.fields.number.label"
+        "node": "Scheme.Translation.number.label",
+        "number": false
       },
       {
         "id": "100090",
-        "node": "fieldsets.Translation.fields.textEN.label"
+        "node": "Scheme.Translation.textEN.label",
+        "number": false
       },
       {
         "id": "100092",
-        "node": "fieldsets.Translation.fields.textES.label"
+        "node": "Scheme.Translation.textES.label",
+        "number": false
       },
       {
         "id": "100093",
-        "node": "fieldsets.Translation.fields.textsEN.label"
+        "node": "Scheme.Translation.textsEN.label",
+        "number": false
       },
       {
         "id": "100094",
-        "node": "fieldsets.Translation.fields.textsES.label"
+        "node": "Scheme.Translation.textsES.label",
+        "number": false
       },
       {
         "id": "100095",
-        "node": "fieldsets.Translation.fields.label.label"
+        "node": "Scheme.Translation.label.label",
+        "number": false
       },
       {
         "id": "100096",
-        "node": "fieldsets.CSSVar.fields.name.label"
+        "node": "Scheme.CSSVar.name.label",
+        "number": false
       },
       {
         "id": "100097",
-        "node": "fieldsets.CSSVar.fields.value.label"
+        "node": "Scheme.CSSVar.value.label",
+        "number": false
       },
       {
         "id": "100098",
-        "node": "fieldsets.CSSVar.fields.format.label"
+        "node": "Scheme.CSSVar.format.label",
+        "number": false
       },
       {
         "id": "100099",
-        "node": "fieldsets.CSSVar.fields.px.label"
+        "node": "Scheme.CSSVar.px.label",
+        "number": false
       },
       {
         "id": "100100",
-        "node": "fieldsets.CSSVar.fields.color.label"
+        "node": "Scheme.CSSVar.color.label",
+        "number": false
       },
       {
         "id": "100101",
-        "node": "fieldsets.ColorShadow.fields.name.label"
+        "node": "Scheme.ColorShadow.name.label",
+        "number": false
       },
       {
         "id": "100102",
-        "node": "fieldsets.ColorShadow.fields.hue.label"
+        "node": "Scheme.ColorShadow.hue.label",
+        "number": false
       },
       {
         "id": "100103",
-        "node": "fieldsets.ColorShadow.fields.saturation.label"
+        "node": "Scheme.ColorShadow.saturation.label",
+        "number": false
       },
       {
         "id": "100104",
-        "node": "fieldsets.ColorShadow.fields.lightness.label"
+        "node": "Scheme.ColorShadow.lightness.label",
+        "number": false
       },
       {
         "id": "100105",
-        "node": "fieldsets.Fieldset.fields.name.label"
+        "node": "Scheme.Fieldset.name.label",
+        "number": false
       },
       {
         "id": "100106",
-        "node": "fieldsets.Fieldset.fields.model.label"
+        "node": "Scheme.Fieldset.model.label",
+        "number": false
       },
       {
         "id": "100107",
-        "node": "fieldsets.Fieldset.fields.fields.label"
+        "node": "Scheme.Fieldset.fields.label",
+        "number": false
       },
       {
         "id": "100108",
-        "node": "fieldsets.Field.fields.key.label"
+        "node": "Scheme.Field.key.label",
+        "number": false
       },
       {
         "id": "100109",
-        "node": "fieldsets.Field.fields.col.label"
+        "node": "Scheme.Field.col.label",
+        "number": false
       },
       {
         "id": "100110",
-        "node": "fieldsets.Field.fields.field.label"
+        "node": "Scheme.Field.field.label",
+        "number": false
       },
       {
         "id": "100111",
-        "node": "fieldsets.Field.fields.size.label"
+        "node": "Scheme.Field.size.label",
+        "number": false
       },
       {
         "id": "100112",
-        "node": "fieldsets.Field.fields.sticky.label"
+        "node": "Scheme.Field.sticky.label",
+        "number": false
       },
       {
         "id": "100113",
-        "node": "fieldsets.Field.fields.model.label"
+        "node": "Scheme.Field.model.label",
+        "number": false
       },
       {
         "id": "100114",
-        "node": "fieldsets.Field.fields.fixed.label"
+        "node": "Scheme.Field.fixed.label",
+        "number": false
       },
       {
         "id": "100115",
-        "node": "fieldsets.Field.fields.crud.label"
+        "node": "Scheme.Field.crud.label",
+        "number": false
       },
       {
         "id": "100116",
-        "node": "fieldsets.Field.fields.expand.label"
+        "node": "Scheme.Field.expand.label",
+        "number": false
       },
       {
         "id": "100117",
-        "node": "fieldsets.Field.fields.multiple.label"
+        "node": "Scheme.Field.multiple.label",
+        "number": false
       },
       {
         "id": "100118",
-        "node": "fieldsets.Field.fields.class.label"
+        "node": "Scheme.Field.class.label",
+        "number": false
       },
       {
         "id": "100119",
-        "node": "fieldsets.Field.fields.metadata.label"
+        "node": "Scheme.Field.metadata.label",
+        "number": false
       },
       {
         "id": "100120",
-        "node": "fieldsets.Field.fields.options.label"
+        "node": "Scheme.Field.options.label",
+        "number": false
       },
       {
         "id": "100121",
-        "node": "fieldsets.Field.fields.type.label"
+        "node": "Scheme.Field.type.label",
+        "number": false
       },
       {
         "id": "100122",
-        "node": "fieldsets.Field.fields.default.label"
+        "node": "Scheme.Field.default.label",
+        "number": false
       },
       {
         "id": "100123",
-        "node": "fieldsets.Field.fields.hidden.label"
+        "node": "Scheme.Field.hidden.label",
+        "number": false
       },
       {
         "id": "100124",
-        "node": "fieldsets.Field.fields.readonly.label"
+        "node": "Scheme.Field.readonly.label",
+        "number": false
       },
       {
         "id": "100125",
-        "node": "fieldsets.Field.fields.textarea.label"
+        "node": "Scheme.Field.textarea.label",
+        "number": false
       },
       {
         "id": "100127",
-        "node": "fieldsets.Field.fields.range.label"
+        "node": "Scheme.Field.range.label",
+        "number": false
       },
       {
         "id": "100128",
-        "node": "fieldsets.Field.fields.min.label"
+        "node": "Scheme.Field.min.label",
+        "number": false
       },
       {
         "id": "100129",
-        "node": "fieldsets.Field.fields.max.label"
+        "node": "Scheme.Field.max.label",
+        "number": false
       },
       {
         "id": "100130",
-        "node": "fieldsets.Field.fields.fieldset.label"
+        "node": "Scheme.Field.fieldset.label",
+        "number": false
       },
       {
         "id": "100131",
-        "node": "fieldsets.Field.fields.isComputedReadonly.label"
+        "node": "Scheme.Field.isComputedReadonly.label",
+        "number": false
       },
       {
         "id": "100132",
-        "node": "fieldsets.Field.fields.isInvent.label"
+        "node": "Scheme.Field.isInvent.label",
+        "number": false
       },
       {
         "id": "100133",
-        "node": "fieldsets.Field.fields.label.label"
+        "node": "Scheme.Field.label.label",
+        "number": false
       },
       {
         "id": "100134",
-        "node": "fieldsets.Field.fields.tab.label"
+        "node": "Scheme.Field.tab.label",
+        "number": false
       },
       {
         "id": "100145",
-        "node": "fieldsets.Translation.fields.textZeroEN.label"
+        "node": "Scheme.Translation.textZeroEN.label",
+        "number": false
       },
       {
         "id": "100147",
-        "node": "fieldsets.Translation.fields.textZeroES.label"
-      },
-      {
-        "id": "100149",
-        "node": "fieldsets.Translation.fields.textUniqueEN.label"
-      },
-      {
-        "id": "100151",
-        "node": "fieldsets.Translation.fields.textUniqueES.label"
+        "node": "Scheme.Translation.textZeroES.label",
+        "number": false
       },
       {
         "id": "100153",
-        "node": "fieldsets.Translation.fields.textMultipleEN.label"
+        "node": "Scheme.Translation.textMultipleEN.label",
+        "number": false
       },
       {
         "id": "100155",
-        "node": "fieldsets.Translation.fields.textMultipleES.label"
+        "node": "Scheme.Translation.textMultipleES.label",
+        "number": false
       },
       {
         "id": "100161",
-        "node": "fieldsets.Color.fields.value.label"
+        "node": "Scheme.Color.value.label",
+        "number": false,
+        "textEN": "color",
+        "textES": "color"
       },
       {
         "id": "100163",
-        "node": "fieldsets.Field.fields.component.label"
+        "node": "Scheme.Field.component.label",
+        "number": false
       },
       {
         "id": "100168",
-        "node": "fieldsets.File.fields.name.label"
+        "node": "Scheme.File.name.label",
+        "number": false
       },
       {
         "id": "100170",
-        "node": "fieldsets.File.fields.timestamp.label"
+        "node": "Scheme.File.timestamp.label",
+        "number": false
       },
       {
         "id": "100172",
-        "node": "fieldsets.File.fields.url.label"
+        "node": "Scheme.File.url.label",
+        "number": false
       },
       {
         "id": "100174",
-        "node": "fieldsets.File.fields.width.label"
+        "node": "Scheme.File.width.label",
+        "number": false
       },
       {
         "id": "100176",
-        "node": "fieldsets.File.fields.height.label"
+        "node": "Scheme.File.height.label",
+        "number": false
       },
       {
         "id": "100178",
-        "node": "fieldsets.File.fields.size.label"
+        "node": "Scheme.File.size.label",
+        "number": false
       },
       {
         "id": "100180",
-        "node": "fieldsets.File.fields.type.label"
+        "node": "Scheme.File.type.label",
+        "number": false
       },
       {
         "id": "100182",
-        "node": "fieldsets.File.fields.ext.label"
+        "node": "Scheme.File.ext.label",
+        "number": false
       },
       {
         "id": "100184",
-        "node": "fieldsets.File.fields.isImage.label"
+        "node": "Scheme.File.isImage.label",
+        "number": false
       },
       {
         "id": "100186",
-        "node": "fieldsets.File.fields.contents.label"
+        "node": "Scheme.File.contents.label",
+        "number": false
       },
       {
         "id": "100188",
-        "node": "fieldsets.User.fields.picture.label"
+        "node": "Scheme.User.picture.label",
+        "number": false
       },
       {
         "id": "100190",
-        "node": "fieldsets.File.fields.lastModified.label"
+        "node": "Scheme.File.lastModified.label",
+        "number": false
       },
       {
         "id": "100192",
-        "node": "fieldsets.File.fields.mime.label"
+        "node": "Scheme.File.mime.label",
+        "number": false
       },
       {
         "id": "100227",
-        "node": "fieldsets.APIUser.fields.name.label"
+        "node": "Scheme.APIUser.name.label",
+        "number": false
       },
       {
         "id": "100229",
-        "node": "fieldsets.APIUser.fields.lastName.label"
+        "node": "Scheme.APIUser.lastName.label",
+        "number": false
       },
       {
         "id": "100231",
-        "node": "fieldsets.APIUser.fields.active.label"
+        "node": "Scheme.APIUser.active.label",
+        "number": false
       },
       {
         "id": "100233",
-        "node": "fieldsets.APIUser.fields.login.label"
+        "node": "Scheme.APIUser.login.label",
+        "number": false
       },
       {
         "id": "100235",
-        "node": "fieldsets.APIUser.fields.birthDate.label"
+        "node": "Scheme.APIUser.birthDate.label",
+        "number": false
       },
       {
         "id": "100237",
-        "node": "fieldsets.APIUser.fields.color.label"
+        "node": "Scheme.APIUser.color.label",
+        "number": false
       },
       {
         "id": "100239",
-        "node": "fieldsets.APIUser.fields.picture.label"
+        "node": "Scheme.APIUser.picture.label",
+        "number": false
       },
       {
         "id": "100241",
-        "node": "fieldsets.APIUser.fields.bio.label"
+        "node": "Scheme.APIUser.bio.label",
+        "number": false
       },
       {
         "id": "100243",
-        "node": "fieldsets.APIUser.fields.colors.label"
+        "node": "Scheme.APIUser.colors.label",
+        "number": false
       },
       {
         "id": "100245",
-        "node": "fieldsets.APIUser.fields.age.label"
+        "node": "Scheme.APIUser.age.label",
+        "number": false
       },
       {
         "id": "100247",
-        "node": "fieldsets.User.fields.tone.label"
+        "node": "Scheme.User.tone.label",
+        "number": false
       },
       {
         "id": "100249",
-        "node": "fieldsets.APIUser.fields.tone.label"
+        "node": "Scheme.APIUser.tone.label",
+        "number": false
       },
       {
         "id": "100251",
-        "node": "fieldsets.File.fields.image.label"
+        "node": "Scheme.File.image.label",
+        "number": false
       },
       {
         "id": "100254",
-        "node": "fieldsets.Field.fields.filterable.label"
+        "node": "Scheme.Field.filterable.label",
+        "number": false
       },
       {
         "node": "filters.operators.like",
+        "number": false,
         "textEN": "includes",
         "textES": "contiene"
       },
       {
         "node": "filters.operators.between",
+        "number": false,
         "textEN": "between",
         "textES": "entre"
       },
       {
         "node": "filters.operators.equalTo",
-        "textEN": "=",
-        "textES": "="
+        "number": false,
+        "textEN": "equal to",
+        "textES": "igual a"
       },
       {
         "node": "filters.operators.lessThan",
-        "textEN": "<",
-        "textES": "<"
+        "number": false,
+        "textEN": "less than",
+        "textES": "menor que"
       },
       {
         "node": "filters.operators.greaterThan",
-        "textEN": ">",
-        "textES": ">"
+        "number": false,
+        "textEN": "greater than",
+        "textES": "mayor que"
       },
       {
         "node": "filters.operators.lessThanOrEqualTo",
-        "textEN": "<=",
-        "textES": "<="
+        "number": false,
+        "textEN": "less than or equal to",
+        "textES": "igual o menor que"
       },
       {
         "node": "filters.operators.greaterThanOrEqualTo",
-        "textEN": ">=",
-        "textES": ">="
+        "number": false,
+        "textEN": "greater than or equal to",
+        "textES": "igual o mayor que"
+      },
+      {
+        "id": "100374",
+        "node": "Scheme.Field.formater.label",
+        "number": false
+      },
+      {
+        "node": "Scheme.Asset.unitBase.options.units",
+        "number": false,
+        "textEN": "units",
+        "textES": "unidades"
+      },
+      {
+        "node": "Scheme.Asset.unitBase.options.kg",
+        "number": false,
+        "textEN": "kg",
+        "textES": "kg"
+      },
+      {
+        "id": "100376",
+        "node": "Scheme.Translation.textUniqueEN.label",
+        "number": false
+      },
+      {
+        "id": "100378",
+        "node": "Scheme.Translation.textUniqueES.label",
+        "number": false
+      },
+      {
+        "node": "filters.operators.before",
+        "number": false,
+        "textEN": "before",
+        "textES": "anterior a"
+      },
+      {
+        "node": "filters.operators.after",
+        "number": false,
+        "textEN": "after",
+        "textES": "posterior a"
+      },
+      {
+        "node": "filters.operators.beforeOrEqualTo",
+        "number": false,
+        "textEN": "before or equal to",
+        "textES": "igual o anterior a"
+      },
+      {
+        "node": "filters.operators.afterOrEqualTo",
+        "number": false,
+        "textEN": "after or equal to",
+        "textES": "igual o posterior a"
       }
     ]
   }

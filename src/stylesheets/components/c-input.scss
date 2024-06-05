@@ -18,7 +18,7 @@
   box-shadow: var(--box-shadow--inset);
   // flex-grow: 1; // <----
   #{$hoverSelector}, #{$focusSelector} {
-    border-color: var(--color--light-1);
+    border-color: var(--color--pale-2);
     z-index: 1;
   }
   #{$focusSelector} {

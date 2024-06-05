@@ -19,6 +19,10 @@ export default class User extends Scheme {
   static { this.install() }
 
   static computed = () => ({
+    tone: {
+      col: false,
+      field: false
+    },
     age: {
       type: Number,
       hidden: (entity) => !entity.birthDate
@@ -52,7 +56,9 @@ export default class User extends Scheme {
     },
     picture: {
       class: File,
-      multiple: true
+      filterable: false,
+      multiple: true,
+      col: false
     },
     bio: {
       textarea: true
@@ -61,7 +67,9 @@ export default class User extends Scheme {
       class: Color,
       multiple: true,
       metadata: true,
-      crud: true
+      tab: true,
+      crud: true,
+      col: false
     }
   })
 }

@@ -1,33 +1,32 @@
-.c-radio, input[type="radio"] {
-  color: var(--color--light-3);
-  box-shadow: 0 0 2px 1px rgb(0 0 0 / 10%) inset;
+.c-switch {
+  color: var(--color--pale-1);
   display: inline-flex;
   appearance: none;
   background-color: currentColor;
+  box-shadow: 0 0 2px 1px rgb(0 0 0 / 10%) inset;
   margin: 0;
-  width: 16px !important;
-  height: 16px !important;
+  min-width: 28px;
+  min-height: 16px;
+  max-width: 28px;
+  max-height: 16px;
   border: 1px solid var(--color--pale-2);
-  border-radius: 100px;
+  border-radius: 16px;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
   cursor: pointer;
-  vertical-align: text-bottom;
-  line-height: 1em;
-  align-self: center;
-
+  // align-self: center; // <----
   &::after {
     content: '';
     display: block;
-    height: 6px;
-    width: 6px;
+    height: 10px;
+    width: 10px;
     border-radius: 10px;
-    background-color: transparent;
-    margin-left: 4px;
-    transition: background-color 60ms ease-in-out;
+    background-color: var(--color--white);
+    margin-left: 3px;
+    transition: all 60ms ease-in-out;
   }
   #{$hoverSelector} {
     color: var(--color--light-2);
@@ -35,26 +34,31 @@
   #{$focusSelector} {
     background-color: var(--color--primary--light-2);
   }
-  &:checked {
+  &:checked, &[checked] {
     color: var(--color--primary--dark-1);
-    // border-style: none;
-    &::after {
-      background-color: var(--color--white);
-    }
     #{$hoverSelector} {
       color: var(--color--primary);
     }
     #{$focusSelector} {
       background-color: var(--color--primary);
     }
+    &::after {
+      margin-left: 13px;
+    }
   }
   #{$disabledSelector} {
     cursor: not-allowed;
-    color: var(--color--default-pale-1);
+    color: var(--color--pale-1);
   }
   #{$disabledSelector} {
-    &:checked {
+    &:checked, &[checked] {
       color: var(--color--primary--pale-1);
     }
+  }
+}
+
+label {
+  > .c-switch {
+    margin-right: var(--spacing-m);
   }
 }

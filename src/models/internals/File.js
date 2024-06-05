@@ -33,7 +33,8 @@ export default class File extends Scheme {
 
   static computed = () => ({
     contents: {
-      textarea: true
+      textarea: true,
+      col: false
     },
     image: {
       class: File,
