@@ -21,7 +21,7 @@
         </label>
         <label><input type="checkbox" v-model="palette.inlineExpand" class="c-checkbox">Inline expand</label>
         -->
-        <label><input type="checkbox" v-model="palette.showBoth" class="c-checkbox"><i class="fi fi-rr-table-columns">&nbsp;</i>Treeview</label>
+        <label><input type="checkbox" v-model="palette.showBoth" class="c-switch"><i class="fi fi-rr-table-columns">&nbsp;</i>Treeview</label>
         <button class="c-action t-primary v-semi" @click="save" type="button">Save staticDB</button>
       </div>
     </div>
