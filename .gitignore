@@ -1,4 +1,5 @@
 dist/
 coverage/
+data/sqlite
 node_modules/
 .Whiteboard*.md

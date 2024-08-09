@@ -1,38 +1,37 @@
 <template>
   <div
     ref="emergentHook"
-    class="c-selector-option"
+    class="fds-c-selector-option"
     @mouseenter="onMouseEnter"
+    @focusin="open"
+    @mouseleave="close"
   >
     <span
       ref="option"
-      class="c-selector-option__handler c-option c-action"
-      :class="{'c-selector-option--danger': danger}"
+      class="fds-c-selector-option__handler fds-c-option fds-c-action"
+      :class="{'fds-c-selector-option--danger': danger}"
       tabindex="0"
-      :active="active"
+      :selected="selected"
       @click.stop.prevent="select"
       @keydown.space.stop.prevent="select"
       @keydown.enter.stop.prevent="select"
-      @mouseenter="activate"
-      @mouseleave="deactivate"
-      @focus="activate"
-      @blur="deactivate"
+      @mouseenter="focus"
     >
-      <span class="c-selector-option__prepend">
+      <span class="fds-c-selector-option__prepend">
         <div
           v-if="multiple"
-          class="c-checkbox"
+          class="fds-c-checkbox"
           :checked="selected"
           :indeterminate="options && !selection.complete"
         ></div>
       </span>
-      <span class="c-selector-option__contents"><slot></slot></span>
-      <span class="c-selector-option__append">
-        <span v-if="multiple && options" class="c-selector-option__counter c-chip">{{ selection.count }}/{{ selection.total }}</span>
-        <span v-if="options" class="c-selector-option__arrow fi fi-rr-angle-small-right"></span>
+      <span class="fds-c-selector-option__contents"><slot></slot></span>
+      <span class="fds-c-selector-option__append">
+        <span v-if="multiple && options" class="fds-c-selector-option__counter fds-c-chip">{{ selection.count }}/{{ selection.total }}</span>
+        <span v-if="options" class="fds-c-selector-option__arrow fi fi-rr-angle-small-right"></span>
       </span>
     </span>
-    <div v-if="this.$slots.options" ref="emergent" class="c-emergent">
+    <div v-if="this.$slots.options" ref="emergent" class="fds-c-emergent">
       <slot name="options"></slot>
     </div>
   </div>
@@ -44,7 +43,10 @@ import Selector from './Selector'
 import Emergent from '#services/Emergent'
 
 export default {
-  name: 'SelectorOption',
+  name: 'FrontboardSelectorOption',
+
+  components: {
+  },
 
   props: {
     danger: Boolean,
@@ -55,7 +57,6 @@ export default {
   },
 
   data: () => ({
-    active: false,
     selector: undefined,
     emergent: new Emergent()
   }),
@@ -71,6 +72,7 @@ export default {
       config: {
         spacing: -6,
         aside: true
+        // automaticMouseHandling: true
       }
     })
   },
@@ -81,17 +83,14 @@ export default {
 
   methods: {
     onMouseEnter () {
+      /*
       if (!this.selector.keyboardNavigated) {
         this.open()
       }
+      */
     },
-    activate () {
-      this.open()
-      this.active = true
+    focus () {
       this.$refs.option.focus()
-    },
-    deactivate () {
-      this.active = false
     },
     open () {
       if (!this.emergent.opened && this.$slots.options) {

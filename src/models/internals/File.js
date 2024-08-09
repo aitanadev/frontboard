@@ -1,6 +1,6 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 
-export default class File extends Scheme {
+export default class File extends Entity {
   constructor(data) {
     const self = super().mount(data)
     if (data.contents) self.contents = data.contents
@@ -33,7 +33,8 @@ export default class File extends Scheme {
 
   static computed = () => ({
     contents: {
-      textarea: true
+      textarea: true,
+      col: false
     },
     image: {
       class: File,
@@ -44,7 +45,8 @@ export default class File extends Scheme {
 
   static schema = () => ({
     name: {
-      default: ''
+      default: '',
+      sticky: 'left'
     },
     lastModified: {
       type: Date

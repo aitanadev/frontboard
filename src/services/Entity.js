@@ -1,9 +1,8 @@
 import '#lib/prototype'
 import APP from '#services/APP'
-import API from '#services/API'
-import Axios from 'axios'
+import i18n from '#services/i18n'
 
-class Scheme {
+class Entity {
   constructor() {
     if (!this.Class.initialized) {
       if (!this.Class.installed) {
@@ -24,6 +23,7 @@ class Scheme {
   #removed = false
   #formObject = undefined
   #fields = undefined
+  $dataset
 
   get [Symbol.toStringTag]() {
     return 'Object'
@@ -35,6 +35,10 @@ class Scheme {
 
   get uid() {
     return this.Class.name + '#' + this.#uid
+  }
+
+  get $label() {
+     return this.name || this.title || this.label || this.value || this.description || this.toId()
   }
 
   get $searchText() {
@@ -49,8 +53,16 @@ class Scheme {
     return this.#parent
   }
 
+  get $formObject() {
+    return this.#formObject
+  }
+
   get $removed() {
     return this.#removed
+  }
+
+  get $actions() {
+    return this.Class.actions.filter(action => action.single)
   }
 
   get $fields() {
@@ -80,7 +92,7 @@ class Scheme {
     const dataId = data ? data.id : input
     const id = typeof dataId === 'number' ? dataId.toString() : dataId
 
-    if (data && Scheme.isScheme(data)) {
+    if (data && Entity.isEntity(data)) {
       if (Class.config.freeze) {
         this.#parent = data
       } else {
@@ -103,7 +115,7 @@ class Scheme {
 
     if (id) this.id = id
 
-    const parsedData = Scheme.isScheme(data) ? data.parse() : data
+    const parsedData = Entity.isEntity(data) ? data.parse() : data
     this.fill(parsedData, true)
     const instance = Object.seal(window.$Vue ? window.$Vue.observable(this) : this)
 
@@ -114,8 +126,8 @@ class Scheme {
   fill(input = {}, overwrite) {
     const Class = this.Class
 
-    if (typeof input !== 'object') throw new Error('Mue.fill() input need to be a object, at ' + this.toId())
-    // if (Scheme.isScheme(input)) throw new Error('Mue.fill() input can´t be a Scheme instance, at ' + this.toId())
+    if (typeof input !== 'object') throw new Error('Entity.fill() input need to be a object, at ' + this.toId())
+    // if (Entity.isEntity(input)) throw new Error('Entity.fill() input can´t be a Entity instance, at ' + this.toId())
 
     // console.log('fill', this.#parent ? 'form' : 'entity', input, overwrite)
 
@@ -128,11 +140,11 @@ class Scheme {
       const value = inputPropName ? input[inputPropName] : undefined
       const isNull = value === null || value === undefined
       if (!isNull) {
-        // if (Scheme.isScheme(input) && Scheme.isScheme(value) && !value.id) {
+        // if (Entity.isEntity(input) && Entity.isEntity(value) && !value.id) {
           // this[propName] = new value.Class(value.Class.contructorParam ? value.value : value.parse())
         // } else {
         // console.log('---> fill prpp:', propName, value)
-          this[propName] = value // Scheme.parse(value)
+          this[propName] = value // Entity.parse(value)
         // }
       } else if (overwrite) {
         const propConfig = Class.data[propName]
@@ -144,6 +156,9 @@ class Scheme {
       }
     }
     this.#filling = false
+    if (overwrite && this.#formObject) {
+      this.#formObject.reset()
+    }
 
     this.notify()
 
@@ -154,7 +169,7 @@ class Scheme {
     const contructorParam = descriptor.class.length === 1 && descriptor.class[0].contructorParam
     let instance
 
-    if (Scheme.isScheme(input)) {
+    if (Entity.isEntity(input)) {
       instance = input
     } else if (contructorParam) {
       const Class = descriptor.class[0]
@@ -163,9 +178,9 @@ class Scheme {
       const Class = descriptor.class[0] // review
       instance = new Class(input)
     } else if (descriptor.metadata) {
-      instance = Scheme.resolve(input, true)
+      instance = Entity.resolve(input, true)
     } else {
-      instance = Scheme.resolve(input)
+      instance = Entity.resolve(input)
     }
 
     // this.log('relationship', {descriptor, input, instance})
@@ -180,16 +195,16 @@ class Scheme {
   parse() {
     // TODO: Avoid to transform no-id entities to handle as metadata
     const parsed = Object.transform(this, prop => {
-      if (Object.keys(this.Class.schema).includes(prop.key) || prop.key === 'id' || prop.key === 'type') {
+      if (Object.keys(this.Class.schema).includes(prop.key) || prop.key === 'id' || prop.key === '$type') {
         if (typeof prop.value === 'object' && prop.value.constructor.name === 'Date') prop.value = prop.value.toUTCString()
 
-        const stringified = Scheme.stringify(prop.value, this.Class.data[prop.key]?.metadata)
+        const stringified = Entity.stringify(prop.value, this.Class.data[prop.key]?.metadata)
         prop.value = stringified ? JSON.parse(stringified) : undefined
         return prop
       }
     })
 
-    if (this.Class.name === 'File' && window.schemeSaveFilesFlag) parsed.contents = this.contents
+    if (this.Class.name === 'File' && window.entitySaveFilesFlag) parsed.contents = this.contents
 
     return parsed
   }
@@ -197,7 +212,7 @@ class Scheme {
   getFormObject() {
     const Class = this.Class
     // if (!Class.config.freeze) throw new Error('Generate Form object not available for not frozen instances, at' + this.toId())
-    if (this.#parent && !this.#formObject) throw new Error('Generate Form object not available for already Form instances, at' + this.toId())
+    if (this.#parent && this.#parent !== this) throw new Error('Generate Form object not available for already Form instances, at' + this.toId())
     if (!this.#formObject) {
       this.#formObject = new Class.FormClass(this)
     } else {
@@ -228,12 +243,13 @@ class Scheme {
   }
   */
 
-  async create(payload) {
+  /* */
+  async create(payload, api) {
     if (!payload) payload = this
     console.log('Making PUT', payload)
-    if (this.Class.sqlite) {
-      const table = 'api-users'
-      const response = await API.put(`sqlite/${table}/`, { payload: JSON.stringify(payload) }, {
+    if (api) {
+      const table = this.Class.plural.toKebabCase()
+      const response = await APP.EntityAPI.put(`sqlite/${table}/`, { payload: JSON.stringify(payload) }, {
         headers: {
         'Content-Type': 'multipart/form-data'
         }
@@ -243,18 +259,18 @@ class Scheme {
       console.log('PUT response', response)
       payload.id = lastID
     } else {
-      payload.id = Scheme.UidIndex++
+      payload.id = Entity.UidIndex++
     }
     return this.apply(payload)
   }
 
-  async update(payload) {
+  async update(payload, api) {
     if (!payload) payload = this
     console.log('Making PATCH', this, payload)
-    if (this.Class.sqlite) {
+    if (api) {
       payload.id = this.id
-      const table = 'api-users'
-      const response = await API.patch(`sqlite/${table}/` + this.id, { payload: JSON.stringify(payload) }, {
+      const table = this.Class.plural.toKebabCase()
+      const response = await APP.EntityAPI.patch(`sqlite/${table}/` + this.id, { payload: JSON.stringify(payload) }, {
         headers: {
         'Content-Type': 'multipart/form-data'
         }
@@ -267,27 +283,28 @@ class Scheme {
     // TODO: extract
     /* *
     const endpoint = [Class.endpoint, this.id].pathJoin()
-    return API.put(endpoint, payload).then(response => {
-      Scheme.populate(response.data, response.data.includes)
+    return APP.EntityAPI.put(endpoint, payload).then(response => {
+      Entity.populate(response.data, response.data.includes)
       this.reset()
     })
     /* */
   }
 
-  async delete() {
-    if (this.#parent && !this.#formObject) throw new Error('Form object can not delete directly')
+  async delete(api) {
+    if (this.#parent && this.#parent !== this) throw new Error('Form object can not delete directly')
     // if (!this.id) throw new Error('Can´t delete no-id entity')
 
     console.log('Making DELETE', this)
-    if (this.Class.sqlite) {
-      const table = 'api-users'
-      const response = await API.delete(`sqlite/${table}/` + this.id)
+    if (api) {
+      const table = this.Class.plural.toKebabCase()
+      const response = await APP.EntityAPI.delete(`sqlite/${table}/` + this.id)
       console.log('DELETE response', response)
     }
     this.#removed = true
     // TODO: review and remove, implement outside
     // TODO, remove from caché.
   }
+  /* */
 
   getMutation() {
     if (!this.#parent) throw new Error('Only Form object can save')
@@ -295,7 +312,7 @@ class Scheme {
     // if (this.id) {
       const payload = {}
       for (const propName in parsed) {
-        if (Scheme.stringify(this.#parent[propName]) !== Scheme.stringify(this[propName])) {
+        if (Entity.stringify(this.#parent[propName]) !== Entity.stringify(this[propName])) {
           // const snakeCasedPropName = propName.toSnakeCase()
           payload[propName] = parsed[propName]
         }
@@ -310,22 +327,35 @@ class Scheme {
     // }
   }
 
-  async save() {
+  async save(api) {
     if (!this.#parent) throw new Error('Only Form object can save')
-    window.schemeSaveFilesFlag = true
+    window.entitySaveFilesFlag = true
     const payload = this.getMutation()
-    window.schemeSaveFilesFlag = false
+    window.entitySaveFilesFlag = false
     if (this.id) {
       if (!payload) {
         console.info('· No changes', this)
         return Promise.resolve()
       } else {
-        console.info('· saved!', this, payload)
-        return await this.update(payload)
+        console.info('· Saved!', this, payload)
+        return await this.update(payload, api)
       }
     } else {
-      console.info('· creating', this)
-      return await this.create(payload)
+      console.info('· Creating', this)
+      return await this.create(payload, api)
+    }
+  }
+
+  remove() {
+    if (this.#parent && this.#parent !== this) throw new Error('Form object can not be deleted')
+
+    const Class = this.Class
+    const cache = Class.cache
+    const index = cache.indexOf(this)
+    if (index >= 0) {
+      console.log('· Removed cache index', Class.name, index, this)
+      cache.splice(index, 1)
+      this.#removed = true
     }
   }
 
@@ -393,15 +423,11 @@ class Scheme {
   }
 
   toString() {
-    return this.getLabel()
+    return this.$label
   }
 
   toId() {
     return this.Class.name + '[' + (this.id ?? '') + ']'
-  }
-
-  getLabel() {
-     return this.name || this.title || this.label || this.value || this.description || this.toId()
   }
 
   warn(message, ...params) {
@@ -423,11 +449,11 @@ class Scheme {
 
   static resolve(input = {}, fill) {
     // console.log('resolve', input, fill)
-    if (Scheme.isScheme(input)) return input
+    if (Entity.isEntity(input)) return input
     if (!input.id) throw new Error('Missing id value')
-    if (!input.type) throw new Error('Missing type value')
-    const className = input.type
-    const Class = Scheme.models[className]
+    if (!input.$type && !input.type && !input.resource_type) throw new Error('Missing type value')
+    const className = (input.resource_type || input.$type || input.type).toCamelCase().capitalize()
+    const Class = Entity.models[className]
     if (!Class) throw new Error('Uninitialized class: ' + className)
 
     return new Class(fill ? input : input.id)
@@ -435,13 +461,13 @@ class Scheme {
 
   static stringify(input, metadata) {
     return JSON.stringify(input, (key, value) => {
-      if (Scheme.isScheme(value)) {
+      if (Entity.isEntity(value)) {
         if (value.Class.contructorParam) {
           return value.value
         } else if (metadata) {
           return value.parse()
         } else {
-          return { id: value.id, type: value.Class.name }
+          return { id: value.id, $type: value.Class.name }
         }
       }
       return value
@@ -451,17 +477,19 @@ class Scheme {
   static install() {
     const Class = this
     Class.installed = true
-    Scheme.models[Class.name] = Class
+    Entity.models[Class.name] = Class
   }
 
   static initializeFields() {
     const Class = this
-    if (Class === Scheme) {
-      const models = Object.values(Scheme.models)
+    if (Class === Entity) {
+      const classNames = Object.keys(Entity.models)
+      const models = Object.values(Entity.models)
 
-      const fieldsets = Scheme.models.Fieldset.cache
+      const fieldsets = Entity.models.Fieldset.cache
+
       models.forEach(Class => {
-        const fieldset = fieldsets.find(fieldset => fieldset.name === Class.name) || new Scheme.models.Fieldset({id: Scheme.UidIndex++, name: Class.name})
+        const fieldset = fieldsets.find(fieldset => fieldset.name === Class.name) || new Entity.models.Fieldset({id: Entity.UidIndex++, name: Class.name})
         fieldset.model = Class
         Object.values({...Class.data, ...Class.computed}).map(fieldConfig => {
           // console.log('---->>>>>>>', fieldConfig.key)
@@ -470,28 +498,58 @@ class Scheme {
             return fieldsetField.key === fieldConfig.key
           })
           // console.log('new field for', {fieldConfig, exist, fieldset})
-          const field = exist || new Scheme.models.Field(Scheme.UidIndex++)
+          const field = exist || new Entity.models.Field(Entity.UidIndex++)
           field.model = Class
 
-          // console.log('set fieldser', field, fieldset)
+          // console.log('set fieldset', field, fieldset)
           if (!exist) {
             // console.log('not exist')
             fieldset.fields.push(field)
           }
           field.fill(fieldConfig)
           field.component = fieldConfig.component
-          // User.fields.name.label
-          const fieldsetTranslations = APP.databases.translations.collections.fieldsets.data
-          const fieldTranslation = fieldsetTranslations.find(translation => translation.dotText === `${Class.name}.fields.${field.key}.label`)
+
+          const node = `Entity.${Class.name}.${field.key}.label`
+          // console.log('node', node)
+          const translations = APP.translations
+          const fieldTranslation = translations.find(translation => translation.node === node)
           if (!fieldTranslation) {
-            const dotText = `${Class.name}.fields.${field.key}.label`
-            fieldsetTranslations.push(new Scheme.models.Translation({id: Scheme.UidIndex++, dotText}))
+            new Entity.models.Translation({id: Entity.UidIndex++, node}) // eslint-disable-line no-new
           }
 
           field.fieldset = fieldset
           return field
         })
         Class.fieldset = fieldset
+      })
+      // clean up
+      const cacheCopy = [...Entity.models.Field.cache]
+      cacheCopy.forEach(field => {
+        // console.log('field', field)
+        // const Class = field.model
+        // const exist = Object.keys({...Class.data, ...Class.computed}).includes(field.key)
+        if (!field.model) {
+          fieldsets.forEach(fieldset => {
+            const fields = fieldset.fields
+            const newFields = [...fields]
+            const index = fields.indexOf(field)
+            if (index >= 0) {
+              console.log('· Removed Field index', fieldset.name, index, field)
+              newFields.splice(index, 1)
+            }
+            if (fields.length !== newFields.length) fieldset.fields = newFields // <----
+          })
+          field.remove() // <---
+        }
+      })
+
+      const fieldsetsCopy = [...fieldsets]
+      fieldsetsCopy.forEach((fieldset, index) => {
+        if (!fieldset.model) {
+          console.log('· Removed Fieldset', fieldset.name)
+          fieldset.remove()
+          // fieldsets.splice(index, 1)
+        }
       })
     }
   }
@@ -503,8 +561,9 @@ class Scheme {
   static initialize() {
     const Class = this
 
-    if (Class === Scheme) {
-      const models = Object.values(Scheme.models)
+    if (Class === Entity) {
+      // console.warn('initializing')
+      const models = Object.values(Entity.models)
       models.forEach(Class => Class.initialize())
       return
     }
@@ -517,8 +576,9 @@ class Scheme {
       freeze: true
     }
 
-    Class.cache = []
+    Class.cache = [] // TODO: migrate to use 'new Set()', and review the rest of elegible cases for big sets and maps
     Class.all = []
+    Class.actions = Class.actions || []
     Class.counter = 0
     Class.schema = Class.schema()
     Class.config = Object.assign(configDefaults, Class.config || {})
@@ -529,9 +589,41 @@ class Scheme {
     /*
     const data = Class.data?.() || {}
     for (const propName in data) {
-      if (Class.schema[propName]) throw new Error('Scheme duplicated property ' + Class + '[' + propName + ']')
+      if (Class.schema[propName]) throw new Error('Entity duplicated property ' + Class + '[' + propName + ']')
     }
     */
+
+    Class.actions.push({ // new Action
+      key: 'delete',
+      single: true,
+      bulk: true,
+      component: 'DeleteAction',
+      label: i18n('common.delete'),
+      icon: 'rr-trash',
+      bind: {
+        class: ['t-error', 'v-semi'].join(' ')
+      },
+      for(context) {
+        const action = {...this}
+        if (Array.isArray(context)) {
+          action.entities = context
+        } else {
+          action.entity = context
+        }
+        return action
+      }
+    })
+
+    Class.actions.push({ // new Action
+      key: 'new',
+      global: true,
+      component: 'AddNewAction',
+      label: i18n('common.addNew', { name: i18n(`Entity.${Class.name}`, 1, Class.name.toLowerCase()) }),
+      icon: 'rr-plus',
+      bind: {
+        class: ['t-primary', 'v-semi'].join(' ')
+      }
+    })
 
     const i18nProps = {}
     for (const propName in Class.schema) {
@@ -558,7 +650,7 @@ class Scheme {
 
     Class.methods = []
     Class.listeners = Class.listeners || {}
-    Class.plural = Scheme.pluralize(Class.name)
+    Class.plural = Entity.pluralize(Class.name)
     Class.endpoint = Class.endpoint || Class.plural
 
     Class.descriptors.id = {
@@ -578,7 +670,7 @@ class Scheme {
     }
 
     /* */
-    Class.descriptors.type = {
+    Class.descriptors.$type = {
       configurable: true,
       enumerable: true,
       get() {
@@ -595,7 +687,7 @@ class Scheme {
       const propConfig = Class.data[propName]
 
       if (descriptor.set && !descriptor.get) {
-        throw new Error('Scheme properties needs a getter if has a setter, at ' + Class + '[' + propName + ']')
+        throw new Error('Entity properties needs a getter if has a setter, at ' + Class + '[' + propName + ']')
       }
 
       propConfig.key = propName
@@ -706,12 +798,12 @@ class Scheme {
 
   static populate(input, includes) {
     if (includes) {
-      includes.forEach(include => Scheme.resolve(include, true))
+      includes.forEach(include => Entity.resolve(include, true)) // TODO: Add support to only fill, without overwrite effect form-reset
     }
     if (Array.isArray(input)) {
-      return input.map(input => Scheme.resolve(input, true))
+      return input.map(input => Entity.resolve(input, true))
     } else {
-      return Scheme.resolve(input, true)
+      return Entity.resolve(input, true)
     }
   }
 
@@ -719,23 +811,23 @@ class Scheme {
 
   static fetchEntityHandler(endpoint, params = {}) {
     // TODO: review and remove, implement outside
-    return API.get(endpoint, {params})
+    return APP.EntityAPI.get(endpoint, {params})
   }
 
   static fetchEntitiesHandler(endpoint, params = {}) {
     // TODO: review and remove, implement outside
-    return API.get(endpoint, {params})
+    return APP.EntityAPI.get(endpoint, {params})
   }
 
   static fetchEntityParser(payload) {
     // TODO: review and remove, implement outside
-    const entity = Scheme.populate(payload.data, payload.data.includes)
+    const entity = Entity.populate(payload.data, payload.data.includes)
     return entity
   }
 
   static fetchEntitiesParser(payload) {
     // TODO: review and remove, implement outside
-    const list = Scheme.populate(payload.data.entries, payload.data.includes)
+    const list = Entity.populate(payload.data.entries, payload.data.includes)
     list.totalEntries = payload.data.total_entries // || list.length
     return list
   }
@@ -752,7 +844,7 @@ class Scheme {
 
   static retrieve(id, params = {}) {
     const Class = this
-    if (!id) throw new Error('Scheme.get requires an id, received "' + id + '"')
+    if (!id) throw new Error('Entity.get requires an id, received "' + id + '"')
     const endpoint = [Class.endpoint, id].pathJoin()
     return Class.fetchEntity(endpoint, params)
   }
@@ -769,7 +861,7 @@ class Scheme {
   static searchIn(searchText, collection) {
     const Class = this
     if (!collection) {
-      if (!Class.cache) throw new Error('Scheme.searchIn needs a collection param')
+      if (!Class.cache) throw new Error('Entity.searchIn needs a collection param')
       collection = Class.cache
     }
     const filter = searchText && searchText.length > 0
@@ -779,9 +871,9 @@ class Scheme {
   /* TODO: review and remove
   static search(searchText, params) {
     const Class = this
-    return API.get(Class.endpoint, {params: {q: searchText, expand: 'title, title_group', ...params}}).then(response => {
+    return APP.EntityAPI.get(Class.endpoint, {params: {q: searchText, expand: 'title, title_group', ...params}}).then(response => {
       const entries = response.data.entries.map(entry => entry.title)
-      return Scheme.populate(entries, response.data.includes)
+      return Entity.populate(entries, response.data.includes)
     })
   }
   */
@@ -789,17 +881,17 @@ class Scheme {
   static plurals = []
 
   static singularize(string) {
-    const exist = Scheme.plurals.find(entry => entry[1] === string)
+    const exist = Entity.plurals.find(entry => entry[1] === string)
     return exist ? exist[0] : string.replace(/ies$/, '').replace(/s$/, '')
   }
 
   static pluralize(string) {
-    const exist = Scheme.plurals.find(entry => entry[0] === string)
+    const exist = Entity.plurals.find(entry => entry[0] === string)
     return exist ? exist[1] : (string.replace(/y$/, 'ie') + 's')
   }
 
-  static isScheme(input) {
-    return Scheme.prototype.isPrototypeOf(input)
+  static isEntity(input) {
+    return Entity.prototype.isPrototypeOf(input)
   }
 
   static toString() {
@@ -807,8 +899,8 @@ class Scheme {
   }
 }
 
-// For fundamental checks on runtime when working on Scheme library
-class SchemeTest extends Scheme {
+// For fundamental checks on runtime when working on Entity library
+class EntityTest extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -851,7 +943,7 @@ class SchemeTest extends Scheme {
     const noError = new Error('noError')
     const eventCalls = []
 
-    const mueTest = window.mueTest = new SchemeTest()
+    const mueTest = window.mueTest = new EntityTest()
 
     mueTest.once('notify', () => {
       eventCalls.push('notify')
@@ -924,14 +1016,14 @@ class SchemeTest extends Scheme {
       }
     })
 
-    const mueTestFilled = window.mueTestFilled = new SchemeTest({id: 123, name: 'Filled', code: 'filledCode'})
+    const mueTestFilled = window.mueTestFilled = new EntityTest({id: 123, name: 'Filled', code: 'filledCode'})
     block('Initialization with some data input', error => {
       if (mueTestFilled.name !== 'Filled') error('Prop value initialization')
       if (mueTestFilled.id !== '123') error('Prop id initialization')
       if (mueTestFilled.computedProp !== '_filledCode') error('Read computed')
     })
 
-    const mueTestReFilled = window.mueTestFilled = new SchemeTest({id: 123, name: 'reFilled'})
+    const mueTestReFilled = window.mueTestFilled = new EntityTest({id: 123, name: 'reFilled'})
     block('Re instantiation with some data input', error => {
       if (mueTestFilled !== mueTestReFilled) error('ID-Singletone runs ok')
       if (mueTestReFilled.name !== 'reFilled') error('Prop value initialization')
@@ -948,7 +1040,7 @@ class SchemeTest extends Scheme {
       if (mueTestReFilled.computedProp !== '_refilledCode') error('Read updated computed')
     })
 
-    const mueTestReinstance = window.mueTestReinstance = new SchemeTest(123)
+    const mueTestReinstance = window.mueTestReinstance = new EntityTest(123)
     block('Re instantiation without data input', error => {
       if (mueTestFilled !== mueTestReinstance) error('ID-Singletone runs ok')
       if (mueTestReinstance.name !== 'reFilled') error('Prop value initialization')
@@ -956,7 +1048,7 @@ class SchemeTest extends Scheme {
       if (mueTestReinstance.computedProp !== '_refilledCode') error('Read computed')
     })
 
-    if (showSucces) console.log('Scheme tests done, all ok!')
+    if (showSucces) console.log('Entity tests done, all ok!')
     return true
   }
 
@@ -988,9 +1080,9 @@ class SchemeTest extends Scheme {
   }
 }
 
-// if (APP.isDevelopment) SchemeTest.test()
+// if (APP.isDevelopment) EntityTest.test()
 
-export default Scheme
+export default Entity
 export {
-  SchemeTest
+  EntityTest
 }

@@ -29,7 +29,7 @@ class Emergent {
   }
 
   get openClass () {
-    return this.#config.openClass ?? 'c-emergent--open'
+    return this.#config.openClass ?? 'fds-c-emergent--open'
   }
 
   sync (syncData = {}) {
@@ -42,6 +42,7 @@ class Emergent {
 
     if (config.automaticMouseHandling && hook && element) {
       this.onMouseEnter = () => {
+        // console.warn('----> enter', event)
         if (this.#delayTimeout) clearTimeout(this.#delayTimeout)
         if (!this.opened) {
           this.#delayTimeout = setTimeout(() => {
@@ -49,7 +50,13 @@ class Emergent {
           }, Emergent.mouseEnterDelay)
         }
       }
-      this.onMouseLeave = () => {
+      /* */
+      this.onMouseLeave = (event) => {
+        if (this.#hook.contains(event.relatedTarget) || this.#element.contains(event.relatedTarget)) {
+          clearTimeout(this.#delayTimeout)
+          return
+        }
+        // console.warn('<--- leave ', event, this.#hook)
         if (this.#delayTimeout) clearTimeout(this.#delayTimeout)
         if (this.opened) {
           this.#delayTimeout = setTimeout(() => {
@@ -57,13 +64,22 @@ class Emergent {
           }, Emergent.mouseLeaveDelay)
         }
       }
+      /* */
 
       hook.addEventListener('mouseenter', this.onMouseEnter)
       hook.addEventListener('mouseleave', this.onMouseLeave)
       element.addEventListener('mouseenter', this.onMouseEnter)
       element.addEventListener('mouseleave', this.onMouseLeave)
     }
+    if (element) {
+      element.addEventListener('scroll', this.stopPropagation)
+      element.addEventListener('wheel', this.stopPropagation)
+    }
     return this
+  }
+
+  stopPropagation(event) {
+    event.stopPropagation()
   }
 
   notify () {
@@ -71,10 +87,12 @@ class Emergent {
   }
 
   open () {
-    if (this.opened) return
+    if (this.#opened) return
+    if (this.#delayTimeout) clearTimeout(this.#delayTimeout)
+
     const stack = Emergent.#stack
     stack.forEach(emerged => {
-      if (!emerged.element.contains(this.#element)) {
+      if (!emerged.element.contains(this.#element) && !emerged.element.contains(this.#hook)) {
         emerged.close()
       }
     })
@@ -89,8 +107,10 @@ class Emergent {
     this.notify()
   }
 
-  close () {
+  close() {
     if (!this.#opened) return
+    if (this.#delayTimeout) clearTimeout(this.#delayTimeout)
+
     this.#opened = false
     this.#element.classList.remove(this.openClass)
     Emergent.#stack.delete(this)
@@ -146,7 +166,7 @@ class Emergent {
       position.centerX = hookBounds.x + config.leftPosition - emergedBounds.width / 2 + hookBounds.width / 2
     }
 
-    const viewportSpacing = config.viewportSpacing || 10
+    const viewportSpacing = typeof config.viewportSpacing === 'number' ? config.viewportSpacing : 10
     const maxHeight = window.innerHeight - viewportSpacing
     const maxWidth = window.innerWidth - viewportSpacing
     const fitTop = position.top > viewportSpacing
@@ -211,8 +231,8 @@ class Emergent {
   }
 }
 
-document.addEventListener('mousedown', Emergent.onDocumentClick)
-document.addEventListener('focusin', Emergent.onDocumentClick)
+document.addEventListener('click', Emergent.onDocumentClick)
 document.addEventListener('keydown', Emergent.onDocumentEsc)
+// document.addEventListener('focusin', Emergent.onDocumentClick)
 
 export default Emergent

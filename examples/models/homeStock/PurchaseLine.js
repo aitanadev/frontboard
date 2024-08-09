@@ -1,7 +1,7 @@
-import Scheme from '#services/Scheme'
-import Asset from '#models/homeStock/Asset'
+import Entity from '#services/Entity'
+import Asset from '#models/examples/homeStock/Asset'
 
-export default class PurchaseLine extends Scheme {
+export default class PurchaseLine extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -16,6 +16,19 @@ export default class PurchaseLine extends Scheme {
 
   static { this.install() }
 
+  static computed() {
+    return {
+      tone: {
+        col: false,
+        field: false
+      },
+      name: {
+        col: false,
+        field: false
+      }
+    }
+  }
+
   static schema() {
     return {
       asset: {
@@ -28,7 +41,8 @@ export default class PurchaseLine extends Scheme {
         type: Number
       },
       bargain: {
-        type: Boolean
+        type: Boolean,
+        default: false
       }
     }
   }

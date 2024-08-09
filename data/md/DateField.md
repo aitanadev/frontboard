@@ -1,6 +1,6 @@
 # Date field
 
-`DateField` `c-date-field`
+`DateField` `fds-c-date-field`
 
 Date field component uses native Date objects to format Date and DateTime values with a customizable calendar picker
 

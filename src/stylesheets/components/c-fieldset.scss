@@ -1,23 +1,18 @@
-.c-fieldset {
+.fds-c-fieldset {
   display: flex;
   border-style: none;
   padding: var(--spacing-xxl);
-  gap: var(--spacing-xl) var(--spacing-xxl);
+  gap: var(--spacing-xxl) var(--spacing-xxl);
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: flex-start;
   margin: var(--spacing-l);
   min-inline-size: unset;
+  // max-width: 420px;
   // overflow: auto;
-  > .c-scheme-wrp {
-    margin: var(--spacing-xl) calc(var(--spacing-l)* -1 + var(--spacing-xxl)* -1);
-    border: 1px solid var(--color--pale-1);
-    border-style: solid none;
-    width: 100%;
-  }
 }
 
-.c-fieldset__item {
+.fds-c-fieldset__item {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -39,10 +34,6 @@
     display: flex;
     gap: var(--spacing-s);
     white-space: normal;
-  }
-  .c-scheme-field {
-    .c-input, .c-field {
-      // width: 100%
-    }
+    flex-shrink: 0;
   }
 }

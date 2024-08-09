@@ -1,6 +1,6 @@
 # Selector component
 
-`Selector` `c-selector`
+`Selector` `fds-c-selector`
 
 The Selector component make it easy to create any kind of dropdown options and supports:
 
@@ -16,7 +16,7 @@ The Selector component make it easy to create any kind of dropdown options and s
 
 ```html
 <template>
-  <Selector :options="options" v-model="selection" />
+  <FrontboardSelector :options="options" v-model="selection" />
   <div>Current selection: {{ selection }}</div>
 </template>
 <script>
@@ -31,7 +31,7 @@ The Selector component make it easy to create any kind of dropdown options and s
 
 ```html
 <template>
-  <Selector
+  <FrontboardSelector
     :options="options"
     v-model="selection"
     filterable

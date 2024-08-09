@@ -1,6 +1,6 @@
 <template>
-  <div class="c-component-viewer">
-    <div>{{ file.path }}</div>
+  <div class="fds-c-component-viewer">
+    <div>{{ value.path }}</div>
     <pre>{{ info }}</pre>
   </div>
 </template>
@@ -12,7 +12,7 @@ export default Vue.component('ComponentViewer', {
   components: {
   },
   props: {
-    file: Object
+    value: Object
   },
   data: () => ({
     info: {},
@@ -22,9 +22,9 @@ export default Vue.component('ComponentViewer', {
   }),
   created () {
     window.ComponentViewer = this
-    this.file.import().then(contents => {
+    this.value.import().then(contents => {
       this.contents = contents
-      const component = APP.components[this.file.path.split('/').pop().replace(/\.vue$/, '')]
+      const component = APP.components[this.value.path.split('/').pop().replace(/\.vue$/, '')]
       const componentName = component.options.name
       this.info.name = componentName
       this.info.props = component.options.props

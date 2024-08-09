@@ -1,4 +1,4 @@
-.c-input {
+.fds-c-input {
   position: relative;
   padding: var(--spacing-xs) var(--spacing-m);
   display: inline-flex;
@@ -18,15 +18,14 @@
   box-shadow: var(--box-shadow--inset);
   // flex-grow: 1; // <----
   #{$hoverSelector}, #{$focusSelector} {
-    border-color: var(--color--light-1);
-    z-index: 1;
+    border-color: var(--color--pale-2);
   }
   #{$focusSelector} {
     background-color: var(--color--light-3);
     background-image: var(--background-image--in);
     border-color: var(--color--primary);
     // outline: 1px solid var(--color--primary--light-1);
-    z-index: 1;
+    // z-index: 1;
   }
   #{$disabledSelector} {
     color: var(--color--pale-1);
@@ -36,7 +35,7 @@
     box-shadow: none;
     user-select: none;
   }
-  &:has(input, .c-chip) {
+  &:has(input, .fds-c-chip) {
     padding: 0;
   }
   input {

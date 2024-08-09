@@ -19,6 +19,8 @@ button, input, label {
 h1, h2,
 h3, h4, h5, h6 {
   text-wrap: balance;
+  font-weight: var(--font-weight--bold);
+  font-size: initial;
   code {
     display: inline-block;
     line-height: 1;
@@ -82,7 +84,7 @@ svg {
 }
 
 a {
-  color: var(--color--primary--pale-1);
+  color: var(--color--primary);
   text-decoration: underline;
 
   &:hover {
@@ -91,7 +93,7 @@ a {
 
   &:active,
   &:focus {
-    color: var(--color--primary);
+    color: var(--color--primary--dark-1);
     outline: none;
   }
 }

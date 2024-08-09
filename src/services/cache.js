@@ -1,5 +1,5 @@
 import APP from '#services/APP'
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 
 export default {
   cacheSupplyPromise: undefined,
@@ -7,7 +7,7 @@ export default {
   supply() {
     /*
     if (APP.isOffline) import('models/...')
-    this.cacheSupplyPromise ??= Scheme.load([]).then(() => {
+    this.cacheSupplyPromise ??= Entity.load([]).then(() => {
       this.ready = true
       console.info('Cache ready')
     }).catch(error => {

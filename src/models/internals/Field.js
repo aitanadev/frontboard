@@ -1,9 +1,10 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import APP from '#services/APP'
+// import Vue from 'vue'
 import i18n from '#services/i18n'
 import Fieldset from '#models/internals/Fieldset'
 
-export default class Field extends Scheme {
+export default class Field extends Entity {
   constructor(data) {
     window.addEventListener('i18n:language', () => {
       if (this.__ob__) this.__ob__.dep.notify()
@@ -25,25 +26,21 @@ export default class Field extends Scheme {
 
   get isComputedReadonly() {
     if (this.fieldset) {
-      const Class = Scheme.models[this.fieldset.name]
+      const Class = Entity.models[this.fieldset.name]
       if (Class) {
         return Class.computedReadonly.includes(this.key)
       }
     }
   }
 
-  get isInvent() {
-    return !this.fieldset
-  }
-
-  get label() {
-    if (this.key && this.key[0] === '$') return ''
+  get $label() {
+    if (typeof this.label === 'string') return this.label
     const preset = this.key ? this.key.toSpaces().capitalize() : this.key
-    return this.fieldset ? i18n(`fieldsets.${this.fieldset.name}.fields.${this.key}.label`, preset).capitalize() : preset
+    return this.fieldset ? i18n(`Entity.${this.fieldset.name}.${this.key}.label`, preset).capitalize() : preset
   }
 
   get component() {
-    return this.#component ? APP.components[this.#component] : APP.components.DefaultField
+    return this.#component
   }
 
   set component(value) {
@@ -59,7 +56,7 @@ export default class Field extends Scheme {
   }
 
   format(value) {
-    return value
+    return this.formater ? this.formater(value) : value
   }
 
   static { this.install() }
@@ -70,37 +67,122 @@ export default class Field extends Scheme {
 
   static computed() {
     return {
-      model: {},
-      component: {}
+      $label: {
+        col: false,
+        field: false
+      },
+      fieldset: {
+        readonly: true
+      },
+      model: {
+        readonly: true
+      },
+      component: {
+        readonly: true
+        /*
+        formater(value) {
+          return value?.options.name
+        }
+        */
+      }
     }
   }
 
   static schema() {
     return {
       key: {},
-      col: { type: Boolean, default: true },
-      field: { type: Boolean, default: true },
-      size: { type: Number, default: 160 },
-      sticky: { options: [
-        {text: 'Left', value: 'left'},
-        {text: 'Right', value: 'right'}
-      ]},
-      // model: {},
-      tab: { type: Boolean },
-      fixed: { type: Boolean },
-      crud: { type: Boolean },
-      multiple: { type: Boolean },
-      class: {},
-      metadata: { type: Boolean },
-      options: {},
-      type: {},
-      default: {},
-      hidden: { type: Boolean },
-      readonly: { type: Boolean },
-      textarea: { type: Boolean },
-      range: { type: Boolean },
-      min: { type: Number },
-      max: { type: Number }
+      field: {
+        type: Boolean,
+        default: true
+      },
+      col: {
+        type: Boolean,
+        default: true
+      },
+      label: {
+        col: false
+      },
+      filterable: {
+        type: Boolean,
+        default: true
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      crud: {
+        type: Boolean,
+        default: false
+      },
+      tab: {
+        type: Boolean,
+        default: false
+      },
+      metadata: {
+        type: Boolean,
+        default: false
+      },
+      textarea: {
+        type: Boolean,
+        default: false
+      },
+      range: {
+        type: Boolean,
+        default: false
+      },
+      size: {
+        type: Number,
+        default: 160
+      },
+      type: {
+        default: () => String,
+        readonly: true,
+        formater(value) {
+          return value.name
+        }
+      },
+      sticky: {
+        options: [
+          {text: 'none', value: false},
+          {text: 'left', value: 'left'},
+          {text: 'right', value: 'right'}
+        ],
+        default: false
+      },
+      min: {
+        type: Number
+      },
+      max: {
+        type: Number
+      },
+      hidden: {
+        col: false,
+        type: Boolean,
+        readonly: true
+      },
+      class: {
+        readonly: true
+      },
+      options: {
+        col: false,
+        readonly: true
+      },
+      default: {
+        col: false,
+        readonly: true
+      },
+      formater: {
+        col: false,
+        readonly: true
+      },
+      componentBind: {
+        col: false,
+        readonly: true
+      }
     }
   }
 }

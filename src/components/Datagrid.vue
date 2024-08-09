@@ -1,101 +1,143 @@
 <template>
   <div
-    class="c-datagrid"
+    class="fds-c-datagrid"
     tabindex="0"
     :class="{
-      '--scroll-none': !scroll.left && !scroll.right,
-      '--scroll-bottom': scroll.bottom,
-      '--scroll-right': scroll.right,
-      '--scroll-top': scroll.top,
-      '--scroll-left': scroll.left
+      'datagrid--scroll-none': !scroll.left && !scroll.right,
+      'datagrid--scroll-bottom': scroll.bottom,
+      'datagrid--scroll-right': scroll.right,
+      'datagrid--scroll-top': scroll.top,
+      'datagrid--scroll-left': scroll.left,
+      'datagrid--grouped': grouped
     }"
   >
     <table
       ref="table"
-      v-if="records || HTMLrecords"
-      :style="{
-        width: tableWidth + 'px' // $el.offsetWidth + 'px' //
-      }"
+      :style="{ width: tableWidth + 'px' }"
     >
       <thead>
-        <draggable tag="tr" class="c-dragable" draggable=".c-draggable__item" handle=".c-draggable__handler" :list="cols" @end="colsOrderUpdate">
-          <template v-for="(col, index) in cols">
+        <draggable tag="tr" class="fds-c-dragable" draggable=".fds-c-draggable__item" handle=".fds-c-draggable__handler" :list="cols" @end="colsOrderUpdate">
+          <template v-for="col in cols">
             <th
               v-if="col.col"
-              :style="colStyle(col)"
-              :class="(col.sticky ? ('--sticky-'+ col.sticky) : 'c-draggable__item') + (canSitcky(col) ? ' --stickable' : '')"
-              v-bind="col.attributes"
-              @mousedown="mouseDown(col, $event)"
-              @mouseenter="mouseEnter(col, $event)"
-              @mousemove="mouseMove(col, $event)"
-              @mouseleave="mouseLeave(col, $event)"
-              @dblclick="toggleSticky(col)"
-            ><div class="c-datagrid__cell"><div :class="{'c-draggable__handler': !col.sticky}" @mousedown.stop>{{ col.label }}</div></div></th>
-            <!-- <input type="checkbox" class="c-checkbox" @input="onColumVisibility" v-model="col.col"> -->
+              v-bind="colBind(col)"
+              v-on="colOn(col)"
+            >
+              <div class="fds-c-datagrid__cell" :class="'fds-c-datagrid__header__' + col.key">
+                <div v-if="col.labelHTML" :class="{'fds-c-draggable__handler': !col.sticky}" @mousedown.stop v-html="col.labelHTML"></div>
+                <div v-else :class="{'fds-c-draggable__handler': !col.sticky}" @mousedown.stop>
+                  <slot :name="'header.' + col.key">{{ col }}</slot>
+                </div>
+              </div>
+            </th>
           </template>
           <template #header>
             <th
-              v-for="(col, index) in colsPrepend"
-              :style="colStyle(col)"
-              :class="(col.sticky ? ('--sticky-'+ col.sticky) : '') + (canSitcky(col) ? ' --stickable' : '')"
-              v-bind="col.attributes"
-
-            ><div class="c-datagrid__cell">{{ col.label }}</div></th>
+              v-for="col in colsPrepend"
+              v-bind="colBind(col)"
+              v-on="colOn(col)"
+            >
+              <div class="fds-c-datagrid__cell" :class="'fds-c-datagrid__header__' + col.key">
+                <div v-if="col.labelHTML" v-html="col.labelHTML"></div>
+                <template v-else-if="col.key === '$'">
+                  <button
+                    v-if="selectable"
+                    type="checkbox"
+                    class="fds-c-checkbox"
+                    :checked="allPagesSelected || isAllSelection"
+                    :indeterminate="isIndeterminateSelection"
+                    @click="toggleSelection"
+                    tid="table_select_all"
+                  ></button>
+                </template>
+                <slot :name="'header.' + col.key">{{ col }}</slot>
+            </div></th>
           </template>
           <template #footer>
             <th
-              v-for="(col, index) in colsAppend"
-              :style="colStyle(col)"
-              :class="(col.sticky ? ('--sticky-'+ col.sticky) : '') + (canSitcky(col) ? ' --stickable' : '')"
-              v-bind="col.attributes"
-            ><div class="c-datagrid__cell">{{ col.label }}</div></th>
+              v-for="col in colsAppend"
+              v-bind="colBind(col)"
+              v-on="colOn(col)"
+            >
+              <div class="fds-c-datagrid__cell" :class="'fds-c-datagrid__header__' + col.key">
+                <div v-if="col.labelHTML" v-html="col.labelHTML"></div>
+                <slot v-else :name="'header.' + col.key">{{ col }}</slot>
+              </div>
+            </th>
           </template>
         </draggable>
       </thead>
-      <draggable ref="tbody" tag="tbody" class="c-dragable" draggable=".c-draggable__item" handle=".c-draggable__handler" :list="records || HTMLrecords">
-        <template v-for="record in (records || HTMLrecords)">
-          <template v-if="record === expand">
-            <slot name="record" v-bind="{ record, cols: allCols, selectable, selected: isSelected(record) }">
-              <DatagridRecord :record="record" :cols="allCols" :selectable="selectable" :sortable="sortable" :selected="isSelected(record)" :key="record.uid" @select="selectRecord"/>
-            </slot>
-            <tr class="c-datagrid__expand">
-              <td :colspan="allCols.length">
-                <div
-                  class="c-datagrid__expand-content"
-                  :style="{
-                    width: offsetWidth + 'px'
-                  }"
-                >
-                  <slot name="expand" v-bind="{ record, cols: allCols, selectable, selected: isSelected(record) }"></slot>
-                </div>
-              </td>
-            </tr>
-          </template>
-          <template v-else>
-            <slot name="record" v-bind="{ record, cols: allCols, selectable, selected: isSelected(record) }">
-              <DatagridRecord :record="record" :cols="allCols" :selectable="selectable" :sortable="sortable" :selected="isSelected(record)" :key="record.uid" @select="selectRecord"/>
-            </slot>
-          </template>
+
+      <template>
+        <template v-for="[groupHeader, records] in groups">
+          <draggable ref="tbody" tag="tbody" class="fds-c-dragable" draggable=".fds-c-draggable__item" handle=".fds-c-draggable__handler" :list="records">
+            <template v-for="record in records">
+              <template v-if="record === expand">
+                <slot name="record" v-bind="{ record, cols: allCols, selectable, selected: isSelected(record) }">
+                  <DatagridRecord :record="record" :cols="allCols" :selectable="selectable" :sortable="sortable" :selected="isSelected(record)" :key="record.uid" @select="selectRecord">
+                    <template #cell="{ record, col }">
+                      <slot name="cell" v-bind="{ record, col }"></slot>
+                    </template>
+                  </DatagridRecord>
+                </slot>
+                <tr class="fds-c-datagrid__expand">
+                  <td :colspan="allCols.length">
+                    <div class="fds-c-datagrid__expand-content" :style="{ width: offsetWidth + 'px' }">
+                      <slot name="expand" v-bind="{ record, cols: allCols, selectable, selected: isSelected(record) }"></slot>
+                    </div>
+                  </td>
+                </tr>
+              </template>
+              <template v-else>
+                <slot name="record" v-bind="{ record, cols: allCols, selectable, selected: isSelected(record) }">
+                  <DatagridRecord :record="record" :cols="allCols" :selectable="selectable" :sortable="sortable" :selected="isSelected(record)" :key="record.uid" @select="selectRecord">
+                    <template #cell="{ record, col }">
+                      <slot name="cell" v-bind="{ record, col }"></slot>
+                    </template>
+                  </DatagridRecord>
+                </slot>
+              </template>
+            </template>
+            <template v-if="groups.length > 1" #header>
+              <tr class="datagrid__group-space"><td :colspan="allCols.length"></td></tr>
+              <tr class="datagrid__group-header">
+                <template v-for="(col, index) in allCols">
+                  <th
+                    v-if="col.col"
+                    :class="col.sticky ? ('--sticky-'+ col.sticky) : ''"
+                    :key="col.key"
+                  >
+                    <div class="fds-c-datagrid__cell">
+                      <div v-if="groupHeader[col.key + 'HTML']" v-html="groupHeader[col.key]"></div>
+                      <slot v-else :name="'group.header.' + col.key">{{ groupHeader[col.key] }}</slot>
+                    </div>
+                  </th>
+                </template>
+              </tr>
+            </template>
+            <template v-if="draftLine" #footer>
+              <slot name="record" v-bind="{ record: draftLine, cols: allCols, selectable, draftLine: true }">
+                <DatagridRecord :record="draftLine" :cols="allCols" :key="draftLine.uid" class="fds-c-datagrid__draftline">
+                  <template #cell="{ record, col }">
+                    <slot name="cell" v-bind="{ record, col }"></slot>
+                  </template>
+                </DatagridRecord>
+              </slot>
+              <tr class="fds-c-datagrid__expand" v-if="draftLine === expand">
+                <td :colspan="allCols.length">
+                  <div
+                    class="fds-c-datagrid__expand-content"
+                    :style="{ width: offsetWidth + 'px' }"
+                  >
+                    <slot name="expand" v-bind="{ record: draftLine, cols: allCols, selectable }"></slot>
+                  </div>
+                </td>
+              </tr>
+            </template>
+          </draggable>
         </template>
-        <template v-if="draftLine" #footer>
-          <slot name="record" v-bind="{ record: draftLine, cols: allCols, selectable, draftLine: true }">
-            <DatagridRecord :record="draftLine" :cols="allCols" :key="draftLine.uid" class="c-datagrid__draftline"/>
-          </slot>
-          <tr class="c-datagrid__expand" v-if="draftLine === expand">
-            <td :colspan="allCols.length">
-              <div
-                class="c-datagrid__expand-content"
-                :style="{
-                  width: offsetWidth + 'px'
-                }"
-              >
-                <slot name="expand" v-bind="{ record: draftLine, cols: allCols, selectable }"></slot>
-              </div>
-            </td>
-          </tr>
-        </template>
-      </draggable>
-      <tfoot><tr><td :colspan="allCols.length"></td></tr></tfoot>
+      </template>
+      <tfoot><tr><td :colspan="allCols.length"><slot name="footer"></slot></td></tr></tfoot>
     </table>
   </div>
 </template>
@@ -105,72 +147,46 @@
 import Vue from 'vue'
 import draggable from 'vuedraggable'
 import Field from '#models/internals/Field'
+import DatagridRecord from '#components/DatagridRecord'
 
-// Put to ignore 'cell' and 'record' tags to remove this --->
-const record = Vue.component('record', {
-  template: '<div class="record"><slot></slot></div>'
-})
-
-const cell = Vue.component('cell', {
-  template: '<div class="cell"><slot></slot></div>'
-})
+Vue.config.ignoredElements.push('data-group', 'data-group-header', 'data-record', 'data-cell')
 
 export default {
-  name: 'Datagrid',
+  name: 'FrontboardDatagrid',
 
   components: {
-    draggable
+    draggable,
+    DatagridRecord
   },
 
   props: {
     records: { type: Array },
-    cols: { type: Array, default: () => [] },
+    cols: { type: Array },
+    grouped: { type: Boolean },
     colsPrepend: { type: Array },
     colsAppend: { type: Array },
     selectable: { type: Boolean},
     sortable: { type: Boolean},
     expand: { type: Object },
-    draftLine: { type: Object }
+    totalRecords: { type: Number, default: 0 },
+    draftLine: { type: Object },
+    typeNaming: { type: Array, default: () => ['item', 'items'] }
   },
 
   data: () => ({
-    HTMLrecords: undefined,
     mouseStatus: {},
     selection: [],
     scroll: {},
     tableSpace: 0,
-    offsetWidth: 0
+    offsetWidth: 0,
+    allPagesSelected: false
   }),
 
   created() {
     window.Datagrid = this
-    const defaultSlot = this.$slots.default
-
     this.cols.forEach((col, index) => (this.cols[index] = col.Class !== Field ? new Field(col) : col))
-
-    if (defaultSlot) {
-      const renderer = new Vue({
-        render: function (createElement) {
-          return createElement(
-            'template',
-            defaultSlot
-          )
-        }
-      }).$mount()
-
-      const records = []
-      renderer.$el.querySelectorAll('.record').forEach(($record) => {
-        const cells = [...$record.querySelectorAll('.cell')].map($cell => $cell.innerHTML)
-        const record = Object.fromEntries(this.cols.map((col, index) => {
-          return [col.key, cells[index]]
-        }))
-        records.push(record)
-      })
-
-      // console.log({records})
-
-      this.HTMLrecords = records
-    }
+    this.initialCols = [...this.cols]
+    this.slotGroups = this.getSlotGroups()
   },
 
   mounted() {
@@ -197,10 +213,124 @@ export default {
     },
     allCols() {
       return [...(this.colsPrepend || []), ...this.cols, ...(this.colsAppend || [])].filter(col => col.col)
+    },
+    groups() {
+      const dataSlot = this.$slots.data
+      if (dataSlot) {
+        const renderer = new Vue({ render: (createElement) => createElement('template', dataSlot) }).$mount()
+
+        if (this.grouped) {
+          const groups = [...renderer.$el.querySelectorAll('data-group')].map(group => {
+            const dataGroupHeader = group.querySelector('data-group-header')
+            const dataGroupHeaderCells = this.getSlotRecord(dataGroupHeader)
+            return [ dataGroupHeaderCells, this.getSlotRecords(group) ]
+          })
+          return groups
+        } else {
+          const records = this.getSlotRecords(renderer.$el)
+          return [[{}, records]]
+        }
+      } else if (this.grouped) {
+        return this.records
+      } else {
+        return [[{}, this.records]]
+      }
+    },
+    allRecords() {
+      return this.groups.map(group => group[1]).flat()
+    },
+    isAllSelection() {
+      return this.selectionCount > 0 && this.selectionCount === this.allRecords.length
+    },
+    isIndeterminateSelection() {
+      return this.selectionCount > 0 && !this.isAllSelection
+    },
+    selectionCount() {
+      return this.selection.length
+    },
+    paginated() {
+      return this.allRecords.length < this.totalRecords
     }
   },
 
   methods: {
+    selectAll() {
+      if (this.allPagesSelected) return this.clearSelection()
+      this.selection = [...this.allRecords]
+      this.onSelectionChange()
+    },
+    selectAllPages() {
+      this.allPagesSelected = true
+      this.selection = [...this.allRecords]
+      this.onSelectionChange()
+    },
+    clearSelection() {
+      this.allPagesSelected = false
+      this.selection = []
+
+      this.onSelectionChange()
+    },
+    toggleSelection() {
+      if (this.selectionCount > 0) {
+        this.clearSelection()
+      } else {
+        this.selectAll()
+      }
+    },
+    colBind(col) {
+      const allCols = this.allCols
+      const index = allCols.indexOf(col)
+      const lastNoSticky = allCols.toReversed().find(col => !col.sticky)
+
+      return {
+        style: {
+          width: col.size + (col === lastNoSticky ? this.tableSpace : 0) + 'px', // col.size + 'px', // For no-full-width tables
+          // width: col.size + (index === allCols.length - 1 ? this.tableSpace : 0) + 'px', // col.size + 'px', // For no-full-width tables
+          left: col.sticky === 'left' ? (allCols.slice(0, index).reduce((acumulator, col) => acumulator + col.size, 0) + 'px') : 'unset',
+          right: col.sticky === 'right' ? (allCols.slice(index + 1).reduce((acumulator, col) => acumulator + col.size, 0) + 'px') : 'unset'
+        },
+        class: (col.sticky ? ('--sticky-' + col.sticky) : (index >= 0 ? 'fds-c-draggable__item' : '')) + (this.canSitcky(col) ? ' --stickable' : ''),
+        key: col.key
+      }
+    },
+    colOn(col) {
+      return {
+        mousedown: (event) => this.onColMouseDown(col, event),
+        mouseenter: (event) => this.onColMouseEnter(col, event),
+        mousemove: (event) => this.onColMouseMove(col, event),
+        mouseleave: (event) => this.onColMouseLeave(col, event),
+        dblclick: (event) => this.onColDblclick(col)
+      }
+    },
+    getSlotGroups() {
+      const dataSlot = this.$slots.data
+      if (!dataSlot) return
+
+      const renderer = new Vue({ render: (createElement) => createElement('template', dataSlot) }).$mount()
+
+      if (this.grouped) {
+        const groups = [...renderer.$el.querySelectorAll('data-group')].map(group => {
+          const dataGroupHeader = group.querySelector('data-group-header')
+          const dataGroupHeaderCells = this.getSlotRecord(dataGroupHeader)
+          return [ dataGroupHeaderCells, this.getSlotRecords(group) ]
+        })
+        return groups
+      } else {
+        const records = this.getSlotRecords(renderer.$el)
+        return [[{}, records]]
+      }
+    },
+    getSlotRecords(dataGroup) {
+      return [...dataGroup.querySelectorAll('data-record')].map(this.getSlotRecord)
+    },
+    getSlotRecord(dataRecord) {
+      const record = JSON.parse(dataRecord.getAttribute('record')) || {}
+      const htmlCells = [...dataRecord.querySelectorAll('data-cell')].map(cell => cell.innerHTML)
+      this.initialCols.forEach((col, index) => {
+        record[col.key + 'HTML'] = htmlCells[index]
+      })
+      return record
+    },
     sizingControl () {
       if (!this.$el.isConnected) return
       if (this.$el.offsetWidth !== this.offsetWidth) {
@@ -221,29 +351,18 @@ export default {
         this.focusNext(true)
       }
     },
+    onSelectionChange() {
+      this.$emit('selectionChange', this.selection)
+      this.$el.dispatchEvent(new CustomEvent('Datagrid:selectionChange', { bubbles: true, detail: this }))
+    },
     colsOrderUpdate() {
-      // console.log('update cols order')
-      // this.$emit('cols:update')
-      // this.$forceUpdate()
-    },
-    onColumVisibility() {
-      // TODO
-    },
-    colStyle(col) {
-      const allCols = this.allCols
-      const index = allCols.indexOf(col)
-      return {
-        width: col.size + (index === allCols.length - 1 ? this.tableSpace : 0) + 'px',
-        left: col.sticky === 'left' ? (allCols.slice(0, index).reduce((acumulator, col) => acumulator + col.size, 0) + 'px') : 'unset',
-        right: col.sticky === 'right' ? (allCols.slice(index + 1).reduce((acumulator, col) => acumulator + col.size, 0) + 'px') : 'unset'
-      }
+      this.$emit('cols:update')
     },
     focusNext(reverse) {
-      const allRows = [...this.$el.querySelectorAll('.c-datagrid__row')]
+      const allRows = [...this.$el.querySelectorAll('.fds-c-datagrid__row')]
       const focusedIndex = allRows.indexOf(document.activeElement)
       if (focusedIndex >= 0) {
         const nextIndex = (allRows.length + focusedIndex + (reverse ? -1 : 1)) % allRows.length
-        // console.log('....>', {focusedIndex, nextIndex})
         allRows[nextIndex].focus()
       } else {
         const nextIndex = reverse ? allRows.length - 1 : 0
@@ -257,7 +376,7 @@ export default {
       } else {
         this.selection.push(record)
       }
-      this.$emit('selectionChange', this.selection)
+      this.onSelectionChange()
     },
     isSelected(record) {
       return this.selection.includes(record)
@@ -280,9 +399,8 @@ export default {
       if (stickablesLeft.includes(col)) return 'left'
       if (stickablesRight.includes(col)) return 'right'
     },
-    toggleSticky(col) {
+    onColDblclick(col) {
       col.sticky = col.sticky ? false : this.canSitcky(col)
-      // this.$forceUpdate()
     },
     onTableChange() {
       const scrollElement = this.$el
@@ -297,28 +415,30 @@ export default {
       // console.log('onTableChange', this.scroll)
       const space = this.$el.offsetWidth - this.tableWidth
       this.tableSpace = space > 0 ? space : 0
+
+      this.$forceUpdate()
     },
 
-    mouseEnter (col) {
-      // console.log('mouseEnter', col.key)
+    onColMouseEnter (col) {
+      // console.log('onColMouseEnter', col.key)
       if (!this.mouseStatus.down) {
         this.mouseStatus.col = col
       }
     },
-    mouseLeave (col) {
-      // console.log('mouseLeave', col.key)
+    onColMouseLeave (col) {
+      // console.log('onColMouseLeave', col.key)
       if (!this.mouseStatus.down) {
         this.mouseStatus.col = false
       }
     },
-    mouseMove (col, event) {
+    onColMouseMove (col, event) {
       if (!this.mouseStatus.down) {
         const resizeActiveSpace = 8
         const colIndex = this.allCols.indexOf(col)
         const isFirst = colIndex === 0
         const isLast = colIndex + 1 === this.allCols.length
         const leftResizeArea = event.offsetX < resizeActiveSpace && !isFirst
-        const rightResizeArea = event.currentTarget.offsetWidth - event.offsetX < resizeActiveSpace // && !isLast
+        const rightResizeArea = event.currentTarget.offsetWidth - event.offsetX < resizeActiveSpace && !isLast
         // console.log('moving', { leftResizeArea, rightResizeArea })
         if (leftResizeArea || rightResizeArea) {
           this.mouseStatus.resize = {
@@ -333,7 +453,7 @@ export default {
         }
       }
     },
-    mouseDown (col, event) {
+    onColMouseDown (col, event) {
       // console.log('colDown', col)
       event.preventDefault()
       this.mouseStatus.down = {
@@ -352,24 +472,12 @@ export default {
         this.$el.style.removeProperty('cursor')
       }
       if (mouseStatus.down && mouseStatus.resize) {
-        const scroll = false // !this.scroll.right && !this.scroll.left
         const leftResize = mouseStatus.resize.left && mouseStatus.col.sticky !== 'right'
         const col = leftResize ? this.allCols[mouseStatus.resize.colIndex - 1] : mouseStatus.col
         const diff = event.x - mouseStatus.down.x
         mouseStatus.down.x = event.x
         const currentColSize = col.size
         const move = ((mouseStatus.resize.left && !leftResize) ? -diff : diff)
-        // TODO: Needs a refactor
-        // Try different aproach using the table offsetWidth (using a width auto table) and a last adjustable empty row
-        // Other option: Use a switch to turn on scroll on a no scrolled tale using a width auto table too
-        // Other option: Use diferent cursor on resizable columns headers noticing the type of the resizing method per column (left/right arrows cursor?)
-        /*
-        if (scroll && !mouseStatus.resize.isLast) {
-          const next = leftResize ? this.allCols[mouseStatus.resize.colIndex] : this.allCols[mouseStatus.resize.colIndex + 1]
-          const nextColSize = next.size
-          next.size = (nextColSize - move) || 1
-        }
-        */
 
         if (mouseStatus.resize.isLast && mouseStatus.resize.left) {
           const prev = this.allCols[mouseStatus.resize.colIndex - 1]
@@ -391,26 +499,25 @@ export default {
 }
 </script>
 <style lang="scss">
-.c-datagrid {
+.fds-c-datagrid {
   --table-border: 1px solid var(--color--pale-1);
   --td-border: 1px solid var(--color--pale-1);
   display: inline-block;
   width: auto;
   overflow: auto;
-  // overscroll-behavior: contain;
   max-width: 100%;
   max-height: 500px;
   &:focus-within {
-    --table-border: 1px solid var(--color--primary);
+    // --table-border: 1px solid var(--color);
   }
 }
 
-.c-datagrid > table {
-  // background-color: var(--color--white);
+.fds-c-datagrid > table {
   border-spacing: 0;
   border-collapse: separate;
   table-layout: fixed;
-  min-width: 100%;
+  min-width: 100%; // Remove to use no-full-width tables
+  // margin-bottom: -1px;
 
   >thead, >tbody, >tfoot {
     > tr {
@@ -418,36 +525,37 @@ export default {
         padding: 0;
         border: var(--td-border);
         background-color: var(--color--white);
-        border-bottom-style: none; // review before top
+        border-bottom-style: none;
         border-right-style: none;
         position: relative;
-        // height: 3em;
-        // height: 37px;
         white-space: nowrap;
-        // text-align: left;
-        &>.c-datagrid__cell {
-          // overflow: visible; // <-----
-          // position: absolute; // <-----
-          // align-items: center;
-          // align-items: start;
+        align-content: flex-start;
+        text-align: left;
+        >.fds-c-datagrid__cell {
           align-items: stretch;
           display: flex;
           gap: var(--spacing-s);
           padding: var(--spacing-s) var(--spacing-m);
-
-          // min-height: 1em;
           min-height: 100%;
-          // <---
-          // top: 0;
-          // left: 0;
-          // bottom: 0;
-          // right: 0;
-          // <---
-
           flex-direction: column;
 
-          // align-items: stretch; // <---- review
-          // border: 1px solid red;
+          overflow: hidden;
+          /* Invisible scroll *
+          overflow: scroll;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          // max-height: 300px;
+          /* */
+          &::-webkit-scrollbar {
+            display: none;
+          }
+          &::-webkit-scrollbar-thumb {
+            display: none;
+          }
+
+          &:has(.fds-c-emergent--open) {
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04));
+          }
         }
         &.--sticky-left {
           z-index: 2;
@@ -470,22 +578,13 @@ export default {
         &:last-child {
           border-right: var(--table-border);
         }
-        /*
-        &>*{
-          white-space: nowrap;
-          // overflow: hidden; // review
+        &:has(.fds-c-emergent--open) {
+          z-index: 5;
         }
-        */
       }
       >th, >td.--sticky-left, >td.--sticky-right {
         background-color: var(--color--light-3);
         background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04));
-        &.--sticky-left {
-          // text-align: center;
-          .c-datagrid__cell {
-            // justify-content: center;
-          }
-        }
       }
     }
   }
@@ -494,92 +593,86 @@ export default {
     position: sticky;
     top: 0;
     > th {
-      border-bottom-style: none;
       background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+      border-bottom-style: none;
       border-top: var(--table-border);
-
-      // border-bottom: var(--table-border);
+      text-align: left;
       &.--stickable {
-        // cursor: pointer;
-      }
-
-      >* { // reivew, copied from .c-scheme-field__viewer
-
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-
-        width: 100%;
-        overflow: auto;
-        height: 100%;
-        flex-grow: 1;
-        padding: var(--spacing-xs);
       }
       &:hover {
-        // background-color: #e7e7e7;
         background-color: var(--color--light-2);
       }
     }
   }
-  > tbody > tr {
-    // position: relative;
-    z-index: 1;
-    &:first-child > td {
-      // border-top-style: none;
-    }
-    &:last-child > td {
-      border-bottom-style: solid;
-    }
-    /*
-    &.c-datagrid__row--selected, &:hover, &:focus-within {
-      td {
-        border-color: var(--color--primary);
+  > tbody {
+    > tr {
+      z-index: 1;
+      &:last-child > td {
+        border-bottom-style: solid;
       }
-      &+:not(.c-datagrid__row--selected) td {
-        border-top-color: var(--color--primary);
+      &:focus-within:not(.fds-c-datagrid__expand), &[active] {
+        > td {
+          border-color: var(--color);
+        }
+        &+:not(:focus-within) > td {
+          border-top-color: var(--color);
+        }
+      }
+      /*
+      &:focus-within { // &:focus-within {
+        >:is(td, th):has(.fds-c-emergent--open) {
+          z-index: 4;
+        }
+      }
+      */
+
+      &:hover {
+        > td {
+          background-image: linear-gradient(0deg, rgba(127, 127, 127, 0.04), rgba(127, 127, 127, 0.04));
+        }
+        >.--sticky-left, >.--sticky-right {
+          background-image: linear-gradient(0deg, rgba(127, 127, 127, 0.2), rgba(127, 127, 127, 0.2));
+        }
       }
     }
-    */
-    &:focus-within:not(.c-datagrid__expand), &[active] {
+    &:empty + tfoot > tr > td {
+      border-bottom: var(--table-border);
+    }
+    >.datagrid__group-header {
+      margin-top: 10px;
+    }
+    >.datagrid__group-space {
       > td {
-        border-color: var(--color--primary);
-      }
-      &+:not(:focus-within) > td {
-        border-top-color: var(--color--primary);
+        border-top-style: none;
+        height: 2em;
       }
     }
-    &:hover {
-      > td {
-        // background-color: var(--color--light-3);
-        // background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04));
-      }
-      >.--sticky-left, >.--sticky-right {
-        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08));
-      }
-    }
+  }
+  > tbody:last-of-type > tr:last-child > td {
+    border-bottom-style: solid;
   }
   > tfoot > tr {
     z-index: 3;
     position: sticky;
     bottom: 0;
     > td {
-      border: none;
-      // border-top: var(--table-border) !important;
+      border-style: none;
       padding: 0;
       height: 0;
     }
   }
-  > tbody:empty + tfoot > tr > td {
-    border-bottom: var(--table-border);
-  }
 }
-  // &.--scroll-none thead tr th:nth-last-child(1 of :not(.--sticky-right)) // Prev sticky selector
-.c-datagrid {
+
+.fds-c-datagrid.datagrid--grouped > table > thead > tr > th {
+  border-bottom: var(--td-border);
+}
+
+// Scroll shadows
+.fds-c-datagrid {
   --linear-gradient: rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0);
-  &.--scroll-left table {
+  &.datagrid--scroll-left > table {
     >thead, >tbody, >tfoot {
-      > tr >.--sticky-left {
+      > tr > :nth-last-child(1 of :is(.--sticky-left)) {
         &::after {
           content: "";
           position: absolute;
@@ -592,9 +685,9 @@ export default {
       }
     }
   }
-  &.--scroll-right table {
+  &.datagrid--scroll-right > table {
     >thead, >tbody, >tfoot {
-      >tr >.--sticky-right {
+      >tr > :nth-child(1 of :is(.--sticky-right)) {
         &::after {
           content: "";
           position: absolute;
@@ -612,7 +705,7 @@ export default {
       }
     }
   }
-  &.--scroll-top > table > thead > tr {
+  &.datagrid--scroll-top > table > thead > tr {
     > th {
       border-bottom: var(--td-border);
     }
@@ -626,31 +719,37 @@ export default {
       background-image: linear-gradient(180deg, var(--linear-gradient));
     }
   }
-  &.--scroll-bottom {
-    border-bottom: var(--table-border);
+  &.datagrid--scroll-top:not(.datagrid--scroll-bottom) {
+    > table > tbody:last-of-type > tr:last-child > td {
+      border-bottom-style: none;
+    }
+    > table > tfoot > tr > td {
+      border-bottom: var(--table-border);
+    }
   }
-  &.--scroll-bottom > table > tfoot > tr > td {
+  &.datagrid--scroll-bottom > table > tfoot > tr > td {
+    border-bottom: var(--table-border);
     &::after {
       content: "";
       position: absolute;
-      top: -12px;
+      bottom: 0;
       left: 0;
       right: 0;
       height: 12px;
       background-image: linear-gradient(0deg, var(--linear-gradient));
-      // border-bottom: var(--table-border);
     }
   }
 }
 
-.c-datagrid__expand {
+// Expand and Draftline
+
+.fds-c-datagrid__expand {
+  > td {
+    z-index: 100;
+  }
 }
 
-.c-datagrid__draftline {
-  border-top: 1px solid red;
-}
-
-.c-datagrid__expand-content {
+.fds-c-datagrid__expand-content {
   position: sticky !important;
   left: 0;
   margin: 0 -1px;
@@ -659,5 +758,9 @@ export default {
   // box-shadow: 0 2px 21px 0px rgba(0, 0, 0, 0.2) inset;
   box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.2) inset;
   background: var(--color--white);
+}
+
+.fds-c-datagrid__draftline {
+  border-top: 1px solid red;
 }
 </style>>

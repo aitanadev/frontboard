@@ -1,15 +1,15 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import APP from '#services/APP'
-import User from '#models/examples/User'
+// import User from '#models/examples/User'
 // import ColorField from '#components/fields/ColorField'  assert { type: 'node-native' }
 
-export default class Color extends Scheme {
+export default class Color extends Entity {
   constructor(data) {
     return super().mount(data)
   }
 
   hsl(colorShadow) { // Todo rename to applyShadow(colorShadow)
-    // Add support to tranform numbers automatically to Scheme?
+    // Add support to tranform numbers automatically to Entity?
     if (colorShadow) {
       const hue = (this.hue + colorShadow.hue).range(0, 360)
       const saturation = (this.saturation + colorShadow.saturation).range(0, 100)
@@ -87,8 +87,6 @@ export default class Color extends Scheme {
   static computed() {
     return {
       value: {
-        min: 10,
-        as: 'a',
         component: 'ColorField'
       }
     }
@@ -97,7 +95,8 @@ export default class Color extends Scheme {
   static schema() {
     return {
       name: {
-        default: ''
+        default: '',
+        sticky: 'left'
       },
       hue: {
         type: Number,
@@ -119,13 +118,16 @@ export default class Color extends Scheme {
         range: true,
         min: 0,
         max: 100
-      },
+      }
+      /*
       users: {
         class: User,
         multiple: true,
         metadata: true,
-        crud: true
+        crud: true,
+        col: false
       }
+      */
     }
   }
 }

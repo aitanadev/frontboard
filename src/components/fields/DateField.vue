@@ -1,11 +1,11 @@
 <template>
-  <div ref="emergentHook" class="c-date-field">
-    <div class="c-field" :hint="currentDate.toString()">
+  <div ref="emergentHook" class="fds-c-date-field">
+    <div class="fds-c-field" :hint="currentDate.toString()">
       <label v-if="label">{{ label }}</label>
       <label><span class="fi fi-rs-calendar"></span></label>
       <input
         type="number"
-        class="c-input c-date-field__day"
+        class="fds-c-input fds-c-date-field__day"
         v-model="day"
         autocomplete="off"
         min="0"
@@ -16,7 +16,7 @@
         @input="onChange"
       /><input
         type="number"
-        class="c-input c-date-field__month"
+        class="fds-c-input fds-c-date-field__month"
         v-model="month"
         autocomplete="off"
         min="0"
@@ -27,7 +27,7 @@
         @input="onChange"
       /><input
         type="number"
-        class="c-input c-date-field__year"
+        class="fds-c-input fds-c-date-field__year"
         v-model="year"
         autocomplete="off"
         min="0"
@@ -36,13 +36,13 @@
         @focus="focus"
         @input="onChange"
       />
-      <button v-if="clearable" type="button" class="c-action" @click="$emit('input', undefined)"><span class="fi fi-rr-cross-small"></span></button>
+      <button v-if="clearable" type="button" class="fds-c-action" @click="$emit('input', undefined)"><span class="fi fi-rr-cross-small"></span></button>
       <!-- <input type="checkbox" v-model="mondays"> --->
       <!--
       <label><span class="fi fi-rs-clock"></span></label>
       <input
         type="number"
-        class="c-input c-date-field__hours"
+        class="fds-c-input fds-c-date-field__hours"
         v-model="hours"
         autocomplete="off"
         min="-1"
@@ -54,7 +54,7 @@
       />
       <input
         type="number"
-        class="c-input c-date-field__minutes"
+        class="fds-c-input fds-c-date-field__minutes"
         v-model="minutes"
         autocomplete="off"
         min="-1"
@@ -66,7 +66,7 @@
       />
       -->
     </div>
-    <div ref="emergent" class="c-emergent c-calendar" v-if="calendar">
+    <div ref="emergent" class="fds-c-emergent fds-c-calendar" v-if="calendar">
       <table v-if="emergent.opened">
         <thead>
           <tr>
@@ -87,7 +87,7 @@
               :class="{'--weekend': weekDay.getUTCDay() === 0 || weekDay.getUTCDay() === 6}"
               @click="selectDate(weekDay)"
             >
-              <button type="button" class="c-action">{{ weekDay.getUTCDate() }}</button>
+              <button type="button" class="fds-c-action">{{ weekDay.getUTCDate() }}</button>
             </td>
           </tr>
         </tbody>
@@ -194,6 +194,7 @@ export default {
 
   methods: {
     setLapse() {
+      if (!this.currentDate) return
       const diff = Math.abs(Date.now() - this.currentDate.getTime())
       const factors = {
         days: Math.floor(diff / 1000 / 60 / 60 / 24), // TODO: add months and years grouping
@@ -221,7 +222,7 @@ export default {
     onChange() {
       const {day, month, year, hours, minutes} = this
       const currentDate = this.currentDate = new Date(this.currentDate.getTime())
-      console.log('date text:', currentDate, {day, month, year, hours, minutes})
+      // console.log('date text:', currentDate, {day, month, year, hours, minutes})
       this.$emit('input', currentDate)
       // this.$forceUpdate()
     }
@@ -230,22 +231,22 @@ export default {
 </script>
 
 <style lang="scss">
-.c-date-field {
+.fds-c-date-field {
   display: flex;
 }
-.c-date-field__day {
+.fds-c-date-field__day {
   width: 40px !important;
 }
-.c-date-field__month {
+.fds-c-date-field__month {
   width: 40px !important;
 }
-.c-date-field__year {
+.fds-c-date-field__year {
   width: 60px !important;
 }
-.c-date-field__hours {
+.fds-c-date-field__hours {
   width: 40px !important;
 }
-.c-date-field__minutes {
+.fds-c-date-field__minutes {
   width: 40px !important;
 }
 </style>

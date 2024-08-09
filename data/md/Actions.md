@@ -1,6 +1,6 @@
 # Buttons
 
-`c-action`
+`fds-c-action`
 
 Buttons uses only CSS classes (not component needed) and can have three **variations**
 
@@ -12,9 +12,9 @@ The color **tones** depends on Palette colors definitions using `t-colorToneName
 
 ```html
 <template>
-  <button type="button" class="c-action t-success">Default</button>
-  <button type="button" class="c-action v-semi t-success">Semi</button>
-  <button type="button" class="c-action v-solid t-success">Solid</button>
+  <button type="button" class="fds-c-action t-success">Default</button>
+  <button type="button" class="fds-c-action v-semi t-success">Semi</button>
+  <button type="button" class="fds-c-action v-solid t-success">Solid</button>
 </template>
 ```
 
@@ -37,7 +37,7 @@ The color **tones** depends on Palette colors definitions using `t-colorToneName
           <td v-for="colorTone in APP.services.palette.colorTones">
             <button
               :class="[
-                'c-action',
+                'fds-c-action',
                 {['t-' + colorTone.name]: colorTone.name !== 'default'},
                 {['v-' + variation]: variation !== 'default'},
                 {['s-' + status]: status !== 'default'},

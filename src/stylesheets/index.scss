@@ -29,15 +29,15 @@ $disabledSelector: '&.s-disabled, &[disabled], &:disabled';
   @import "components";
 
   // Darkmode variations
-  .v-darkmode {
+  &.v-darkmode, .v-darkmode {
     --text-shadow--dark: none;
     --text-shadow--light: none;
-    .c-input, .c-action {
+    .fds-c-input, .fds-c-action {
       text-shadow: none !important;
     }
   }
 
-  // Embeded spinner svg animation
+  // Embeded spinner svg animation (move to c-field)
   .u-loading {
     &::before {
       background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' stroke='rgba(0,0,0,0.4)' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cstyle%3E.spinner_V8m1%7Btransform-origin:center;animation:spinner_zKoa 2s linear infinite%7D.spinner_V8m1 circle%7Bstroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite%7D@keyframes spinner_zKoa%7B100%25%7Btransform:rotate(360deg)%7D%7D@keyframes spinner_YpZS%7B0%25%7Bstroke-dasharray:0 150;stroke-dashoffset:0%7D47.5%25%7Bstroke-dasharray:42 150;stroke-dashoffset:-16%7D95%25,100%25%7Bstroke-dasharray:42 150;stroke-dashoffset:-59%7D%7D%3C/style%3E%3Cg class='spinner_V8m1'%3E%3Ccircle cx='12' cy='12' r='9.5' fill='none' stroke-width='3'%3E%3C/circle%3E%3C/g%3E%3C/svg%3E");
@@ -51,10 +51,28 @@ $disabledSelector: '&.s-disabled, &[disabled], &:disabled';
     }
   }
 
+  .s-loading {
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      height: 100%;
+      background-position: center center;
+      background-color: rgba(255, 255, 255, 0.5);
+      background-repeat: no-repeat;
+      background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' stroke='rgba(0,0,0,0.4)' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cstyle%3E.spinner_V8m1%7Btransform-origin:center;animation:spinner_zKoa 2s linear infinite%7D.spinner_V8m1 circle%7Bstroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite%7D@keyframes spinner_zKoa%7B100%25%7Btransform:rotate(360deg)%7D%7D@keyframes spinner_YpZS%7B0%25%7Bstroke-dasharray:0 150;stroke-dashoffset:0%7D47.5%25%7Bstroke-dasharray:42 150;stroke-dashoffset:-16%7D95%25,100%25%7Bstroke-dasharray:42 150;stroke-dashoffset:-59%7D%7D%3C/style%3E%3Cg class='spinner_V8m1'%3E%3Ccircle cx='12' cy='12' r='9.5' fill='none' stroke-width='3'%3E%3C/circle%3E%3C/g%3E%3C/svg%3E");
+    }
+  }
+
   // Invisible scroll
   .u-scrolled {
     overflow: scroll;
-    max-height: 300px;
+    // max-height: 300px;
     scrollbar-width: none;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
@@ -93,10 +111,10 @@ $disabledSelector: '&.s-disabled, &[disabled], &:disabled';
 // Waiting to better place: ...
 
 .--ds {
-  .c-draggable__handler {
+  .fds-c-draggable__handler {
     cursor: move;
   }
-  .c-draggable__handler--grabber::before {
+  .fds-c-draggable__handler--grabber::before {
     display: inline-block;
     content: ":::";
     color: var(--color);

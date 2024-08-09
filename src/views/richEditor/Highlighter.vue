@@ -1,18 +1,18 @@
 <template>
-  <node-view-wrapper class="c-hightlighter" :class="{'c-hightlighter--fullscreen': fullScreen}" @click.native="click">
-    <div contenteditable="false" class="c-hightlighter__toolbar">
-      <div class="c-field v-radius-bottom-none">
-        <Selector :options="options" v-model="selectedLanguage" class="c-hightlighter__selector" />
-        <button class="c-hightlighter__button c-action" @click="toggleCodeView" v-if="isRunable">{{ showCodeView ? 'Hide code' : 'Show code' }}</button>
-        <button class="c-hightlighter__button c-action" @click="fullScreen = !fullScreen">{{ fullScreen ? 'Full screen exit' : 'Full screen' }}</button>
+  <node-view-wrapper class="fds-c-hightlighter" :class="{'fds-c-hightlighter--fullscreen': fullScreen}" @click.native="click">
+    <div contenteditable="false" class="fds-c-hightlighter__toolbar">
+      <div class="fds-c-field v-radius-bottom-none">
+        <Selector :options="options" v-model="selectedLanguage" class="fds-c-hightlighter__selector" />
+        <button class="fds-c-hightlighter__button fds-c-action" @click="toggleCodeView" v-if="isRunable">{{ showCodeView ? 'Hide code' : 'Show code' }}</button>
+        <button class="fds-c-hightlighter__button fds-c-action" @click="fullScreen = !fullScreen">{{ fullScreen ? 'Full screen exit' : 'Full screen' }}</button>
       </div>
     </div>
-    <pre v-show="!isRunable || showCodeView" class="c-hightlighter__hljs hljs" :class="{'c-hightlighter__hljs--runnable': isRunable }"><code><node-view-content /></code></pre>
+    <pre v-show="!isRunable || showCodeView" class="fds-c-hightlighter__hljs hljs" :class="{'fds-c-hightlighter__hljs--runnable': isRunable }"><code><node-view-content /></code></pre>
     <!-- TODO: Refactor node-view-content as custom to fix the nowrap tiptap limitation for codeblocks-->
-    <div ref="runner" v-show="isRunable" class="c-hightlighter__runner" contenteditable="false">
-      <div v-if="errors.length > 0"><pre class="c-hightlighter__error" v-for="error in errors"><code>{{ error }}</code></pre></div>
-      <div v-if="warnings.length > 0"><pre class="c-hightlighter__warning" v-for="warn in warnings"><code>{{ warn }}</code></pre></div>
-      <div class="c-hightlighter__runner__contents" ref="mounter"/>
+    <div ref="runner" v-show="isRunable" class="fds-c-hightlighter__runner" contenteditable="false">
+      <div v-if="errors.length > 0"><pre class="fds-c-hightlighter__error" v-for="error in errors"><code>{{ error }}</code></pre></div>
+      <div v-if="warnings.length > 0"><pre class="fds-c-hightlighter__warning" v-for="warn in warnings"><code>{{ warn }}</code></pre></div>
+      <div class="fds-c-hightlighter__runner__contents" ref="mounter"/>
     </div>
 
   </node-view-wrapper>
@@ -20,12 +20,15 @@
 
 <script>
 import APP from '#services/APP'
+import Entity from '#services/Entity'
+import Selector from '#components/selector/Selector'
 import Vue from 'vue'
 import { NodeViewContent, nodeViewProps, NodeViewWrapper } from '@tiptap/vue-2'
 
 export default {
   name: 'Highligther',
   components: {
+    Selector,
     NodeViewWrapper,
     NodeViewContent
   },
@@ -119,14 +122,14 @@ export default {
     onError (event) {
       const { error, vm, info } = event.detail
       if (vm && vm.closestComponent && vm.closestComponent('Runner') === this.lastRunner) {
-        this.destroyRunner()
+        // this.destroyRunner()
         this.errors.push(error.toString())
       }
     },
     onWarn (event) {
       const { message, vm, trace } = event.detail
       if (vm && vm.closestComponent && vm.closestComponent('Runner') === this.lastRunner) {
-        this.destroyRunner()
+        // this.destroyRunner()
         this.warnings.push(message.toString())
       }
     },
@@ -137,7 +140,7 @@ export default {
       const content = this.node.textContent
       if (force !== true && content === this.lastContent) return
       this.lastContent = content
-      this.destroyRunner()
+      // this.destroyRunner()
       this.errors = []
       this.warnings = []
       await this.$nextTick()
@@ -165,12 +168,14 @@ export default {
       })
     },
     */
+    /*
     destroyRunner () {
       if (this.lastRunner) {
         // this.lastRunner.$destroy() // TODO: REview weird error
-        this.$refs.mounter.textContent = ''
+
       }
     },
+    */
     parseWebcomponent (webcomponent) {
       try {
         const webcomponentRegex = /(?:<template>\s*((?:.|\n)*)\s*<\/template>)\s*(?:<script>\s*((?:.|\n)*)\s*<\/script>)?\s*(?:<style>\s*((?:.|\n)*)\s*<\/style>)?\s*/gm
@@ -194,12 +199,14 @@ export default {
         const component = document.createElement('component')
         base.appendChild(style)
         base.appendChild(component)
+        this.$refs.mounter.textContent = ''
         this.$refs.mounter.appendChild(base)
 
         const evalConfig = js ? eval(js) : {} // eslint-disable-line no-eval
         const config = evalConfig.data ? evalConfig : { data: evalConfig }
         Object.assign(config.data, {
           APP,
+          Entity,
           window
         })
 
@@ -223,13 +230,13 @@ export default {
 </script>
 
 <style lang="scss">
-.c-hightlighter {
+.fds-c-hightlighter {
   position: relative;
   margin: 20px 0;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  &.c-hightlighter--fullscreen {
+  &.fds-c-hightlighter--fullscreen {
     position: fixed;
     z-index: 1;
     height: auto;
@@ -241,28 +248,28 @@ export default {
     right: 0;
     margin: 0;
     background-color: var(--color--light-3);
-    .c-hightlighter__toolbar {
+    .fds-c-hightlighter__toolbar {
       padding-right: 6px;
     }
-    .c-hightlighter__runner {
+    .fds-c-hightlighter__runner {
       max-height: none;
     }
   }
-  .c-emergent__modal-overlay {
+  .fds-c-emergent__modal-overlay {
     position: static;
     padding: 20px;
   }
 }
-.c-hightlighter__toolbar {
+.fds-c-hightlighter__toolbar {
   margin-right: var(--spacing-s);
   justify-content: flex-end;
   display: flex;
   margin-bottom: -1px;
 }
 
-.c-hightlighter__runner {
+.fds-c-hightlighter__runner {
   width: 100%;
-  margin: 0 0 21px;
+  margin: 0 0 var(--spacing-l);
   border: 1px solid var(--color--pale-1);
   border-width: 1px 1px 1px 1px;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
@@ -276,28 +283,27 @@ export default {
   flex-direction: column;
   overflow: auto;
 }
-.c-hightlighter__runner__contents {
-  margin: 20px;
+.fds-c-hightlighter__runner__contents {
+  margin: var(--spacing-xl);
   min-height: 0;
   max-height: 100%;
 }
-.c-hightlighter__error, .c-hightlighter__warning {
-  padding: 12px;
+.fds-c-hightlighter__error, .fds-c-hightlighter__warning {
+  padding: var(--spacing-m);
   margin: 0 0 18px;
   border-radius: var(--border-radius);
   box-shadow: 0px 8px 7px -9px #6a6a6a;
+  margin: var(--spacing-l);
 }
-.c-hightlighter__error {
-  color: #d03a3a;
-  background-color: #ffd8d8;
-  border: 1px solid #d03a3a;
+.fds-c-hightlighter__error {
+  background-color: var(--color--error--light-3);
+  border: 1px solid var(--color--error);
 }
-.c-hightlighter__warning {
-  color: #e4aa00;
-  background-color: #fff5d8;
-  border: 1px solid #e4aa00;
+.fds-c-hightlighter__warning {
+  background-color: var(--color--warning--light-3);
+  border: 1px solid var(--color--warning);
 }
-.c-hightlighter__hljs {
+.fds-c-hightlighter__hljs {
   padding: 16px 18px;
   border-radius: var(--border-radius);
   box-shadow: 0 0 9px 0px rgb(0 0 0 / 43%) inset;
@@ -305,7 +311,7 @@ export default {
   max-height: 500px;
   overflow: auto;
 }
-.c-hightlighter__hljs--runnable {
+.fds-c-hightlighter__hljs--runnable {
   padding: 16px;
   border-radius: var(--border-radius) var(--border-radius) 0 0;
   margin: 0;
@@ -313,7 +319,7 @@ export default {
 
 // Dark mode
 .--darkmode {
-  .c-hightlighter__runner {
+  .fds-c-hightlighter__runner {
     background-color: var(--color--dark-3);
     color: var(--color--pale-2);
     border: var(--color--black);

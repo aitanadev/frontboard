@@ -1,16 +1,16 @@
 // It´s used to manage wrap/no-grap text behaviour
-.c-text-wrap {
-  &.c-text-wrap--multiline {
+.fds-c-text-wrap {
+  &.fds-c-text-wrap--multiline {
     display: inline-block;
   }
-  &:not(.c-text-wrap--multiline) {
+  &:not(.fds-c-text-wrap--multiline) {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
     gap: 0.3em;
-    .c-text-wrap__text {
+    .fds-c-text-wrap__text {
       flex-shrink: 1;
       overflow: hidden;
       text-overflow: ellipsis;

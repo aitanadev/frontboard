@@ -2,7 +2,7 @@
 
 exports[`Datagrid.vue change 1`] = `
 <div
-  class="c-datagrid"
+  class="fds-c-datagrid"
 >
   <table
     class="--scroll-none"
@@ -485,7 +485,7 @@ exports[`Datagrid.vue change 1`] = `
 
 exports[`Datagrid.vue initial state 1`] = `
 <div
-  class="c-datagrid"
+  class="fds-c-datagrid"
 >
   <table
     class="--scroll-none"

@@ -1,7 +1,8 @@
+import APP from '#services/APP'
 import Axios from 'axios'
 
 const API = Axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: 'http://localhost:' + 3001 + '/api',
   withCredentials: true
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <span class="c-tooltiped" @mouseenter="emergent.open()" @mouseleave="emergent.close()">
+  <span class="fds-c-tooltiped" @mouseenter="emergent.open()" @mouseleave="emergent.close()">
     <slot></slot>
   </span>
 </template>
@@ -24,7 +24,7 @@ export default {
     console.log('new tootip', this)
     if (!tooltipEmergent) {
       tooltipEmergent = this.tooltipEmergent = document.createElement('div')
-      tooltipEmergent.classList.add('c-tooltip')
+      tooltipEmergent.classList.add('fds-c-tooltip')
       document.body.appendChild(tooltipEmergent)
     }
   },
@@ -35,7 +35,7 @@ export default {
       element: tooltipEmergent,
       hook: this.$el,
       config: {
-        openClass: 'c-tooltip--open',
+        openClass: 'fds-c-tooltip--open',
         spacing: 10,
         inheritWidth: false,
         center: true

@@ -1,5 +1,5 @@
 <template>
-  <div class="c-calendar">
+  <div class="fds-c-calendar">
     <table>
       <thead>
         <tr>
@@ -19,7 +19,7 @@
             :active="isSelected(weekDay)"
             :class="{'--weekend': weekDay.getUTCDay() === 0 || weekDay.getUTCDay() === 6}"
           >
-            <button type="button" class="c-action">{{ weekDay.getUTCDate() }}</button>
+            <button type="button" class="fds-c-action">{{ weekDay.getUTCDate() }}</button>
             <template v-for="selection in selections">
               <div v-if="isInSelection(weekDay, selection)">{{ selection.name }}</div>
             </template>
@@ -30,20 +30,20 @@
         <td colspan="8"></td>
       </tfoot>
     </table>
-    <div class="c-timeline">
+    <div class="fds-c-timeline">
       <template v-for="selection in selections">
-        <div class="c-timeline__info">{{ calendar.selector.toLocaleString('default', { month: 'long' }).capitalize() }} {{ year }} {{ selection.name }}</div>
-        <div class="c-timeline__selection">
-          <div class="c-timeline__week" v-for="week in calendar" :key="week.weekNumber">
+        <div class="fds-c-timeline__info">{{ calendar.selector.toLocaleString('default', { month: 'long' }).capitalize() }} {{ year }} {{ selection.name }}</div>
+        <div class="fds-c-timeline__selection">
+          <div class="fds-c-timeline__week" v-for="week in calendar" :key="week.weekNumber">
             <div
               v-for="weekDay in week.days"
               :key="weekDay.toString()"
               :active="isInSelection(weekDay, selection)"
               first
               :dayNumber="weekDay.getUTCDay()"
-              class="c-timeline__day"
+              class="fds-c-timeline__day"
             >
-              <button type="button" class="c-action">{{ weekDay.getUTCDate() }}</button>
+              <button type="button" class="fds-c-action">{{ weekDay.getUTCDate() }}</button>
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default {
 
 <style lang="scss">
 
-.c-calendar {
+.fds-c-calendar {
   width: 280px;
   padding: 12px;
   border: 1px solid var(--color--pale-1);
@@ -166,22 +166,22 @@ export default {
   }
 }
 
-.c-timeline {
+.fds-c-timeline {
   border: 1px solid black;
 }
 
-.c-timeline__info {
+.fds-c-timeline__info {
   background-color: grey;
 }
-.c-timeline__selection {
+.fds-c-timeline__selection {
   max-width: 200px;
 }
 
-.c-timeline__week {
+.fds-c-timeline__week {
   display: inline;
 }
 
-.c-timeline__day {
+.fds-c-timeline__day {
   display: inline;
   &[dayNumber="0"], &[dayNumber="6"] {
     background-color: var(--color--light-2);

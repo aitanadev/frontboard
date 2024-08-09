@@ -1,5 +1,5 @@
 <template>
-  <div class="c-color-field" :style="{'--color-hsl': form[field.key] }">
+  <div class="fds-c-color-field" :style="{'--color-hsl': form[field.key] }">
     {{ form[field.key] }}
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .c-color-field {
+  .fds-c-color-field {
     display: block;
     background-color: var(--color-hsl);
     border-radius: var(--border-radius);

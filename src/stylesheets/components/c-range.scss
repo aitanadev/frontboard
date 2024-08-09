@@ -1,4 +1,4 @@
-.c-range, input[type="range"] {
+.fds-c-range {
   -webkit-appearance: none;
   appearance: none;
   background-color: transparent;
@@ -80,7 +80,7 @@
 }
 
 // Ranges (multi-range combination)
-.c-ranges {
+.fds-c-ranges {
   width: auto;
   background-color: var(--color--pale-1);
   height: 5px;

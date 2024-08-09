@@ -1,4 +1,4 @@
-.c-tabs {
+.fds-c-tabs {
   margin: 0;
   display: flex;
   flex-direction: row;
@@ -13,21 +13,21 @@
     display: flex;
     margin: 0;
     padding: 0;
-    &>.c-action {
+    &>.fds-c-action {
       cursor: pointer;
       border-bottom-style: none;
       border-radius: var(--border-radius) var(--border-radius) 0 0;
       padding: var(--spacing-xs) var(--spacing-m);
     }
   }
-  &.c-tabs--bottom {
+  &.fds-c-tabs--bottom {
     border-bottom: none;
     border-top: var(--border-width) solid var(--color--pale-1);
     background-image: radial-gradient(ellipse 150% 20px at center 0%, #00000012 0px, transparent 50% 100%);
     padding: 0 var(--spacing-m) var(--spacing-s);
     &>li {
-      align-self: start;
-      &>.c-action {
+      align-self: flex-start;
+      &>.fds-c-action {
         border-bottom-style: solid;
         border-top-stye: none;
         border-radius: 0 0 var(--border-radius) var(--border-radius);
@@ -36,7 +36,7 @@
   }
 }
 
-.c-tabs-content {
+.fds-c-tabs-content {
   overflow: auto;
   flex-grow: 1;
   display: flex;

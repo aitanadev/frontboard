@@ -1,703 +1,528 @@
-[
-  {
-    "name": "common",
-    "model": "Translation",
-    "data": [
-      {
-        "id": "100032",
-        "dotText": "example.dot.text",
-        "textEN": "Hello ${name}!",
-        "textES": "Hola ${name}!"
-      },
-      {
-        "id": "100135",
-        "dotText": "addRow",
-        "textEN": "Add ${name}",
-        "textES": "Añadir ${name}"
-      },
-      {
-        "id": "100137",
-        "dotText": "addFilter",
-        "textEN": "Add filter",
-        "textES": "Añadir filtro"
-      },
-      {
-        "id": "100156",
-        "dotText": "save",
-        "textEN": "save",
-        "textES": "guardar"
-      },
-      {
-        "id": "100157",
-        "dotText": "yes",
-        "textEN": "yes",
-        "textES": "sí"
-      },
-      {
-        "id": "100158",
-        "dotText": "no",
-        "textEN": "no",
-        "textES": "no"
-      },
-      {
-        "id": "100164",
-        "dotText": "removeAllFilters",
-        "textEN": "Remove filters",
-        "textES": "Quitar filtros"
-      },
-      {
-        "id": "100224",
-        "dotText": "reset",
-        "textEN": "reset",
-        "textES": "restablecer"
-      }
-    ]
-  },
-  {
-    "name": "validate",
-    "model": "Translation",
-    "data": [
-      {
-        "id": "100041",
-        "dotText": "maxChars",
-        "textEN": "Max characters number is ${max}",
-        "textES": "Máximo ${max} caracteres"
-      },
-      {
-        "id": "100042",
-        "dotText": "minChars",
-        "textEN": "At least ${min} characters",
-        "textES": "Requiere al menos ${min} caracteres"
-      }
-    ]
-  },
-  {
-    "name": "models",
-    "model": "Translation",
-    "data": [
-      {
-        "id": "100136",
-        "dotText": "Translation",
-        "number": true,
-        "textEN": "translation",
-        "textES": "traducción",
-        "textMultipleEN": "translations",
-        "textMultipleES": "traducciones"
-      },
-      {
-        "id": "100139",
-        "dotText": "Asset",
-        "number": true,
-        "textEN": "asset",
-        "textES": "artículo",
-        "textMultipleEN": "assets",
-        "textMultipleES": "artículos"
-      },
-      {
-        "id": "100140",
-        "dotText": "Purchase",
-        "number": true,
-        "textEN": "purchase",
-        "textES": "compra",
-        "textMultipleEN": "purchases",
-        "textMultipleES": "compras"
-      },
-      {
-        "id": "100141",
-        "dotText": "PurchaseLine",
-        "number": true,
-        "textEN": "asset",
-        "textES": "artículo",
-        "textMultipleEN": "assets",
-        "textMultipleES": "artículos"
-      },
-      {
-        "id": "100142",
-        "dotText": "Taxonomy",
-        "number": true,
-        "textEN": "category",
-        "textES": "categoría",
-        "textMultipleEN": "categories",
-        "textMultipleES": "categorías"
-      },
-      {
-        "id": "100143",
-        "dotText": "Category",
-        "number": true,
-        "textEN": "tag",
-        "textES": "etiqueta",
-        "textMultipleEN": "tag",
-        "textMultipleES": "etiquetas"
-      },
-      {
-        "id": "100165",
-        "dotText": "User",
-        "number": true,
-        "textEN": "user",
-        "textES": "usuario",
-        "textMultipleEN": "users",
-        "textMultipleES": "usuarios"
-      }
-    ]
-  },
-  {
-    "name": "fieldsets",
-    "model": "Translation",
-    "data": [
-      {
-        "id": "100043",
-        "dotText": "User.fields.name.label",
-        "textEN": "name",
-        "textES": "nombre"
-      },
-      {
-        "id": "100044",
-        "dotText": "User.fields.lastName.label",
-        "textEN": "lastname",
-        "textES": "apellidos"
-      },
-      {
-        "id": "100045",
-        "dotText": "User.fields.active.label",
-        "textEN": "activated",
-        "textES": "activado"
-      },
-      {
-        "id": "100046",
-        "dotText": "User.fields.login.label",
-        "textEN": "login",
-        "textES": "alias"
-      },
-      {
-        "id": "100047",
-        "dotText": "User.fields.birthDate.label",
-        "textEN": "birth date",
-        "textES": "fecha de nacimiento"
-      },
-      {
-        "id": "100048",
-        "dotText": "User.fields.color.label",
-        "textEN": "color",
-        "textES": "color"
-      },
-      {
-        "id": "100049",
-        "dotText": "User.fields.bio.label",
-        "textEN": "bio",
-        "textES": "bio"
-      },
-      {
-        "id": "100050",
-        "dotText": "User.fields.colors.label",
-        "textEN": "colors",
-        "textES": "colores"
-      },
-      {
-        "id": "100051",
-        "dotText": "User.fields.age.label",
-        "textEN": "age",
-        "textES": "edad"
-      },
-      {
-        "id": "100052",
-        "dotText": "Color.fields.name.label"
-      },
-      {
-        "id": "100053",
-        "dotText": "Color.fields.hue.label"
-      },
-      {
-        "id": "100054",
-        "dotText": "Color.fields.saturation.label"
-      },
-      {
-        "id": "100055",
-        "dotText": "Color.fields.lightness.label"
-      },
-      {
-        "id": "100056",
-        "dotText": "Color.fields.users.label"
-      },
-      {
-        "id": "100057",
-        "dotText": "ColorTone.fields.name.label"
-      },
-      {
-        "id": "100058",
-        "dotText": "ColorTone.fields.color.label"
-      },
-      {
-        "id": "100059",
-        "dotText": "Category.fields.name.label",
-        "textEN": "Name",
-        "textES": "Nombre"
-      },
-      {
-        "id": "100060",
-        "dotText": "Taxonomy.fields.name.label",
-        "textEN": "Name",
-        "textES": "Nombre"
-      },
-      {
-        "id": "100061",
-        "dotText": "Taxonomy.fields.tone.label",
-        "textEN": "Color",
-        "textES": "Color"
-      },
-      {
-        "id": "100062",
-        "dotText": "Taxonomy.fields.categories.label",
-        "textEN": "Tags",
-        "textES": "Etiquetas"
-      },
-      {
-        "id": "100063",
-        "dotText": "Asset.fields.name.label",
-        "textEN": "Name",
-        "textES": "Nombre"
-      },
-      {
-        "id": "100064",
-        "dotText": "Asset.fields.unitBase.label",
-        "textEN": "Unit",
-        "textES": "Unidad"
-      },
-      {
-        "id": "100065",
-        "dotText": "Asset.fields.unitAmount.label"
-      },
-      {
-        "id": "100066",
-        "dotText": "Asset.fields.barcode.label",
-        "textEN": "Barcode",
-        "textES": "Código de barras"
-      },
-      {
-        "id": "100067",
-        "dotText": "Asset.fields.note.label",
-        "textEN": "Notes",
-        "textES": "Notas"
-      },
-      {
-        "id": "100068",
-        "dotText": "Asset.fields.runOut.label",
-        "textEN": "Limit to notify",
-        "textES": "Limite de aviso"
-      },
-      {
-        "id": "100069",
-        "dotText": "Asset.fields.taxonomy.label",
-        "textEN": "Category",
-        "textES": "Categoría"
-      },
-      {
-        "id": "100070",
-        "dotText": "Asset.fields.categories.label",
-        "textEN": "Tags",
-        "textES": "Etiquetas"
-      },
-      {
-        "id": "100071",
-        "dotText": "Asset.fields.amount.label",
-        "textEN": "Amount",
-        "textES": "Cantidad"
-      },
-      {
-        "id": "100072",
-        "dotText": "Asset.fields.tone.label",
-        "textEN": "Color",
-        "textES": "Color"
-      },
-      {
-        "id": "100073",
-        "dotText": "EnumOption.fields.name.label"
-      },
-      {
-        "id": "100074",
-        "dotText": "EnumOption.fields.value.label"
-      },
-      {
-        "id": "100075",
-        "dotText": "Enum.fields.name.label"
-      },
-      {
-        "id": "100076",
-        "dotText": "Enum.fields.options.label"
-      },
-      {
-        "id": "100077",
-        "dotText": "PurchaseLine.fields.asset.label",
-        "textEN": "Asset",
-        "textES": "Artículo"
-      },
-      {
-        "id": "100078",
-        "dotText": "PurchaseLine.fields.amount.label",
-        "textEN": "Amount",
-        "textES": "Cantidad"
-      },
-      {
-        "id": "100079",
-        "dotText": "PurchaseLine.fields.price.label",
-        "textEN": "Price",
-        "textES": "Precio"
-      },
-      {
-        "id": "100080",
-        "dotText": "PurchaseLine.fields.bargain.label",
-        "textEN": "Bargain",
-        "textES": "Oferta"
-      },
-      {
-        "id": "100081",
-        "dotText": "PurchaseLine.fields.tone.label"
-      },
-      {
-        "id": "100082",
-        "dotText": "PurchaseLine.fields.name.label",
-        "textEN": "Name",
-        "textES": "Nombre"
-      },
-      {
-        "id": "100083",
-        "dotText": "Purchase.fields.date.label",
-        "textEN": "Date",
-        "textES": "Fecha"
-      },
-      {
-        "id": "100084",
-        "dotText": "Purchase.fields.dealer.label",
-        "textEN": "Dealer",
-        "textES": "Comercio"
-      },
-      {
-        "id": "100085",
-        "dotText": "Purchase.fields.purchaseLines.label",
-        "textEN": "Assets",
-        "textES": "Artículos"
-      },
-      {
-        "id": "100086",
-        "dotText": "Purchase.fields.name.label",
-        "textEN": "Name",
-        "textES": "Nombre"
-      },
-      {
-        "id": "100087",
-        "dotText": "Translation.fields.dotText.label"
-      },
-      {
-        "id": "100088",
-        "dotText": "Translation.fields.number.label"
-      },
-      {
-        "id": "100090",
-        "dotText": "Translation.fields.textEN.label"
-      },
-      {
-        "id": "100092",
-        "dotText": "Translation.fields.textES.label"
-      },
-      {
-        "id": "100093",
-        "dotText": "Translation.fields.textsEN.label"
-      },
-      {
-        "id": "100094",
-        "dotText": "Translation.fields.textsES.label"
-      },
-      {
-        "id": "100095",
-        "dotText": "Translation.fields.label.label"
-      },
-      {
-        "id": "100096",
-        "dotText": "CSSVar.fields.name.label"
-      },
-      {
-        "id": "100097",
-        "dotText": "CSSVar.fields.value.label"
-      },
-      {
-        "id": "100098",
-        "dotText": "CSSVar.fields.format.label"
-      },
-      {
-        "id": "100099",
-        "dotText": "CSSVar.fields.px.label"
-      },
-      {
-        "id": "100100",
-        "dotText": "CSSVar.fields.color.label"
-      },
-      {
-        "id": "100101",
-        "dotText": "ColorShadow.fields.name.label"
-      },
-      {
-        "id": "100102",
-        "dotText": "ColorShadow.fields.hue.label"
-      },
-      {
-        "id": "100103",
-        "dotText": "ColorShadow.fields.saturation.label"
-      },
-      {
-        "id": "100104",
-        "dotText": "ColorShadow.fields.lightness.label"
-      },
-      {
-        "id": "100105",
-        "dotText": "Fieldset.fields.name.label"
-      },
-      {
-        "id": "100106",
-        "dotText": "Fieldset.fields.model.label"
-      },
-      {
-        "id": "100107",
-        "dotText": "Fieldset.fields.fields.label"
-      },
-      {
-        "id": "100108",
-        "dotText": "Field.fields.key.label"
-      },
-      {
-        "id": "100109",
-        "dotText": "Field.fields.col.label"
-      },
-      {
-        "id": "100110",
-        "dotText": "Field.fields.field.label"
-      },
-      {
-        "id": "100111",
-        "dotText": "Field.fields.size.label"
-      },
-      {
-        "id": "100112",
-        "dotText": "Field.fields.sticky.label"
-      },
-      {
-        "id": "100113",
-        "dotText": "Field.fields.model.label"
-      },
-      {
-        "id": "100114",
-        "dotText": "Field.fields.fixed.label"
-      },
-      {
-        "id": "100115",
-        "dotText": "Field.fields.crud.label"
-      },
-      {
-        "id": "100116",
-        "dotText": "Field.fields.expand.label"
-      },
-      {
-        "id": "100117",
-        "dotText": "Field.fields.multiple.label"
-      },
-      {
-        "id": "100118",
-        "dotText": "Field.fields.class.label"
-      },
-      {
-        "id": "100119",
-        "dotText": "Field.fields.metadata.label"
-      },
-      {
-        "id": "100120",
-        "dotText": "Field.fields.options.label"
-      },
-      {
-        "id": "100121",
-        "dotText": "Field.fields.type.label"
-      },
-      {
-        "id": "100122",
-        "dotText": "Field.fields.default.label"
-      },
-      {
-        "id": "100123",
-        "dotText": "Field.fields.hidden.label"
-      },
-      {
-        "id": "100124",
-        "dotText": "Field.fields.readonly.label"
-      },
-      {
-        "id": "100125",
-        "dotText": "Field.fields.textarea.label"
-      },
-      {
-        "id": "100127",
-        "dotText": "Field.fields.range.label"
-      },
-      {
-        "id": "100128",
-        "dotText": "Field.fields.min.label"
-      },
-      {
-        "id": "100129",
-        "dotText": "Field.fields.max.label"
-      },
-      {
-        "id": "100130",
-        "dotText": "Field.fields.fieldset.label"
-      },
-      {
-        "id": "100131",
-        "dotText": "Field.fields.isComputedReadonly.label"
-      },
-      {
-        "id": "100132",
-        "dotText": "Field.fields.isInvent.label"
-      },
-      {
-        "id": "100133",
-        "dotText": "Field.fields.label.label"
-      },
-      {
-        "id": "100134",
-        "dotText": "Field.fields.tab.label"
-      },
-      {
-        "id": "100145",
-        "dotText": "Translation.fields.textZeroEN.label"
-      },
-      {
-        "id": "100147",
-        "dotText": "Translation.fields.textZeroES.label"
-      },
-      {
-        "id": "100149",
-        "dotText": "Translation.fields.textUniqueEN.label"
-      },
-      {
-        "id": "100151",
-        "dotText": "Translation.fields.textUniqueES.label"
-      },
-      {
-        "id": "100153",
-        "dotText": "Translation.fields.textMultipleEN.label"
-      },
-      {
-        "id": "100155",
-        "dotText": "Translation.fields.textMultipleES.label"
-      },
-      {
-        "id": "100161",
-        "dotText": "Color.fields.value.label"
-      },
-      {
-        "id": "100163",
-        "dotText": "Field.fields.component.label"
-      },
-      {
-        "id": "100168",
-        "dotText": "File.fields.name.label"
-      },
-      {
-        "id": "100170",
-        "dotText": "File.fields.timestamp.label"
-      },
-      {
-        "id": "100172",
-        "dotText": "File.fields.url.label"
-      },
-      {
-        "id": "100174",
-        "dotText": "File.fields.width.label"
-      },
-      {
-        "id": "100176",
-        "dotText": "File.fields.height.label"
-      },
-      {
-        "id": "100178",
-        "dotText": "File.fields.size.label"
-      },
-      {
-        "id": "100180",
-        "dotText": "File.fields.type.label"
-      },
-      {
-        "id": "100182",
-        "dotText": "File.fields.ext.label"
-      },
-      {
-        "id": "100184",
-        "dotText": "File.fields.isImage.label"
-      },
-      {
-        "id": "100186",
-        "dotText": "File.fields.contents.label"
-      },
-      {
-        "id": "100188",
-        "dotText": "User.fields.picture.label"
-      },
-      {
-        "id": "100190",
-        "dotText": "File.fields.lastModified.label"
-      },
-      {
-        "id": "100192",
-        "dotText": "File.fields.mime.label"
-      },
-      {
-        "id": "100227",
-        "dotText": "APIUser.fields.name.label"
-      },
-      {
-        "id": "100229",
-        "dotText": "APIUser.fields.lastName.label"
-      },
-      {
-        "id": "100231",
-        "dotText": "APIUser.fields.active.label"
-      },
-      {
-        "id": "100233",
-        "dotText": "APIUser.fields.login.label"
-      },
-      {
-        "id": "100235",
-        "dotText": "APIUser.fields.birthDate.label"
-      },
-      {
-        "id": "100237",
-        "dotText": "APIUser.fields.color.label"
-      },
-      {
-        "id": "100239",
-        "dotText": "APIUser.fields.picture.label"
-      },
-      {
-        "id": "100241",
-        "dotText": "APIUser.fields.bio.label"
-      },
-      {
-        "id": "100243",
-        "dotText": "APIUser.fields.colors.label"
-      },
-      {
-        "id": "100245",
-        "dotText": "APIUser.fields.age.label"
-      },
-      {
-        "id": "100247",
-        "dotText": "User.fields.tone.label"
-      },
-      {
-        "id": "100249",
-        "dotText": "APIUser.fields.tone.label"
-      },
-      {
-        "id": "100251",
-        "dotText": "File.fields.image.label"
-      }
-    ]
-  }
-]
+{
+  "name": "translations",
+  "model": "Translation",
+  "data": [
+    {
+      "id": "100135",
+      "node": "common.addRow",
+      "number": false,
+      "textEN": "Add ${name}",
+      "textES": "Añadir ${name}"
+    },
+    {
+      "id": "100137",
+      "node": "common.addFilter",
+      "number": false,
+      "textEN": "Add filter",
+      "textES": "Añadir filtro"
+    },
+    {
+      "id": "100156",
+      "node": "common.save",
+      "number": false,
+      "textEN": "save",
+      "textES": "guardar"
+    },
+    {
+      "id": "100157",
+      "node": "common.yes",
+      "number": false,
+      "textEN": "yes",
+      "textES": "sí"
+    },
+    {
+      "id": "100158",
+      "node": "common.no",
+      "number": false,
+      "textEN": "no",
+      "textES": "no"
+    },
+    {
+      "id": "100164",
+      "node": "common.removeAllFilters",
+      "number": false,
+      "textEN": "Remove filters",
+      "textES": "Quitar filtros"
+    },
+    {
+      "id": "100224",
+      "node": "common.reset",
+      "number": false,
+      "textEN": "reset",
+      "textES": "restablecer"
+    },
+    {
+      "id": "100041",
+      "node": "validate.maxChars",
+      "number": false,
+      "textEN": "Max characters number is ${max}",
+      "textES": "Máximo ${max} caracteres"
+    },
+    {
+      "id": "100042",
+      "node": "validate.minChars",
+      "number": false,
+      "textEN": "At least ${min} characters",
+      "textES": "Requiere al menos ${min} caracteres"
+    },
+    {
+      "id": "100136",
+      "node": "Entity.Translation",
+      "number": true,
+      "textEN": "translation",
+      "textES": "traducción",
+      "textMultipleEN": "translations",
+      "textMultipleES": "traducciones"
+    },
+    {
+      "id": "100052",
+      "node": "Entity.Color.name.label",
+      "number": false,
+      "textEN": "name",
+      "textES": "nombre"
+    },
+    {
+      "id": "100053",
+      "node": "Entity.Color.hue.label",
+      "number": false,
+      "textEN": "hue",
+      "textES": "tono"
+    },
+    {
+      "id": "100054",
+      "node": "Entity.Color.saturation.label",
+      "number": false,
+      "textEN": "saturation",
+      "textES": "saturación"
+    },
+    {
+      "id": "100055",
+      "node": "Entity.Color.lightness.label",
+      "number": false,
+      "textEN": "lightness",
+      "textES": "luminosidad"
+    },
+    {
+      "id": "100056",
+      "node": "Entity.Color.users.label",
+      "number": false,
+      "textEN": "users",
+      "textES": "usuarios"
+    },
+    {
+      "id": "100057",
+      "node": "Entity.ColorTone.name.label",
+      "number": false,
+      "textEN": "",
+      "textES": ""
+    },
+    {
+      "id": "100058",
+      "node": "Entity.ColorTone.color.label",
+      "number": false
+    },
+    {
+      "id": "100087",
+      "node": "Entity.Translation.node.label",
+      "number": false
+    },
+    {
+      "id": "100088",
+      "node": "Entity.Translation.number.label",
+      "number": false
+    },
+    {
+      "id": "100090",
+      "node": "Entity.Translation.textEN.label",
+      "number": false
+    },
+    {
+      "id": "100092",
+      "node": "Entity.Translation.textES.label",
+      "number": false
+    },
+    {
+      "id": "100093",
+      "node": "Entity.Translation.textsEN.label",
+      "number": false
+    },
+    {
+      "id": "100094",
+      "node": "Entity.Translation.textsES.label",
+      "number": false
+    },
+    {
+      "id": "100095",
+      "node": "Entity.Translation.label.label",
+      "number": false
+    },
+    {
+      "id": "100096",
+      "node": "Entity.CSSVar.name.label",
+      "number": false
+    },
+    {
+      "id": "100097",
+      "node": "Entity.CSSVar.value.label",
+      "number": false
+    },
+    {
+      "id": "100098",
+      "node": "Entity.CSSVar.format.label",
+      "number": false
+    },
+    {
+      "id": "100099",
+      "node": "Entity.CSSVar.px.label",
+      "number": false
+    },
+    {
+      "id": "100100",
+      "node": "Entity.CSSVar.color.label",
+      "number": false
+    },
+    {
+      "id": "100101",
+      "node": "Entity.ColorShadow.name.label",
+      "number": false
+    },
+    {
+      "id": "100102",
+      "node": "Entity.ColorShadow.hue.label",
+      "number": false
+    },
+    {
+      "id": "100103",
+      "node": "Entity.ColorShadow.saturation.label",
+      "number": false
+    },
+    {
+      "id": "100104",
+      "node": "Entity.ColorShadow.lightness.label",
+      "number": false
+    },
+    {
+      "id": "100105",
+      "node": "Entity.Fieldset.name.label",
+      "number": false
+    },
+    {
+      "id": "100106",
+      "node": "Entity.Fieldset.model.label",
+      "number": false
+    },
+    {
+      "id": "100107",
+      "node": "Entity.Fieldset.fields.label",
+      "number": false
+    },
+    {
+      "id": "100108",
+      "node": "Entity.Field.key.label",
+      "number": false
+    },
+    {
+      "id": "100109",
+      "node": "Entity.Field.col.label",
+      "number": false
+    },
+    {
+      "id": "100110",
+      "node": "Entity.Field.field.label",
+      "number": false
+    },
+    {
+      "id": "100111",
+      "node": "Entity.Field.size.label",
+      "number": false
+    },
+    {
+      "id": "100112",
+      "node": "Entity.Field.sticky.label",
+      "number": false
+    },
+    {
+      "id": "100113",
+      "node": "Entity.Field.model.label",
+      "number": false
+    },
+    {
+      "id": "100114",
+      "node": "Entity.Field.fixed.label",
+      "number": false
+    },
+    {
+      "id": "100115",
+      "node": "Entity.Field.crud.label",
+      "number": false
+    },
+    {
+      "id": "100116",
+      "node": "Entity.Field.expand.label",
+      "number": false
+    },
+    {
+      "id": "100117",
+      "node": "Entity.Field.multiple.label",
+      "number": false
+    },
+    {
+      "id": "100118",
+      "node": "Entity.Field.class.label",
+      "number": false
+    },
+    {
+      "id": "100119",
+      "node": "Entity.Field.metadata.label",
+      "number": false
+    },
+    {
+      "id": "100120",
+      "node": "Entity.Field.options.label",
+      "number": false
+    },
+    {
+      "id": "100121",
+      "node": "Entity.Field.type.label",
+      "number": false
+    },
+    {
+      "id": "100122",
+      "node": "Entity.Field.default.label",
+      "number": false
+    },
+    {
+      "id": "100123",
+      "node": "Entity.Field.hidden.label",
+      "number": false
+    },
+    {
+      "id": "100124",
+      "node": "Entity.Field.readonly.label",
+      "number": false
+    },
+    {
+      "id": "100125",
+      "node": "Entity.Field.textarea.label",
+      "number": false
+    },
+    {
+      "id": "100127",
+      "node": "Entity.Field.range.label",
+      "number": false
+    },
+    {
+      "id": "100128",
+      "node": "Entity.Field.min.label",
+      "number": false
+    },
+    {
+      "id": "100129",
+      "node": "Entity.Field.max.label",
+      "number": false
+    },
+    {
+      "id": "100130",
+      "node": "Entity.Field.fieldset.label",
+      "number": false
+    },
+    {
+      "id": "100131",
+      "node": "Entity.Field.isComputedReadonly.label",
+      "number": false
+    },
+    {
+      "id": "100132",
+      "node": "Entity.Field.isInvent.label",
+      "number": false
+    },
+    {
+      "id": "100133",
+      "node": "Entity.Field.label.label",
+      "number": false
+    },
+    {
+      "id": "100134",
+      "node": "Entity.Field.tab.label",
+      "number": false
+    },
+    {
+      "id": "100145",
+      "node": "Entity.Translation.textZeroEN.label",
+      "number": false
+    },
+    {
+      "id": "100147",
+      "node": "Entity.Translation.textZeroES.label",
+      "number": false
+    },
+    {
+      "id": "100153",
+      "node": "Entity.Translation.textMultipleEN.label",
+      "number": false
+    },
+    {
+      "id": "100155",
+      "node": "Entity.Translation.textMultipleES.label",
+      "number": false
+    },
+    {
+      "id": "100161",
+      "node": "Entity.Color.value.label",
+      "number": false,
+      "textEN": "color",
+      "textES": "color"
+    },
+    {
+      "id": "100163",
+      "node": "Entity.Field.component.label",
+      "number": false
+    },
+    {
+      "id": "100254",
+      "node": "Entity.Field.filterable.label",
+      "number": false
+    },
+    {
+      "node": "filters.operators.like",
+      "number": false,
+      "textEN": "includes",
+      "textES": "contiene"
+    },
+    {
+      "node": "filters.operators.between",
+      "number": false,
+      "textEN": "between",
+      "textES": "entre"
+    },
+    {
+      "node": "filters.operators.equalTo",
+      "number": false,
+      "textEN": "equal to",
+      "textES": "igual a"
+    },
+    {
+      "node": "filters.operators.lessThan",
+      "number": false,
+      "textEN": "less than",
+      "textES": "menor que"
+    },
+    {
+      "node": "filters.operators.greaterThan",
+      "number": false,
+      "textEN": "greater than",
+      "textES": "mayor que"
+    },
+    {
+      "node": "filters.operators.lessThanOrEqualTo",
+      "number": false,
+      "textEN": "less than or equal to",
+      "textES": "igual o menor que"
+    },
+    {
+      "node": "filters.operators.greaterThanOrEqualTo",
+      "number": false,
+      "textEN": "greater than or equal to",
+      "textES": "igual o mayor que"
+    },
+    {
+      "id": "100374",
+      "node": "Entity.Field.formater.label",
+      "number": false
+    },
+    {
+      "id": "100376",
+      "node": "Entity.Translation.textUniqueEN.label",
+      "number": false
+    },
+    {
+      "id": "100378",
+      "node": "Entity.Translation.textUniqueES.label",
+      "number": false
+    },
+    {
+      "node": "filters.operators.before",
+      "number": false,
+      "textEN": "before",
+      "textES": "anterior a"
+    },
+    {
+      "node": "filters.operators.after",
+      "number": false,
+      "textEN": "after",
+      "textES": "posterior a"
+    },
+    {
+      "node": "filters.operators.beforeOrEqualTo",
+      "number": false,
+      "textEN": "before or equal to",
+      "textES": "igual o anterior a"
+    },
+    {
+      "node": "filters.operators.afterOrEqualTo",
+      "number": false,
+      "textEN": "after or equal to",
+      "textES": "igual o posterior a"
+    },
+    {
+      "id": "100665",
+      "node": "Entity.File.name.label",
+      "number": false
+    },
+    {
+      "id": "100667",
+      "node": "Entity.File.lastModified.label",
+      "number": false
+    },
+    {
+      "id": "100669",
+      "node": "Entity.File.url.label",
+      "number": false
+    },
+    {
+      "id": "100671",
+      "node": "Entity.File.width.label",
+      "number": false
+    },
+    {
+      "id": "100673",
+      "node": "Entity.File.height.label",
+      "number": false
+    },
+    {
+      "id": "100675",
+      "node": "Entity.File.size.label",
+      "number": false
+    },
+    {
+      "id": "100677",
+      "node": "Entity.File.mime.label",
+      "number": false
+    },
+    {
+      "id": "100679",
+      "node": "Entity.File.contents.label",
+      "number": false
+    },
+    {
+      "id": "100681",
+      "node": "Entity.File.image.label",
+      "number": false
+    },
+    {
+      "id": "100683",
+      "node": "Entity.File.ext.label",
+      "number": false
+    },
+    {
+      "id": "100685",
+      "node": "Entity.File.isImage.label",
+      "number": false
+    },
+    {
+      "id": "100719",
+      "node": "Entity.Field.componentBind.label",
+      "number": false
+    }
+  ]
+}

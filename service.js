@@ -5,29 +5,31 @@ import path, { dirname } from 'path'
 import qs from 'querystring'
 import fs from 'fs/promises'
 import { fileURLToPath } from 'url';
-    
+
+
+const params = {
+  port: 3001
+}
+process.argv.forEach(function (val, index, array) {
+  if (val === '--port') {
+    params.port = array[index + 1]
+  }
+})
+console.log('param:', params)
+
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express()
-const port = 3001
+const port = params.port
+
+const formidableConfig = {
+  maxFieldsSize: 100 * 1024 * 1024
+}
 
 global.window = {
   $APPCONFIG: {
     enviroment: 'development',
     offline: true,
     autoLaunchFrontBoard: true
-  }
-}
-
-async function getFiles(dir, regex) {
-  const dirents = await fs.readdir(dir, { withFileTypes: true })
-  const files = await Promise.all(dirents.map((dirent) => {
-    const res = path.resolve(dir, dirent.name)
-    return dirent.isDirectory() ? getFiles(res) : res
-  }))
-  if (regex) {
-    return files.flat().filter(file => regex.test(file))
-  } else {
-    return files.flat()
   }
 }
 
@@ -61,7 +63,6 @@ const promised = (handler) => new Promise((resolve, reject) => {
 async function apiDB() {
   const dbPath = path.resolve(__dirname, 'data/sqlite')
   const db = await promised(resolver => new sqlite3.Database(dbPath, resolver))
-  
 
   const query = (query) => promised(resolver => {
     console.log('QUERY', query)
@@ -75,12 +76,6 @@ async function apiDB() {
     console.log('EXEC', query)
     db.exec(query, resolver)
   })
-
-  const databaseTables = await query(`SELECT * FROM sqlite_master WHERE type='table'`)
-  const modelsFiles = await getFiles(path.resolve(__dirname, 'src/models'), /\.js$/)
-  const modelsModules = await Promise.all(modelsFiles.map(async file => (await import(file)).default))
-  const Scheme = (await import('#services/Scheme')).default
-  Scheme.initialize()
 
   class Table {
     #Class
@@ -118,7 +113,7 @@ async function apiDB() {
         return like ? `'%${value}%'` : `'${value}'`
       }
       if (!value) return 'null'
-      return `'${Scheme.stringify(value)}'`
+      return `'${Entity.stringify(value)}'`
     }
 
     insert(payload) {
@@ -150,7 +145,7 @@ async function apiDB() {
         between: 'BETWEEN',
         in: 'IN',
         lessThan: '<',
-        graterThan: '>',
+        greaterThan: '>',
         lessThanOrEqualTo: '<=',
         greaterThanOrEqualTo: '>=',
         and: 'AND'
@@ -258,15 +253,40 @@ async function apiDB() {
     }
   }
 
-  const tables = Object.values(Scheme.models).map(Class => new Table(Class))
 
+
+
+  const databaseTables = await query(`SELECT * FROM sqlite_master WHERE type='table'`)
   console.log('DATABASE TABLES', databaseTables) // .map(table => table.name)
-  // console.log('MODELS FILES', modelsFiles)
-  // console.log('MODELS MODULES', modelsModules)
-  // console.log('SCHEME', Scheme.models)
-  console.log('TABLES', tables.map(table => table.name))
 
   /* */
+  const getFiles = async (dir, regex) => { // TODO: review, need the implementor models directory too
+    const dirents = await fs.readdir(dir, { withFileTypes: true })
+    const files = await Promise.all(dirents.map((dirent) => {
+      const res = path.resolve(dir, dirent.name)
+      return dirent.isDirectory() ? getFiles(res) : res
+    }))
+    if (regex) {
+      return files.flat().filter(file => regex.test(file))
+    } else {
+      return files.flat()
+    }
+  }
+
+  const modelsFiles = await getFiles(path.resolve(__dirname, 'src/models'), /\.js$/)
+  console.log('Models files', modelsFiles)
+  const modelsModules = await Promise.all(modelsFiles.map(async file => (await import(file)).default))
+  const Entity = (await import('#services/Entity')).default
+  Entity.initialize()
+
+  // console.log('MODELS FILES', modelsFiles)
+  // console.log('MODELS MODULES', modelsModules)
+  // console.log('SCHEME', Entity.models)
+  
+  const tables = Object.values(Entity.models).map(Class => new Table(Class))
+  console.log('TABLES', tables.map(table => table.name))
+
+  /* *
   tables.forEach(async table => {
     const exist = await table.exist
     // console.log('exist?', table.name, table.Class.name, exist)
@@ -325,7 +345,7 @@ async function apiDB() {
     const tableName = req.params.table.toSnakeCase()
     const table = tables.find(table => table.name === tableName)
     if (table) {
-      const form = formidable({})
+      const form = formidable(formidableConfig)
       const [fields, files] = await form.parse(req)
       if (!fields.payload) return res.error(new Error('No content PATCH'))
       const payload = JSON.parse(fields.payload)
@@ -342,7 +362,7 @@ async function apiDB() {
     const tableName = req.params.table.toSnakeCase()
     const table = tables.find(table => table.name === tableName)
     if (table) {
-      const form = formidable({})
+      const form = formidable(formidableConfig)
       const [fields, files] = await form.parse(req)
       if (!fields.payload) return res.error(new Error('No content PATCH'))
       const payload = JSON.parse(fields.payload)
@@ -361,21 +381,27 @@ async function apiDB() {
 apiDB()
 console.log('Initialize...')
 
+const base = process.env.PWD // '../../movida/' // './'
+console.log('BASE', base)
 
 app.get('/', (req, res) => {
   res.send('Frontboard API')
 })
 
 app.get('/api/files/*', async function(req, res) {
-  const filePath = path.resolve(__dirname, './', req.params[0])
+  const filePath = path.resolve(__dirname, base, req.params[0])
   console.log('GET', req.path, filePath)
-  const contents = await fs.readFile(filePath)
-  res.end(contents)
+  try {
+    const contents = await fs.readFile(filePath)
+    res.end(contents)
+  } catch(error) {
+    res.status(404).json({error})
+  }
 })
 
 app.put('/api/files/*', async function(req, res) {
-  const filePath = path.resolve(__dirname, './', req.params[0])
-  const form = formidable({})
+  const filePath = path.resolve(__dirname, base, req.params[0])
+  const form = formidable(formidableConfig)
   const [fields, files] = await form.parse(req)
   console.log('PUT', req.path, filePath)
   if (!fields.contents) return res.end()

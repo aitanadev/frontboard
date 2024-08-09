@@ -94,17 +94,7 @@ const config = {
       'node_modules'
     ],
     alias: {
-      '@': path.resolve(__dirname, './'),
       'vue': 'vue/dist/vue.esm.js',
-      'data': path.resolve(__dirname, './data'),
-      'images': path.resolve(__dirname, './src/images'),
-      'components': path.resolve(__dirname, './src/components'),
-      'views': path.resolve(__dirname, './src/views'),
-      'models': path.resolve(__dirname, './src/models'),
-      'services': path.resolve(__dirname, './src/services'),
-      'stylesheets': path.resolve(__dirname, './src/stylesheets'),
-      'lib': path.resolve(__dirname, './src/lib'),
-      'config': path.resolve(__dirname, './src/config'),
     }
   }
 };

@@ -1,9 +1,9 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import Color from '#models/palette/Color'
-import Taxonomy from '#models/homeStock/Taxonomy'
-import Category from '#models/homeStock/Category'
+import Taxonomy from '#models/examples/homeStock/Taxonomy'
+import Category from '#models/examples/homeStock/Category'
 
-export default class Asset extends Scheme {
+export default class Asset extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -24,6 +24,10 @@ export default class Asset extends Scheme {
 
   static computed() {
     return {
+      tone: {
+        col: false,
+        field: false
+      },
       amount: {
         type: Number
       }
@@ -35,27 +39,31 @@ export default class Asset extends Scheme {
       name: {
       },
       unitBase: {
-        // class: EnumOption,
         options: [
-          { text: 'Kg', value: 1000 },
-          { text: 'Units', value: 1 }
+          { text: 'kg', value: 1000 },
+          { text: 'units', value: 1 }
         ],
         type: Number,
         default: 1000
       },
       unitAmount: {
         type: Number,
-        default: 1000
+        default: 1000,
+        col: false,
+        field: false,
+        filterable: false
       },
       barcode: {
+        col: false
       },
       note: {
-        textarea: true
+        default: '',
+        textarea: true,
+        col: false
       },
       runOut: {
         type: Number
       },
-
       taxonomy: {
         class: Taxonomy
       },

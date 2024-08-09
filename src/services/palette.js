@@ -8,12 +8,7 @@ import ColorTone from '#models/palette/ColorTone'
 import CSSVar from '#models/palette/CSSVar'
 import StaticDB from '#services/StaticDB'
 
-const configDatabase = StaticDB.databases.palette.collections
-const colors = configDatabase.colors.data
-const colorShadowsDefault = configDatabase.colorShadowsDefault.data
-const colorShadowsDarkMode = configDatabase.colorShadowsDarkMode.data
-const colorTones = configDatabase.colorTones.data
-const baseCSSVars = configDatabase.baseCSSVars.data
+const { colors, colorShadowsDefault, colorShadowsDarkMode, colorTones, baseCSSVars } = StaticDB.palette
 
 const paletteActive = localStorage.getItem('palette') === 'true'
 const cssVarsAccesor = {}
@@ -21,9 +16,6 @@ let currentColorShadows = colorShadowsDefault
 let darkmode = false
 
 const palette = {
-  miniVariation: true,
-  inlineExpand: true,
-  showBoth: true,
   baseCSSVars,
   cssVars: cssVarsAccesor,
   colors,
@@ -157,8 +149,8 @@ const styleVars = document.createElement('style')
 const styleClasses = document.createElement('style')
 styleVars.type = 'text/css'
 styleClasses.type = 'text/css'
-document.body.appendChild(styleVars)
-document.body.appendChild(styleClasses)
+document.head.appendChild(styleVars)
+document.head.appendChild(styleClasses)
 
 palette.refresh()
 

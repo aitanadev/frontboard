@@ -12,29 +12,29 @@
         "birthDate": "Sat, 06 Nov 1982 00:00:00 GMT",
         "color": {
           "id": "1015",
-          "type": "Color"
+          "$type": "Color"
         },
         "picture": [
           {
             "id": "100221",
-            "type": "File"
+            "$type": "File"
           },
           {
             "id": "100222",
-            "type": "File"
+            "$type": "File"
           }
         ],
         "bio": "☁️🦒☁️",
         "colors": [
           {
-            "type": "Color",
+            "$type": "Color",
             "name": "user color 1",
             "hue": 48,
             "saturation": 91,
             "lightness": 50,
             "users": [
               {
-                "type": "User",
+                "$type": "User",
                 "name": "u1",
                 "lastName": "",
                 "active": false,
@@ -43,7 +43,7 @@
                 "colors": []
               },
               {
-                "type": "User",
+                "$type": "User",
                 "name": "u2",
                 "lastName": "",
                 "active": false,
@@ -52,7 +52,7 @@
                 "colors": []
               },
               {
-                "type": "User",
+                "$type": "User",
                 "name": "u3",
                 "lastName": "",
                 "active": false,
@@ -63,14 +63,14 @@
             ]
           },
           {
-            "type": "Color",
+            "$type": "Color",
             "name": "user color 2",
-            "hue": 145,
-            "saturation": 86,
+            "hue": 157,
+            "saturation": 66,
             "lightness": 48,
             "users": [
               {
-                "type": "User",
+                "$type": "User",
                 "name": "1",
                 "lastName": "",
                 "active": false,
@@ -79,7 +79,7 @@
                 "colors": []
               },
               {
-                "type": "User",
+                "$type": "User",
                 "name": "2",
                 "lastName": "",
                 "active": false,
@@ -88,7 +88,7 @@
                 "colors": []
               },
               {
-                "type": "User",
+                "$type": "User",
                 "name": "3",
                 "lastName": "",
                 "active": false,
@@ -97,7 +97,7 @@
                 "colors": []
               },
               {
-                "type": "User",
+                "$type": "User",
                 "name": "4",
                 "lastName": "",
                 "active": false,
@@ -108,7 +108,7 @@
             ]
           },
           {
-            "type": "Color",
+            "$type": "Color",
             "name": "user color 3",
             "hue": 202,
             "saturation": 94,
@@ -116,7 +116,7 @@
             "users": []
           },
           {
-            "type": "Color",
+            "$type": "Color",
             "name": "user color 4",
             "hue": 322,
             "saturation": 77,
@@ -134,18 +134,18 @@
         "birthDate": "Thu, 05 Jan 1995 00:00:00 GMT",
         "color": {
           "id": "1009",
-          "type": "Color"
+          "$type": "Color"
         },
         "picture": [
           {
             "id": "100223",
-            "type": "File"
+            "$type": "File"
           }
         ],
         "bio": "🦥",
         "colors": [
           {
-            "type": "Color",
+            "$type": "Color",
             "name": "user color 1",
             "hue": 171,
             "saturation": 85,
@@ -153,7 +153,7 @@
             "users": []
           },
           {
-            "type": "Color",
+            "$type": "Color",
             "name": "user color 2",
             "hue": 318,
             "saturation": 100,
@@ -171,7 +171,7 @@
         "birthDate": "Thu, 28 May 1992 18:11:23 GMT",
         "color": {
           "id": "1011",
-          "type": "Color"
+          "$type": "Color"
         },
         "picture": [],
         "bio": "...",

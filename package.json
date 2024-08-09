@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Aitana Gallego Martín",
   "homepage": "https://github.com/aitanadev/frontboard",
+  "main": "src/import.js",
+  "browser": "src/index.js",
   "keywords": [
     "frontend",
     "webcomponents",
@@ -15,9 +17,16 @@
     "design system"
   ],
   "imports": {
+    "#models": "./src/models",
     "#models/*": "./src/models/*.js",
-    "#services/*": "./src/services/*.js",
+    "#services": "./src/services",
+    "#services*": "./src/services*.js",
     "#lib/*": "./src/lib/*.js",
+    "#config/*": "./src/config/*.js",
+    "#views/*": "./src/views/*.vue",
+    "#views/*.example": "./src/views/*.example",
+    "#data/*": "./data/*",
+    "#components": "./src/components",
     "#components/*": "./src/components/*.vue"
   },
   "license": "MIT",

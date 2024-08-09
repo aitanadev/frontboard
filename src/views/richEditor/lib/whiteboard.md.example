@@ -10,7 +10,7 @@
 Selecting the `html` language option for a `code block` you can write **HTML** and **CSS classes** with **instant preview**
 
 ```html
-  <template><button class="c-action t-primary">Sampled</button></template>
+  <template><button class="fds-c-action t-primary">Sampled</button></template>
 ```
 
 You can use available **components** too

@@ -1,8 +1,9 @@
-.c-options {
+.fds-c-options {
   margin: 0;
   gap: 0;
   position: relative;
-  padding: var(--spacing-s) 0;
+  list-style-type: none;
+  
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
@@ -10,14 +11,21 @@
   justify-content: flex-start;
   align-items: stretch;
 
+  padding: 0;
+
   &:empty {
     padding: 0;
   }
 
-  &>li, .c-option {
+  &>li {
+    padding: 0;
+    margin: 0;
+  }
+
+  .fds-c-option {
     display: flex;
     margin: 0;
-    padding: 0;
+    padding: var(--spacing-s) var(--spacing-m);
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -28,6 +36,7 @@
     border-radius: 0;
     border-style: none;
     width: 100%; // <----
+
     #{$focusSelector} {
       background-color: var(--color--primary);
     }

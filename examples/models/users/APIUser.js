@@ -1,9 +1,9 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import Color from '#models/palette/Color'
 import File from '#models/internals/File'
 import validate from '#lib/validate'
 
-export default class User extends Scheme {
+export default class APIUser extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -24,6 +24,8 @@ export default class User extends Scheme {
       hidden: (entity) => !entity.birthDate
     }
   })
+
+  static sqlite = true
 
   static schema = () => ({
     name: {
@@ -52,7 +54,7 @@ export default class User extends Scheme {
     },
     picture: {
       class: File,
-      multiple: true
+      metadata: true
     },
     bio: {
       textarea: true

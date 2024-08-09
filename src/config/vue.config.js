@@ -1,18 +1,21 @@
-import Vue from 'vue'
+import APP from '#services/APP'
+import router from '#services/router'
 import i18n from '#services/i18n'
+import Vue from 'vue'
 
 Vue.config.productionTip = false
 Vue.config.devtools = false
 
 Vue.mixin({
-  data: function() {
-return {
-    i18n
-  }
-},
+  data: () => ({
+    i18n,
+    APP,
+    router
+  }),
+
   methods: {
-    closestComponent (Component) {
-      const componentName = typeof Component === 'string' ? Component : Component.name
+    closestComponent(Component) {
+      const componentName = typeof Component === 'string' ? Component : (Component.options?.name || Component.name || 'frontboard' + Component.name)
       let closest = this
       while (closest && closest.$options.name !== componentName) {
         closest = closest.$parent

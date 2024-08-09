@@ -1,4 +1,4 @@
-.c-tooltip {
+.fds-c-tooltip {
   display: none;
   position: relative;
   background-color: var(--color--dark-2);
@@ -8,7 +8,7 @@
   border: 1px solid var(--color--dark-3);
   z-index: 1000;
   box-shadow: var(--box-shadow);
-  &.c-tooltip--open {
+  &.fds-c-tooltip--open {
     display: block;
   }
   &::before {

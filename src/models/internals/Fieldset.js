@@ -1,7 +1,7 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import Field from '#models/internals/Field'
 
-export default class Fieldset extends Scheme {
+export default class Fieldset extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -14,12 +14,16 @@ export default class Fieldset extends Scheme {
 
   static schema() {
     return {
-      name: {},
+      name: {
+        sticky: 'left'
+      },
       model: {},
       fields: {
         class: Field,
         multiple: true,
-        crud: true
+        crud: true,
+        col: false,
+        tab: true
       }
     }
   }

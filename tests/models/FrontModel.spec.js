@@ -1,6 +1,6 @@
-import Scheme, { SchemeTest } from '#services/Scheme'
+import Entity, { EntityTest } from '#services/Entity'
 
-class Relation extends Scheme {
+class Relation extends Entity {
   constructor(data){
     return super().mount(data)
   }
@@ -34,7 +34,7 @@ class Relation extends Scheme {
   }
 }
 
-class Dummy extends Scheme {
+class Dummy extends Entity {
   constructor(data){
     return super().mount(data)
   }
@@ -96,10 +96,10 @@ class Dummy extends Scheme {
   }
 }
 
-describe('SchemeTest', () => {
+describe('EntityTest', () => {
   describe('Launch internal tests', () => {
     it('All internal test ok', () => {
-      expect(!!SchemeTest.test(false)).toBeTruthy()
+      expect(!!EntityTest.test(false)).toBeTruthy()
     })
   })
 

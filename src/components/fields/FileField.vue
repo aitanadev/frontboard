@@ -1,15 +1,17 @@
 <template>
-  <div class="c-file-field">
+  <div class="fds-c-file-field">
     <template v-if="!viewer && !field.readonly">
       <input ref="fileInput" type="file" @change="onChange" :multiple="field.multiple">
-      <button type="button" class="c-action t-secondary v-semi" @click="open"><i class="fi fi-rr-file-upload"></i>Select {{ field.multiple ? 'files' : 'file' }}</button>
-      <span class="c-file-field__message">{{ message }}</span>
+      <button type="button" class="fds-c-action t-secondary v-semi" @click="open"><i class="fi fi-rr-file-upload"></i>Select {{ field.multiple ? 'files' : 'file' }}</button>
+      <span class="fds-c-file-field__message">{{ message }}</span>
     </template>
-    <div class="c-file-field__files" :class="{'c-input': !viewer && !field.readonly}" v-if="files.length > 0">
-      <template v-for="file in files">
-        <img v-if="file.isImage" :src="file.contents">
-        <span v-else>{{ file.name }} {{ file.mime }}</span>
-      </template>
+    <div class="fds-c-file-field__files" v-if="files.length > 0">
+      <div v-for="file in files">
+        <template v-if="file.isImage">
+          <div :class="{'fds-c-input': !viewer && !field.readonly}"><img  :src="file.contents"></div>
+        </template>
+        <div v-else :class="{'fds-c-input': !viewer && !field.readonly}"><span>{{ file.name }} {{ file.mime }}</span></div>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +19,7 @@
 <script>
 
 import Vue from 'vue'
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import File from '#models/internals/File'
 
 export default {
@@ -36,7 +38,19 @@ export default {
 
   created() {
     const value = this.form[this.field.key]
-    if (value) this.files = this.field.multiple ? value : [value]
+    if (value) {
+      const files = this.field.multiple ? value : [value]
+      this.files = files.map(file => {
+        if (typeof file === 'object') {
+          return file
+        } else {
+          return {
+            isImage: true,
+            contents: file
+          }
+        }
+      })
+    }
   },
 
   computed: {
@@ -63,7 +77,7 @@ export default {
         })
       })).then(results => {
         this.files = results.map(({fileData, contents}) => new File({
-          id: Scheme.UidIndex++,
+          id: Entity.UidIndex++ + '-' + Date.now(),
           lastModified: fileData.lastModifiedDate,
           name: fileData.name,
           size: fileData.size,
@@ -88,7 +102,7 @@ export default {
 
 <style lang="scss">
   .--ds {
-    .c-file-field {
+    .fds-c-file-field {
       position: relative;
       > input[type=file] {
         display: none;
@@ -97,14 +111,15 @@ export default {
         margin-bottom: var(--spacing-m);
       }
     }
-    .c-file-field__files {
+    .fds-c-file-field__files {
       display: flex;
       gap: var(--spacing-l);
       padding: var(--spacing-s);
       flex-direction: column;
-      img {
+      > img {
         border: 1px solid var(--color--light-2);
         border-radius: 2px;
+        max-width: 200px;
       }
     }
   }

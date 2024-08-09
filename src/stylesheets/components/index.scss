@@ -3,13 +3,15 @@
 @import "c-emergent";
 @import "c-input";
 @import "c-options";
-@import "c-field"; // After c-action and c-input
 
 @import "c-alert";
 @import "c-checkbox";
 @import "c-fieldset";
 @import "c-radio";
 @import "c-range";
+@import "c-switch";
 @import "c-tabs";
 @import "c-text-wrap";
 @import "c-tooltip";
+
+@import "c-field"; // After c-action and c-input/inputs

@@ -1,80 +1,107 @@
-import Scheme from '#services/Scheme'
-import API from '#services/API'
-
-export class Collection {
-  constructor(config, database) {
-    const Class = Scheme.models[config.model]
-    Object.assign(this, config)
-    this.database = database
-    // this.name = config.name
-    // this.model = config.model
-    if (Class) {
-      this.Class = Class
-      this.data = config.data.map(row => new Class(row))
-      // console.log('......', this.name.capitalize(), Class.pluralize(Class.name))
-      if (this.name.capitalize() === Class.pluralize(Class.name)) {
-        // console.log('-----> Connect staticDB to Scheme cache')
-        if (this.data.length > 0) {
-          Class.cache = this.data
-        } else {
-          this.data = Class.cache
-        }
-      }
-      /*
-      const originalPush = this.data.push.bind(this)
-      this.data.push = function(...values) {
-        console.log('try to push')
-        originalPush(...values)
-      }
-      */
-    } else {
-      this.data = config.data
-    }
-  }
-
-  get id() {
-    return this.database.path + '/' + this.name
-  }
-}
+import APP from '#services/APP'
+import Entity from '#services/Entity'
 
 export class StaticDB {
-  constructor(config) {
-    this.path = config.path
-    this.data = config.data
-    this.collections = {}
-    this.data.forEach(collection => this.addCollection(collection))
-    return this
+  #name
+  #dataPath
+  #multiple = false
+  #datasets = {}
+  #dataset
+
+  get $name() {
+    return this.#name
   }
 
-  addCollection(collection) {
-    this.collections[collection.name] = new Collection(collection, this)
+  get $dataPath() {
+    return this.#dataPath
+  }
+
+  get $multiple() {
+    return this.#multiple
+  }
+
+  get $datasets() {
+    return this.#datasets
+  }
+
+  get $dataset() {
+    return this.#dataset
+  }
+
+  constructor(dataPath, data) {
+    const name = dataPath.split('/').pop().replace(/\.json$/, '')
+    this.#multiple = Array.isArray(data)
+    this.#name = name
+    this.#dataPath = dataPath
+
+    if (this.#multiple) {
+      data.forEach(dataset => this.addCollection(dataset))
+      StaticDB[name] = this
+    } else {
+      this.#dataset = this.addCollection(data)
+      StaticDB[name] = this.#dataset.data
+    }
+
+    StaticDB.#databases[name] = this
+  }
+
+  addCollection(dataset) {
+    const Class = Entity.models[dataset.model]
+    dataset.Class = Class
+    dataset.$database = this
+
+    if (Class) {
+      const collection = dataset.data.map(row => {
+        const entity = new Class(row)
+        entity.$dataset = dataset
+        return entity
+      })
+      collection.$staticDB = true
+      if (dataset.name.capitalize() === Class.pluralize(Class.name)) {
+        Class.cache = collection
+      }
+      this[dataset.name] = collection
+    } else {
+      this[dataset.name] = dataset.data
+    }
+
+    dataset.data = this[dataset.name]
+    this.#datasets[dataset.name] = dataset
+    return dataset
   }
 
   save() {
-    window.schemeSaveFilesFlag = true
-    const formated = Object.values(this.collections).map(collection => {
-      const formated = {
-        name: collection.name,
-        model: collection.model,
-        hidden: collection.hidden // TODO: review
-      }
-      if (collection.Class) {
-        console.log('collection', collection.Class.name)
-        formated.data = collection.data.map(row => {
-          const parsed = row.parse()
-          delete parsed.type
-          return parsed
-        })
+    window.entitySaveFilesFlag = true // TODO: review
+    const formateds = Object.values(this.#datasets).map(dataset => {
+      const formated = {...dataset}
+      delete formated.$database
+
+      if (dataset.Class) {
+        if (dataset.Class.name === 'Field') {
+          formated.data = dataset.data.map(row => {
+            const { id, key, size } = row
+            return { id, key, size }
+          })
+        } else {
+          formated.data = dataset.data.map(row => {
+            const parsed = row.parse()
+            delete parsed.$type
+            return parsed
+          })
+        }
       } else {
-        formated.data = collection.data
+        formated.data = dataset.data
       }
       return formated
     })
-    window.schemeSaveFilesFlag = false
+    window.entitySaveFilesFlag = false
+
+    const formated = this.#multiple ? formateds : formateds[0]
+    console.log('StaticDB saving', this.#name, formated)
     const stringified = JSON.stringify(formated, undefined, '  ')
 
     /* */
-    return API.put(`files/data/json/${this.path}.json`, { contents: stringified }, {
+    return APP.FrontboardAPI.put(['files', this.#dataPath].pathJoin(), { contents: stringified }, {
       // maxContentLength: Infinity,
       // maxBodyLength: Infinity,
       headers: {
@@ -86,17 +113,18 @@ export class StaticDB {
     /* */
   }
 
-  static databases = {}
+  static #databases = {}
 
-  static newDatabase(databaseConfig) {
-    // console.log('newDatabase', databaseConfig)
-    const database = new StaticDB(databaseConfig)
-    StaticDB.databases[databaseConfig.path] = database
-    return database
+  static get $databases() {
+    return this.#databases
+  }
+
+  static install(dataPath, data) {
+    return new StaticDB(dataPath, data)
   }
 
   static save() {
-    return Object.values(this.databases).map(database => database.save())
+    return Object.values(this.#databases).map(database => database.save())
   }
 }
 

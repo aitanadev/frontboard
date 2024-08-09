@@ -1,8 +1,8 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import Color from '#models/palette/Color'
-import Category from '#models/homeStock/Category'
+import Category from '#models/examples/homeStock/Category'
 
-export default class Taxonomy extends Scheme {
+export default class Taxonomy extends Entity {
   constructor(data) {
     return super().mount(data)
   }

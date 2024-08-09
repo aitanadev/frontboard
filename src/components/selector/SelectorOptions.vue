@@ -1,20 +1,20 @@
 <template>
-  <div class="c-selector-options u-scrolled">
-    <div class="c-selector-options__group c-selector-options__prepend">
-      <div class="c-selector-options__group-items c-options">
+  <div class="fds-c-selector-options u-scrolled">
+    <div class="fds-c-selector-options__group fds-c-selector-options__prepend">
+      <div class="fds-c-selector-options__group-items fds-c-options">
         <slot name="options.prepend"></slot>
       </div>
     </div>
-    <div v-if="!filteredOptions.length" class="c-selector-options__empty">
+    <div v-if="!filteredOptions.length" class="fds-c-selector-options__empty">
       <slot name="options.empty"></slot>
     </div>
-    <div v-else class="c-selector-options__group" v-for="(group, groupIndex) in filteredOptions">
+    <div v-else class="fds-c-selector-options__group" v-for="(group, groupIndex) in filteredOptions">
       <div
         v-if="grouped"
-        class="c-selector-options__group-name"
+        class="fds-c-selector-options__group-name"
         :key="'[' + groupIndex + ']'"
       >{{ group.text }}</div>
-      <div class="c-selector-options__group-items c-options">
+      <div class="fds-c-selector-options__group-items fds-c-options">
         <SelectorOption
           ref="option"
           v-for="(option, optionIndex) in group.options"
@@ -30,15 +30,15 @@
         >
           <slot name="option" v-bind="{option}"></slot>
           <template #options v-if="selector.multilevel && option.options">
-            <SelectorOptions ref="options" :options="option.options" :grouped="option.grouped">
+            <FrontboardSelectorOptions ref="options" :options="option.options" :grouped="option.grouped">
               <template #option="{option}"><slot name="option" v-bind="{option}"></slot></template>
-            </SelectorOptions>
+            </FrontboardSelectorOptions>
           </template>
         </SelectorOption>
       </div>
     </div>
-    <div class="c-selector-options__group c-selector-options__append">
-      <div class="c-selector-options__group-items c-options">
+    <div class="fds-c-selector-options__group fds-c-selector-options__append">
+      <div class="fds-c-selector-options__group-items fds-c-options">
         <slot name="options.append"></slot>
       </div>
     </div>
@@ -51,7 +51,7 @@ import Selector from './Selector'
 import SelectorOption from './SelectorOption'
 
 export default {
-  name: 'SelectorOptions',
+  name: 'FrontboardSelectorOptions',
 
   components: {
     SelectorOption

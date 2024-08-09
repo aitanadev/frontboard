@@ -1,4 +1,4 @@
-.c-field {
+.fds-c-field {
   position: relative;
 
   display: inline-flex;
@@ -22,17 +22,21 @@
 
   // flex-grow: 1;
 
-  .c-field {
+  .fds-c-field {
     border-width: 0;
   }
 
-  >.c-checkbox, >.c-radio, >.c-range, >input[type=checkbox], >input[type=radio], >input[type=range] {
+  >.fds-c-checkbox, >.fds-c-radio, >.fds-c-switch, >.fds-c-range {
     margin: 0 var(--spacing-s);
     align-self: center;
     flex-shrink: 0;
   }
+  >.fds-c-range {
+    flex-shrink: 1;
+    width: inherit;
+  }
 
-  >label, >.c-action, >.c-input {
+  >label, >.fds-c-action, >.fds-c-input {
     margin: -1px;
 
     border-top-right-radius: var(--border-top-right-radius, inherit);
@@ -62,9 +66,9 @@
       border-right-color: var(--color--pale-1);
     }
   }
-  > label, >.c-action {
+  > label, >.fds-c-action {
     display: inline-flex;
-    align-items: start;
+    align-items: flex-start;
     white-space: nowrap;
     flex-shrink: 0;
     // background-image: var(--background-image--out);
@@ -85,10 +89,10 @@
       cursor: pointer;
     }
   }
-  >.c-action, >.c-input {
+  >.fds-c-action, >.fds-c-input {
     position: relative;
   }
-  >.c-action {
+  >.fds-c-action {
     display: block; // Center buttons vertically
     #{$focusSelector} {
       background-color: var(--color--light-1);
@@ -98,7 +102,8 @@
     #{$hoverSelector} {
       color: var(--color--light-3);
       background-color: var(--color);
-      border-color: var(--color--pale-2);
+      // border-color: var(--color--pale-2);
+      border-color: var(--color--pale-1);
       text-shadow: var(--text-shadow--dark);
     }
     #{$focusSelector} {
@@ -110,7 +115,7 @@
       text-shadow: var(--text-shadow--light);
     }
   }
-  >.c-input {
+  >.fds-c-input {
     flex-grow: 1;
     flex-shrink: 1;
     // height: 50px;
@@ -126,7 +131,7 @@
     --border-bottom-right-radius: 0;
     border-bottom-right-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
-    >label, >.c-action, >.c-input {
+    >label, >.fds-c-action, >.fds-c-input {
       --border-bottom-left-radius: 0;
       --border-bottom-right-radius: 0;
       border-bottom-right-radius: 0 !important;
@@ -135,10 +140,10 @@
   }
 }
 
-.c-field {
-  >.c-selector {
+.fds-c-field {
+  >.fds-c-selector {
     &:not(:last-child) {
-      >.c-field>.c-selector__down {
+      >.fds-c-field>.fds-c-selector__down {
         --border-top-right-radius: 0;
         --border-bottom-right-radius: 0;
       }

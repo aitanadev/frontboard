@@ -1,8 +1,8 @@
-import Scheme from '#services/Scheme'
-// import Dealer from '#models/Dealer'
-import PurchaseLine from '#models/homeStock/PurchaseLine'
+import Entity from '#services/Entity'
+// import Dealer from './Dealer'
+import PurchaseLine from '#models/examples/homeStock/PurchaseLine'
 
-export default class Purchase extends Scheme {
+export default class Purchase extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -12,6 +12,15 @@ export default class Purchase extends Scheme {
   }
 
   static { this.install() }
+
+  static computed() {
+    return {
+      name: {
+        col: false,
+        field: false
+      }
+    }
+  }
 
   static schema() {
     return {
@@ -26,7 +35,8 @@ export default class Purchase extends Scheme {
       purchaseLines: {
         class: PurchaseLine,
         crud: true,
-        multiple: true
+        multiple: true,
+        col: false
       }
     }
   }

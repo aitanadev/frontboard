@@ -1,49 +1,68 @@
-.c-checkbox, input[type="checkbox"] {
-  color: var(--color--pale-1);
+.fds-c-checkbox {
   display: inline-flex;
   appearance: none;
-  background-color: currentColor;
-  box-shadow: 0 0 2px 1px rgb(0 0 0 / 10%) inset;
+  background-color: var(--color--light-3);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1) inset;
   margin: 0;
-  min-width: 28px;
+  min-width: 16px;
   min-height: 16px;
-  max-width: 28px;
+  max-width: 16px;
   max-height: 16px;
-  border: 1px solid var(--color--pale-2);
-  border-radius: 16px;
+  border: 1px solid var(--color--pale-1);
+  border-radius: var(--border-radius);
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
   cursor: pointer;
-  // align-self: center; // <----
-  &::after {
-    content: '';
-    display: block;
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-    background-color: var(--color--white);
-    margin-left: 3px;
-    transition: all 60ms ease-in-out;
+  align-items: center;
+  padding: 0;
+  &::before {
+    color: var(--color--white);
+    // content: "\f34b";
+    // font-family: uicons-regular-rounded !important;
+    // content: "\f3c9"; // integration
+    content: "\f34c"; // original
+    font-family: uicons-bold-rounded !important;
+    font-style: normal;
+    font-weight: 400 !important;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    visibility: hidden;
+    display: inline-block;
+    vertical-align: top;
+    line-height: inherit !important;
+
+    font-size: 0.8em;
+    width: 100%;
+    text-align: center;
   }
+
   #{$hoverSelector} {
     color: var(--color--light-2);
   }
   #{$focusSelector} {
     background-color: var(--color--primary--light-2);
   }
-  &:checked, &[checked] {
-    color: var(--color--primary--dark-1);
+  &:checked, &[checked], &:indeterminate, &[indeterminate] {
+    background-color: var(--color--primary--dark-1);
     #{$hoverSelector} {
       color: var(--color--primary);
     }
     #{$focusSelector} {
       background-color: var(--color--primary);
     }
-    &::after {
-      margin-left: 13px;
+    &::before {
+      visibility: visible;
+    }
+  }
+  &:indeterminate, &[indeterminate] {
+    &::before {
+      margin-top: 2px;
+      content: "\f7e8";
     }
   }
   #{$disabledSelector} {
@@ -58,7 +77,7 @@
 }
 
 label {
-  > .c-checkbox {
+  > .fds-c-checkbox {
     margin-right: var(--spacing-m);
   }
 }

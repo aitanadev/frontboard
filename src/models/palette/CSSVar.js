@@ -1,8 +1,8 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import Color from '#models/palette/Color'
 import APP from '#services/APP'
 
-export default class CSSVar extends Scheme {
+export default class CSSVar extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -47,9 +47,23 @@ export default class CSSVar extends Scheme {
     }
   }
 
+  static computed() {
+    return {
+      px: {
+        col: false
+      },
+      color: {
+        col: false
+      }
+    }
+  }
+
   static schema() {
     return {
-      name: { default: '' },
+      name: {
+        default: '',
+        sticky: 'left'
+      },
       value: { default: '' },
       format: { default: 'value' }
     }

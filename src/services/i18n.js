@@ -1,9 +1,9 @@
 export class I18n extends String {
-  dotText
+  node
   context
   placeHolder
 
-  constructor(dotText, context, placeHolder) {
+  constructor(node, context, placeHolder) {
     super()
     if (typeof context === 'number') {
       context = { number: context }
@@ -14,15 +14,14 @@ export class I18n extends String {
         context = {}
       }
     }
-    Object.assign(this, { dotText, context, placeHolder })
+    Object.assign(this, { node, context, placeHolder })
   }
 
   toString() {
-    const { dotText, context, placeHolder } = this
-    const translationBlockPath = dotText.split('.')
-    const translationBlockName = translationBlockPath.shift()
-    const translation = I18n.translations[translationBlockName]?.find(translation => translation.dotText === translationBlockPath.join('.'))
-    return (translation && translation.translate(context)) || placeHolder || dotText
+    const { node, context, placeHolder } = this
+    const translationBlockPath = node.split('.')
+    const translation = I18n.translations.find(translation => translation.node === translationBlockPath.join('.'))
+    return (translation && translation.translate(context)) || placeHolder || node // .split('.').pop()
   }
 
   static #language = 'ES'
@@ -39,6 +38,6 @@ export class I18n extends String {
   static translations = []
 }
 
-export default function i18n (dotText, context, placeHolder) {
-  return new I18n(dotText, context, placeHolder)
+export default function i18n (node, context, placeHolder) {
+  return new I18n(node, context, placeHolder)
 }

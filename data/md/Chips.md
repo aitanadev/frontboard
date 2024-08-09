@@ -1,6 +1,6 @@
 # Chips
 
-`c-chip`
+`fds-c-chip`
 
 Chips uses only CSS classes (not component needed) and can have three **variations**
 
@@ -13,18 +13,18 @@ The color **tones** depends on Palette colors definitions using `t-colorToneName
 ```html
 <template>
   <span>Only chip</span>
-  <span type="button" class="c-chip v-semi t-info">Hello</span>
+  <span type="button" class="fds-c-chip v-semi t-info">Hello</span>
   <br><br>
   <span>Using icons</span>
-  <span class="c-chip t-primary">
+  <span class="fds-c-chip t-primary">
     <span class="fi fi-rs-heart"></span>Chip<span class="fi fi-rs-user"></span>
   </span>
   <br><br>
   <span>Using buttons inside</span> 
-  <span class="c-chip t-warning">
-    <div class="c-action"><span class="fi fi-rs-heart"></span></div>
+  <span class="fds-c-chip t-warning">
+    <div class="fds-c-action"><span class="fi fi-rs-heart"></span></div>
     Chip
-    <div class="c-action"><span class="fi fi-rs-user"></span></div>
+    <div class="fds-c-action"><span class="fi fi-rs-user"></span></div>
   </span>
 </template>
 ```
@@ -47,7 +47,7 @@ The color **tones** depends on Palette colors definitions using `t-colorToneName
           <div class="v-flex-col">
             <div>
               <div
-                class="c-chip"
+                class="fds-c-chip"
                 :class="[
                   {['t-' + colorTone.name]: colorTone.name !== 'default'},
                   {['v-' + variation]: variation !== 'default'},
@@ -58,7 +58,7 @@ The color **tones** depends on Palette colors definitions using `t-colorToneName
             </div>
             <div>
               <div
-                class="c-chip" 
+                class="fds-c-chip" 
                 :class="[
                   {['t-' + colorTone.name]: colorTone.name !== 'default'},
                   {['v-' + variation]: variation !== 'default'},
@@ -71,13 +71,13 @@ The color **tones** depends on Palette colors definitions using `t-colorToneName
             </div>
             <div>
               <div
-                class="c-chip"
+                class="fds-c-chip"
                 :class="[
                   {['t-' + colorTone.name]: colorTone.name !== 'default'},
                   {['v-' + variation]: variation !== 'default'},
                   {['s-' + status]: status !== 'default'}
                 ]">
-                <div class="c-action"><span class="fi fi-rs-heart"></span></div>Chip<div class="c-action"><span class="fi fi-rs-user"></span></div>
+                <div class="fds-c-action"><span class="fi fi-rs-heart"></span></div>Chip<div class="fds-c-action"><span class="fi fi-rs-user"></span></div>
               </div>
               <span>some text</span>
             </div>

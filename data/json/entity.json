@@ -1,0 +1,684 @@
+[
+  {
+    "name": "fieldsets",
+    "model": "Fieldset",
+    "data": [
+      {
+        "id": "100631",
+        "name": "Fieldset",
+        "fields": [
+          {
+            "id": "100632",
+            "$type": "Field"
+          },
+          {
+            "id": "100633",
+            "$type": "Field"
+          },
+          {
+            "id": "100634",
+            "$type": "Field"
+          }
+        ]
+      },
+      {
+        "id": "100635",
+        "name": "Field",
+        "fields": [
+          {
+            "id": "100636",
+            "$type": "Field"
+          },
+          {
+            "id": "100637",
+            "$type": "Field"
+          },
+          {
+            "id": "100638",
+            "$type": "Field"
+          },
+          {
+            "id": "100639",
+            "$type": "Field"
+          },
+          {
+            "id": "100640",
+            "$type": "Field"
+          },
+          {
+            "id": "100641",
+            "$type": "Field"
+          },
+          {
+            "id": "100642",
+            "$type": "Field"
+          },
+          {
+            "id": "100643",
+            "$type": "Field"
+          },
+          {
+            "id": "100644",
+            "$type": "Field"
+          },
+          {
+            "id": "100645",
+            "$type": "Field"
+          },
+          {
+            "id": "100646",
+            "$type": "Field"
+          },
+          {
+            "id": "100647",
+            "$type": "Field"
+          },
+          {
+            "id": "100648",
+            "$type": "Field"
+          },
+          {
+            "id": "100649",
+            "$type": "Field"
+          },
+          {
+            "id": "100650",
+            "$type": "Field"
+          },
+          {
+            "id": "100651",
+            "$type": "Field"
+          },
+          {
+            "id": "100652",
+            "$type": "Field"
+          },
+          {
+            "id": "100653",
+            "$type": "Field"
+          },
+          {
+            "id": "100654",
+            "$type": "Field"
+          },
+          {
+            "id": "100655",
+            "$type": "Field"
+          },
+          {
+            "id": "100656",
+            "$type": "Field"
+          },
+          {
+            "id": "100657",
+            "$type": "Field"
+          },
+          {
+            "id": "100658",
+            "$type": "Field"
+          },
+          {
+            "id": "100659",
+            "$type": "Field"
+          },
+          {
+            "id": "100660",
+            "$type": "Field"
+          },
+          {
+            "id": "100661",
+            "$type": "Field"
+          },
+          {
+            "id": "100662",
+            "$type": "Field"
+          },
+          {
+            "id": "100718",
+            "$type": "Field"
+          }
+        ]
+      },
+      {
+        "id": "100663",
+        "name": "File",
+        "fields": [
+          {
+            "id": "100664",
+            "$type": "Field"
+          },
+          {
+            "id": "100666",
+            "$type": "Field"
+          },
+          {
+            "id": "100668",
+            "$type": "Field"
+          },
+          {
+            "id": "100670",
+            "$type": "Field"
+          },
+          {
+            "id": "100672",
+            "$type": "Field"
+          },
+          {
+            "id": "100674",
+            "$type": "Field"
+          },
+          {
+            "id": "100676",
+            "$type": "Field"
+          },
+          {
+            "id": "100678",
+            "$type": "Field"
+          },
+          {
+            "id": "100680",
+            "$type": "Field"
+          },
+          {
+            "id": "100682",
+            "$type": "Field"
+          },
+          {
+            "id": "100684",
+            "$type": "Field"
+          }
+        ]
+      },
+      {
+        "id": "100686",
+        "name": "Translation",
+        "fields": [
+          {
+            "id": "100687",
+            "$type": "Field"
+          },
+          {
+            "id": "100688",
+            "$type": "Field"
+          },
+          {
+            "id": "100689",
+            "$type": "Field"
+          },
+          {
+            "id": "100690",
+            "$type": "Field"
+          },
+          {
+            "id": "100691",
+            "$type": "Field"
+          },
+          {
+            "id": "100692",
+            "$type": "Field"
+          },
+          {
+            "id": "100693",
+            "$type": "Field"
+          },
+          {
+            "id": "100694",
+            "$type": "Field"
+          },
+          {
+            "id": "100695",
+            "$type": "Field"
+          },
+          {
+            "id": "100696",
+            "$type": "Field"
+          },
+          {
+            "id": "100697",
+            "$type": "Field"
+          }
+        ]
+      },
+      {
+        "id": "100698",
+        "name": "Color",
+        "fields": [
+          {
+            "id": "100699",
+            "$type": "Field"
+          },
+          {
+            "id": "100700",
+            "$type": "Field"
+          },
+          {
+            "id": "100701",
+            "$type": "Field"
+          },
+          {
+            "id": "100702",
+            "$type": "Field"
+          },
+          {
+            "id": "100703",
+            "$type": "Field"
+          }
+        ]
+      },
+      {
+        "id": "100704",
+        "name": "CSSVar",
+        "fields": [
+          {
+            "id": "100705",
+            "$type": "Field"
+          },
+          {
+            "id": "100706",
+            "$type": "Field"
+          },
+          {
+            "id": "100707",
+            "$type": "Field"
+          },
+          {
+            "id": "100708",
+            "$type": "Field"
+          },
+          {
+            "id": "100709",
+            "$type": "Field"
+          }
+        ]
+      },
+      {
+        "id": "100710",
+        "name": "ColorShadow",
+        "fields": [
+          {
+            "id": "100711",
+            "$type": "Field"
+          },
+          {
+            "id": "100712",
+            "$type": "Field"
+          },
+          {
+            "id": "100713",
+            "$type": "Field"
+          },
+          {
+            "id": "100714",
+            "$type": "Field"
+          }
+        ]
+      },
+      {
+        "id": "100715",
+        "name": "ColorTone",
+        "fields": [
+          {
+            "id": "100716",
+            "$type": "Field"
+          },
+          {
+            "id": "100717",
+            "$type": "Field"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "fields",
+    "model": "Field",
+    "hidden": true,
+    "data": [
+      {
+        "id": "100632",
+        "key": "name",
+        "size": 160
+      },
+      {
+        "id": "100633",
+        "key": "model",
+        "size": 160
+      },
+      {
+        "id": "100634",
+        "key": "fields",
+        "size": 160
+      },
+      {
+        "id": "100636",
+        "key": "key",
+        "size": 160
+      },
+      {
+        "id": "100637",
+        "key": "field",
+        "size": 160
+      },
+      {
+        "id": "100638",
+        "key": "col",
+        "size": 160
+      },
+      {
+        "id": "100639",
+        "key": "filterable",
+        "size": 160
+      },
+      {
+        "id": "100640",
+        "key": "readonly",
+        "size": 160
+      },
+      {
+        "id": "100641",
+        "key": "multiple",
+        "size": 160
+      },
+      {
+        "id": "100642",
+        "key": "crud",
+        "size": 160
+      },
+      {
+        "id": "100643",
+        "key": "tab",
+        "size": 160
+      },
+      {
+        "id": "100644",
+        "key": "metadata",
+        "size": 160
+      },
+      {
+        "id": "100645",
+        "key": "textarea",
+        "size": 160
+      },
+      {
+        "id": "100646",
+        "key": "range",
+        "size": 160
+      },
+      {
+        "id": "100647",
+        "key": "size",
+        "size": 160
+      },
+      {
+        "id": "100648",
+        "key": "type",
+        "size": 160
+      },
+      {
+        "id": "100649",
+        "key": "sticky",
+        "size": 160
+      },
+      {
+        "id": "100650",
+        "key": "min",
+        "size": 160
+      },
+      {
+        "id": "100651",
+        "key": "max",
+        "size": 160
+      },
+      {
+        "id": "100652",
+        "key": "hidden",
+        "size": 160
+      },
+      {
+        "id": "100653",
+        "key": "class",
+        "size": 160
+      },
+      {
+        "id": "100654",
+        "key": "options",
+        "size": 160
+      },
+      {
+        "id": "100655",
+        "key": "default",
+        "size": 160
+      },
+      {
+        "id": "100656",
+        "key": "formater",
+        "size": 160
+      },
+      {
+        "id": "100657",
+        "key": "fieldset",
+        "size": 160
+      },
+      {
+        "id": "100658",
+        "key": "model",
+        "size": 160
+      },
+      {
+        "id": "100659",
+        "key": "label",
+        "size": 160
+      },
+      {
+        "id": "100660",
+        "key": "component",
+        "size": 160
+      },
+      {
+        "id": "100661",
+        "key": "isComputedReadonly",
+        "size": 160
+      },
+      {
+        "id": "100662",
+        "key": "isInvent",
+        "size": 160
+      },
+      {
+        "id": "100664",
+        "key": "name",
+        "size": 160
+      },
+      {
+        "id": "100666",
+        "key": "lastModified",
+        "size": 160
+      },
+      {
+        "id": "100668",
+        "key": "url",
+        "size": 160
+      },
+      {
+        "id": "100670",
+        "key": "width",
+        "size": 160
+      },
+      {
+        "id": "100672",
+        "key": "height",
+        "size": 160
+      },
+      {
+        "id": "100674",
+        "key": "size",
+        "size": 160
+      },
+      {
+        "id": "100676",
+        "key": "mime",
+        "size": 160
+      },
+      {
+        "id": "100678",
+        "key": "contents",
+        "size": 160
+      },
+      {
+        "id": "100680",
+        "key": "image",
+        "size": 160
+      },
+      {
+        "id": "100682",
+        "key": "ext",
+        "size": 160
+      },
+      {
+        "id": "100684",
+        "key": "isImage",
+        "size": 160
+      },
+      {
+        "id": "100687",
+        "key": "node",
+        "size": 261
+      },
+      {
+        "id": "100688",
+        "key": "number",
+        "size": 73
+      },
+      {
+        "id": "100689",
+        "key": "textEN",
+        "size": 236
+      },
+      {
+        "id": "100690",
+        "key": "textES",
+        "size": 266
+      },
+      {
+        "id": "100691",
+        "key": "textUniqueEN",
+        "size": 160
+      },
+      {
+        "id": "100692",
+        "key": "textUniqueES",
+        "size": 160
+      },
+      {
+        "id": "100693",
+        "key": "textMultipleEN",
+        "size": 160
+      },
+      {
+        "id": "100694",
+        "key": "textMultipleES",
+        "size": 160
+      },
+      {
+        "id": "100695",
+        "key": "textZeroEN",
+        "size": 160
+      },
+      {
+        "id": "100696",
+        "key": "textZeroES",
+        "size": 160
+      },
+      {
+        "id": "100697",
+        "key": "label",
+        "size": 160
+      },
+      {
+        "id": "100699",
+        "key": "name",
+        "size": 160
+      },
+      {
+        "id": "100700",
+        "key": "hue",
+        "size": 160
+      },
+      {
+        "id": "100701",
+        "key": "saturation",
+        "size": 160
+      },
+      {
+        "id": "100702",
+        "key": "lightness",
+        "size": 160
+      },
+      {
+        "id": "100703",
+        "key": "value",
+        "size": 160
+      },
+      {
+        "id": "100705",
+        "key": "name",
+        "size": 160
+      },
+      {
+        "id": "100706",
+        "key": "value",
+        "size": 160
+      },
+      {
+        "id": "100707",
+        "key": "format",
+        "size": 160
+      },
+      {
+        "id": "100708",
+        "key": "px",
+        "size": 160
+      },
+      {
+        "id": "100709",
+        "key": "color",
+        "size": 160
+      },
+      {
+        "id": "100711",
+        "key": "name",
+        "size": 160
+      },
+      {
+        "id": "100712",
+        "key": "hue",
+        "size": 160
+      },
+      {
+        "id": "100713",
+        "key": "saturation",
+        "size": 160
+      },
+      {
+        "id": "100714",
+        "key": "lightness",
+        "size": 160
+      },
+      {
+        "id": "100716",
+        "key": "name",
+        "size": 160
+      },
+      {
+        "id": "100717",
+        "key": "color",
+        "size": 160
+      },
+      {
+        "id": "100718",
+        "key": "componentBind",
+        "size": 160
+      }
+    ]
+  }
+]

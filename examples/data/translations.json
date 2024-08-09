@@ -1,0 +1,920 @@
+[
+  {
+    "name": "translations",
+    "model": "Translation",
+    "data": [
+      {
+        "id": "100032",
+        "node": "common.example.dot.text",
+        "number": false,
+        "textEN": "Hello ${name}!",
+        "textES": "Hola ${name}!"
+      },
+      {
+        "id": "100135",
+        "node": "common.addRow",
+        "number": false,
+        "textEN": "Add ${name}",
+        "textES": "Añadir ${name}"
+      },
+      {
+        "id": "100137",
+        "node": "common.addFilter",
+        "number": false,
+        "textEN": "Add filter",
+        "textES": "Añadir filtro"
+      },
+      {
+        "id": "100156",
+        "node": "common.save",
+        "number": false,
+        "textEN": "save",
+        "textES": "guardar"
+      },
+      {
+        "id": "100157",
+        "node": "common.yes",
+        "number": false,
+        "textEN": "yes",
+        "textES": "sí"
+      },
+      {
+        "id": "100158",
+        "node": "common.no",
+        "number": false,
+        "textEN": "no",
+        "textES": "no"
+      },
+      {
+        "id": "100164",
+        "node": "common.removeAllFilters",
+        "number": false,
+        "textEN": "Remove filters",
+        "textES": "Quitar filtros"
+      },
+      {
+        "id": "100224",
+        "node": "common.reset",
+        "number": false,
+        "textEN": "reset",
+        "textES": "restablecer"
+      },
+      {
+        "id": "100041",
+        "node": "validate.maxChars",
+        "number": false,
+        "textEN": "Max characters number is ${max}",
+        "textES": "Máximo ${max} caracteres"
+      },
+      {
+        "id": "100042",
+        "node": "validate.minChars",
+        "number": false,
+        "textEN": "At least ${min} characters",
+        "textES": "Requiere al menos ${min} caracteres"
+      },
+      {
+        "id": "100136",
+        "node": "Entity.Translation",
+        "number": true,
+        "textEN": "translation",
+        "textES": "traducción",
+        "textMultipleEN": "translations",
+        "textMultipleES": "traducciones"
+      },
+      {
+        "id": "100139",
+        "node": "Entity.Asset",
+        "number": true,
+        "textEN": "asset",
+        "textES": "artículo",
+        "textMultipleEN": "assets",
+        "textMultipleES": "artículos"
+      },
+      {
+        "id": "100140",
+        "node": "Entity.Purchase",
+        "number": true,
+        "textEN": "purchase",
+        "textES": "compra",
+        "textMultipleEN": "purchases",
+        "textMultipleES": "compras"
+      },
+      {
+        "id": "100141",
+        "node": "Entity.PurchaseLine",
+        "number": true,
+        "textEN": "asset",
+        "textES": "artículo",
+        "textMultipleEN": "assets",
+        "textMultipleES": "artículos"
+      },
+      {
+        "id": "100142",
+        "node": "Entity.Taxonomy",
+        "number": true,
+        "textEN": "category",
+        "textES": "categoría",
+        "textMultipleEN": "categories",
+        "textMultipleES": "categorías"
+      },
+      {
+        "id": "100143",
+        "node": "Entity.Category",
+        "number": true,
+        "textEN": "tag",
+        "textES": "etiqueta",
+        "textMultipleEN": "tag",
+        "textMultipleES": "etiquetas"
+      },
+      {
+        "id": "100165",
+        "node": "Entity.User",
+        "number": true,
+        "textEN": "user",
+        "textES": "usuario",
+        "textMultipleEN": "users",
+        "textMultipleES": "usuarios"
+      },
+      {
+        "id": "100043",
+        "node": "Entity.User.name.label",
+        "number": false,
+        "textEN": "name",
+        "textES": "nombre"
+      },
+      {
+        "id": "100044",
+        "node": "Entity.User.lastName.label",
+        "number": false,
+        "textEN": "lastname",
+        "textES": "apellidos"
+      },
+      {
+        "id": "100045",
+        "node": "Entity.User.active.label",
+        "number": false,
+        "textEN": "activated",
+        "textES": "activado"
+      },
+      {
+        "id": "100046",
+        "node": "Entity.User.login.label",
+        "number": false,
+        "textEN": "login",
+        "textES": "alias"
+      },
+      {
+        "id": "100047",
+        "node": "Entity.User.birthDate.label",
+        "number": false,
+        "textEN": "birth date",
+        "textES": "fecha de nacimiento"
+      },
+      {
+        "id": "100048",
+        "node": "Entity.User.color.label",
+        "number": false,
+        "textEN": "color",
+        "textES": "color"
+      },
+      {
+        "id": "100049",
+        "node": "Entity.User.bio.label",
+        "number": false,
+        "textEN": "bio",
+        "textES": "bio"
+      },
+      {
+        "id": "100050",
+        "node": "Entity.User.colors.label",
+        "number": false,
+        "textEN": "colors",
+        "textES": "colores"
+      },
+      {
+        "id": "100051",
+        "node": "Entity.User.age.label",
+        "number": false,
+        "textEN": "age",
+        "textES": "edad"
+      },
+      {
+        "id": "100052",
+        "node": "Entity.Color.name.label",
+        "number": false,
+        "textEN": "name",
+        "textES": "nombre"
+      },
+      {
+        "id": "100053",
+        "node": "Entity.Color.hue.label",
+        "number": false,
+        "textEN": "hue",
+        "textES": "tono"
+      },
+      {
+        "id": "100054",
+        "node": "Entity.Color.saturation.label",
+        "number": false,
+        "textEN": "saturation",
+        "textES": "saturación"
+      },
+      {
+        "id": "100055",
+        "node": "Entity.Color.lightness.label",
+        "number": false,
+        "textEN": "lightness",
+        "textES": "luminosidad"
+      },
+      {
+        "id": "100056",
+        "node": "Entity.Color.users.label",
+        "number": false,
+        "textEN": "users",
+        "textES": "usuarios"
+      },
+      {
+        "id": "100057",
+        "node": "Entity.ColorTone.name.label",
+        "number": false,
+        "textEN": "",
+        "textES": ""
+      },
+      {
+        "id": "100058",
+        "node": "Entity.ColorTone.color.label",
+        "number": false
+      },
+      {
+        "id": "100059",
+        "node": "Entity.Category.name.label",
+        "number": false,
+        "textEN": "Name",
+        "textES": "Nombre"
+      },
+      {
+        "id": "100060",
+        "node": "Entity.Taxonomy.name.label",
+        "number": false,
+        "textEN": "Name",
+        "textES": "Nombre"
+      },
+      {
+        "id": "100061",
+        "node": "Entity.Taxonomy.tone.label",
+        "number": false,
+        "textEN": "Color",
+        "textES": "Color"
+      },
+      {
+        "id": "100062",
+        "node": "Entity.Taxonomy.categories.label",
+        "number": false,
+        "textEN": "Tags",
+        "textES": "Etiquetas"
+      },
+      {
+        "id": "100063",
+        "node": "Entity.Asset.name.label",
+        "number": false,
+        "textEN": "Name",
+        "textES": "Nombre"
+      },
+      {
+        "id": "100064",
+        "node": "Entity.Asset.unitBase.label",
+        "number": false,
+        "textEN": "Unit",
+        "textES": "Unidad"
+      },
+      {
+        "id": "100065",
+        "node": "Entity.Asset.unitAmount.label",
+        "number": false
+      },
+      {
+        "id": "100066",
+        "node": "Entity.Asset.barcode.label",
+        "number": false,
+        "textEN": "Barcode",
+        "textES": "Código de barras"
+      },
+      {
+        "id": "100067",
+        "node": "Entity.Asset.note.label",
+        "number": false,
+        "textEN": "Notes",
+        "textES": "Notas"
+      },
+      {
+        "id": "100068",
+        "node": "Entity.Asset.runOut.label",
+        "number": false,
+        "textEN": "Limit to notify",
+        "textES": "Limite de aviso"
+      },
+      {
+        "id": "100069",
+        "node": "Entity.Asset.taxonomy.label",
+        "number": false,
+        "textEN": "Category",
+        "textES": "Categoría"
+      },
+      {
+        "id": "100070",
+        "node": "Entity.Asset.categories.label",
+        "number": false,
+        "textEN": "Tags",
+        "textES": "Etiquetas"
+      },
+      {
+        "id": "100071",
+        "node": "Entity.Asset.amount.label",
+        "number": false,
+        "textEN": "Amount",
+        "textES": "Cantidad"
+      },
+      {
+        "id": "100072",
+        "node": "Entity.Asset.tone.label",
+        "number": false,
+        "textEN": "Color",
+        "textES": "Color"
+      },
+      {
+        "id": "100073",
+        "node": "Entity.EnumOption.name.label",
+        "number": false
+      },
+      {
+        "id": "100074",
+        "node": "Entity.EnumOption.value.label",
+        "number": false
+      },
+      {
+        "id": "100075",
+        "node": "Entity.Enum.name.label",
+        "number": false
+      },
+      {
+        "id": "100076",
+        "node": "Entity.Enum.options.label",
+        "number": false
+      },
+      {
+        "id": "100077",
+        "node": "Entity.PurchaseLine.asset.label",
+        "number": false,
+        "textEN": "Asset",
+        "textES": "Artículo"
+      },
+      {
+        "id": "100078",
+        "node": "Entity.PurchaseLine.amount.label",
+        "number": false,
+        "textEN": "Amount",
+        "textES": "Cantidad"
+      },
+      {
+        "id": "100079",
+        "node": "Entity.PurchaseLine.price.label",
+        "number": false,
+        "textEN": "Price",
+        "textES": "Precio"
+      },
+      {
+        "id": "100080",
+        "node": "Entity.PurchaseLine.bargain.label",
+        "number": false,
+        "textEN": "Bargain",
+        "textES": "Oferta"
+      },
+      {
+        "id": "100081",
+        "node": "Entity.PurchaseLine.tone.label",
+        "number": false
+      },
+      {
+        "id": "100082",
+        "node": "Entity.PurchaseLine.name.label",
+        "number": false,
+        "textEN": "Name",
+        "textES": "Nombre"
+      },
+      {
+        "id": "100083",
+        "node": "Entity.Purchase.date.label",
+        "number": false,
+        "textEN": "Date",
+        "textES": "Fecha"
+      },
+      {
+        "id": "100084",
+        "node": "Entity.Purchase.dealer.label",
+        "number": false,
+        "textEN": "Dealer",
+        "textES": "Comercio"
+      },
+      {
+        "id": "100085",
+        "node": "Entity.Purchase.purchaseLines.label",
+        "number": false,
+        "textEN": "Assets",
+        "textES": "Artículos"
+      },
+      {
+        "id": "100086",
+        "node": "Entity.Purchase.name.label",
+        "number": false,
+        "textEN": "Name",
+        "textES": "Nombre"
+      },
+      {
+        "id": "100087",
+        "node": "Entity.Translation.node.label",
+        "number": false
+      },
+      {
+        "id": "100088",
+        "node": "Entity.Translation.number.label",
+        "number": false
+      },
+      {
+        "id": "100090",
+        "node": "Entity.Translation.textEN.label",
+        "number": false
+      },
+      {
+        "id": "100092",
+        "node": "Entity.Translation.textES.label",
+        "number": false
+      },
+      {
+        "id": "100093",
+        "node": "Entity.Translation.textsEN.label",
+        "number": false
+      },
+      {
+        "id": "100094",
+        "node": "Entity.Translation.textsES.label",
+        "number": false
+      },
+      {
+        "id": "100095",
+        "node": "Entity.Translation.label.label",
+        "number": false
+      },
+      {
+        "id": "100096",
+        "node": "Entity.CSSVar.name.label",
+        "number": false
+      },
+      {
+        "id": "100097",
+        "node": "Entity.CSSVar.value.label",
+        "number": false
+      },
+      {
+        "id": "100098",
+        "node": "Entity.CSSVar.format.label",
+        "number": false
+      },
+      {
+        "id": "100099",
+        "node": "Entity.CSSVar.px.label",
+        "number": false
+      },
+      {
+        "id": "100100",
+        "node": "Entity.CSSVar.color.label",
+        "number": false
+      },
+      {
+        "id": "100101",
+        "node": "Entity.ColorShadow.name.label",
+        "number": false
+      },
+      {
+        "id": "100102",
+        "node": "Entity.ColorShadow.hue.label",
+        "number": false
+      },
+      {
+        "id": "100103",
+        "node": "Entity.ColorShadow.saturation.label",
+        "number": false
+      },
+      {
+        "id": "100104",
+        "node": "Entity.ColorShadow.lightness.label",
+        "number": false
+      },
+      {
+        "id": "100105",
+        "node": "Entity.Fieldset.name.label",
+        "number": false
+      },
+      {
+        "id": "100106",
+        "node": "Entity.Fieldset.model.label",
+        "number": false
+      },
+      {
+        "id": "100107",
+        "node": "Entity.Fieldset.fields.label",
+        "number": false
+      },
+      {
+        "id": "100108",
+        "node": "Entity.Field.key.label",
+        "number": false
+      },
+      {
+        "id": "100109",
+        "node": "Entity.Field.col.label",
+        "number": false
+      },
+      {
+        "id": "100110",
+        "node": "Entity.Field.field.label",
+        "number": false
+      },
+      {
+        "id": "100111",
+        "node": "Entity.Field.size.label",
+        "number": false
+      },
+      {
+        "id": "100112",
+        "node": "Entity.Field.sticky.label",
+        "number": false
+      },
+      {
+        "id": "100113",
+        "node": "Entity.Field.model.label",
+        "number": false
+      },
+      {
+        "id": "100114",
+        "node": "Entity.Field.fixed.label",
+        "number": false
+      },
+      {
+        "id": "100115",
+        "node": "Entity.Field.crud.label",
+        "number": false
+      },
+      {
+        "id": "100116",
+        "node": "Entity.Field.expand.label",
+        "number": false
+      },
+      {
+        "id": "100117",
+        "node": "Entity.Field.multiple.label",
+        "number": false
+      },
+      {
+        "id": "100118",
+        "node": "Entity.Field.class.label",
+        "number": false
+      },
+      {
+        "id": "100119",
+        "node": "Entity.Field.metadata.label",
+        "number": false
+      },
+      {
+        "id": "100120",
+        "node": "Entity.Field.options.label",
+        "number": false
+      },
+      {
+        "id": "100121",
+        "node": "Entity.Field.type.label",
+        "number": false
+      },
+      {
+        "id": "100122",
+        "node": "Entity.Field.default.label",
+        "number": false
+      },
+      {
+        "id": "100123",
+        "node": "Entity.Field.hidden.label",
+        "number": false
+      },
+      {
+        "id": "100124",
+        "node": "Entity.Field.readonly.label",
+        "number": false
+      },
+      {
+        "id": "100125",
+        "node": "Entity.Field.textarea.label",
+        "number": false
+      },
+      {
+        "id": "100127",
+        "node": "Entity.Field.range.label",
+        "number": false
+      },
+      {
+        "id": "100128",
+        "node": "Entity.Field.min.label",
+        "number": false
+      },
+      {
+        "id": "100129",
+        "node": "Entity.Field.max.label",
+        "number": false
+      },
+      {
+        "id": "100130",
+        "node": "Entity.Field.fieldset.label",
+        "number": false
+      },
+      {
+        "id": "100131",
+        "node": "Entity.Field.isComputedReadonly.label",
+        "number": false
+      },
+      {
+        "id": "100132",
+        "node": "Entity.Field.isInvent.label",
+        "number": false
+      },
+      {
+        "id": "100133",
+        "node": "Entity.Field.label.label",
+        "number": false
+      },
+      {
+        "id": "100134",
+        "node": "Entity.Field.tab.label",
+        "number": false
+      },
+      {
+        "id": "100145",
+        "node": "Entity.Translation.textZeroEN.label",
+        "number": false
+      },
+      {
+        "id": "100147",
+        "node": "Entity.Translation.textZeroES.label",
+        "number": false
+      },
+      {
+        "id": "100153",
+        "node": "Entity.Translation.textMultipleEN.label",
+        "number": false
+      },
+      {
+        "id": "100155",
+        "node": "Entity.Translation.textMultipleES.label",
+        "number": false
+      },
+      {
+        "id": "100161",
+        "node": "Entity.Color.value.label",
+        "number": false,
+        "textEN": "color",
+        "textES": "color"
+      },
+      {
+        "id": "100163",
+        "node": "Entity.Field.component.label",
+        "number": false
+      },
+      {
+        "id": "100168",
+        "node": "Entity.File.name.label",
+        "number": false
+      },
+      {
+        "id": "100170",
+        "node": "Entity.File.timestamp.label",
+        "number": false
+      },
+      {
+        "id": "100172",
+        "node": "Entity.File.url.label",
+        "number": false
+      },
+      {
+        "id": "100174",
+        "node": "Entity.File.width.label",
+        "number": false
+      },
+      {
+        "id": "100176",
+        "node": "Entity.File.height.label",
+        "number": false
+      },
+      {
+        "id": "100178",
+        "node": "Entity.File.size.label",
+        "number": false
+      },
+      {
+        "id": "100180",
+        "node": "Entity.File.type.label",
+        "number": false
+      },
+      {
+        "id": "100182",
+        "node": "Entity.File.ext.label",
+        "number": false
+      },
+      {
+        "id": "100184",
+        "node": "Entity.File.isImage.label",
+        "number": false
+      },
+      {
+        "id": "100186",
+        "node": "Entity.File.contents.label",
+        "number": false
+      },
+      {
+        "id": "100188",
+        "node": "Entity.User.picture.label",
+        "number": false
+      },
+      {
+        "id": "100190",
+        "node": "Entity.File.lastModified.label",
+        "number": false
+      },
+      {
+        "id": "100192",
+        "node": "Entity.File.mime.label",
+        "number": false
+      },
+      {
+        "id": "100227",
+        "node": "Entity.APIUser.name.label",
+        "number": false
+      },
+      {
+        "id": "100229",
+        "node": "Entity.APIUser.lastName.label",
+        "number": false
+      },
+      {
+        "id": "100231",
+        "node": "Entity.APIUser.active.label",
+        "number": false
+      },
+      {
+        "id": "100233",
+        "node": "Entity.APIUser.login.label",
+        "number": false
+      },
+      {
+        "id": "100235",
+        "node": "Entity.APIUser.birthDate.label",
+        "number": false
+      },
+      {
+        "id": "100237",
+        "node": "Entity.APIUser.color.label",
+        "number": false
+      },
+      {
+        "id": "100239",
+        "node": "Entity.APIUser.picture.label",
+        "number": false
+      },
+      {
+        "id": "100241",
+        "node": "Entity.APIUser.bio.label",
+        "number": false
+      },
+      {
+        "id": "100243",
+        "node": "Entity.APIUser.colors.label",
+        "number": false
+      },
+      {
+        "id": "100245",
+        "node": "Entity.APIUser.age.label",
+        "number": false
+      },
+      {
+        "id": "100247",
+        "node": "Entity.User.tone.label",
+        "number": false
+      },
+      {
+        "id": "100249",
+        "node": "Entity.APIUser.tone.label",
+        "number": false
+      },
+      {
+        "id": "100251",
+        "node": "Entity.File.image.label",
+        "number": false
+      },
+      {
+        "id": "100254",
+        "node": "Entity.Field.filterable.label",
+        "number": false
+      },
+      {
+        "node": "filters.operators.like",
+        "number": false,
+        "textEN": "includes",
+        "textES": "contiene"
+      },
+      {
+        "node": "filters.operators.between",
+        "number": false,
+        "textEN": "between",
+        "textES": "entre"
+      },
+      {
+        "node": "filters.operators.equalTo",
+        "number": false,
+        "textEN": "equal to",
+        "textES": "igual a"
+      },
+      {
+        "node": "filters.operators.lessThan",
+        "number": false,
+        "textEN": "less than",
+        "textES": "menor que"
+      },
+      {
+        "node": "filters.operators.greaterThan",
+        "number": false,
+        "textEN": "greater than",
+        "textES": "mayor que"
+      },
+      {
+        "node": "filters.operators.lessThanOrEqualTo",
+        "number": false,
+        "textEN": "less than or equal to",
+        "textES": "igual o menor que"
+      },
+      {
+        "node": "filters.operators.greaterThanOrEqualTo",
+        "number": false,
+        "textEN": "greater than or equal to",
+        "textES": "igual o mayor que"
+      },
+      {
+        "id": "100374",
+        "node": "Entity.Field.formater.label",
+        "number": false
+      },
+      {
+        "node": "Entity.Asset.unitBase.options.units",
+        "number": false,
+        "textEN": "units",
+        "textES": "unidades"
+      },
+      {
+        "node": "Entity.Asset.unitBase.options.kg",
+        "number": false,
+        "textEN": "kg",
+        "textES": "kg"
+      },
+      {
+        "id": "100376",
+        "node": "Entity.Translation.textUniqueEN.label",
+        "number": false
+      },
+      {
+        "id": "100378",
+        "node": "Entity.Translation.textUniqueES.label",
+        "number": false
+      },
+      {
+        "node": "filters.operators.before",
+        "number": false,
+        "textEN": "before",
+        "textES": "anterior a"
+      },
+      {
+        "node": "filters.operators.after",
+        "number": false,
+        "textEN": "after",
+        "textES": "posterior a"
+      },
+      {
+        "node": "filters.operators.beforeOrEqualTo",
+        "number": false,
+        "textEN": "before or equal to",
+        "textES": "igual o anterior a"
+      },
+      {
+        "node": "filters.operators.afterOrEqualTo",
+        "number": false,
+        "textEN": "after or equal to",
+        "textES": "igual o posterior a"
+      }
+    ]
+  }
+]

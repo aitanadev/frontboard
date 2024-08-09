@@ -1,89 +1,95 @@
 <template>
-  <div class="c-rich-editor">
-    <div class="c-rich-editor__top">
-      <div class="c-rich-editor__toolbar">
-        <span class="c-rich-editor__btn-group">
-          <button title="Bold" :class="editor.isActive('bold') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleBold()"><span class="fi fi-rs-bold"></span></button>
-          <button title="Italic" :class="editor.isActive('italic') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleItalic()"><span class="fi fi-rs-italic"></span></button>
-          <button title="Strike" :class="editor.isActive('strike') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleStrike()"><span class="fi fi-rs-strikethrough"></span></button>
-          <button title="Underline" :class="editor.isActive('underline') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleUnderline()"><span class="fi fi-rs-underline"></span></button>
-          <button title="Highlight" :class="editor.isActive('highlight') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHighlight()"><span class="fi fi-rs-highlighter-line"></span></button>
-          <button title="code" :class="editor.isActive('code') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleCode()"><span class="fi fi-rs-code-simple"></span></button>
-          <button title="link" :class="editor.isActive('link') ? activeClass : null" @mousedown.prevent.stop="toggleLinkUrl"><span class="fi fi-rs-link"></span></button>
-          <!-- <button :class="editor.isActive('iframe') ? activeClass : null" @mousedown.prevent.stop="addIframe"><span class="fi fi-rs-link"></span></button> -->
-        </span>
-        <span class="c-rich-editor__btn-group">
-          <button title="Code block" :class="editor.isActive('codeBlock') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleCodeBlock()"><span class="fi fi-rs-rectangle-code"></span></button>
-          <button title="Paragraph" :class="editor.isActive('paragraph') ? activeClass : null" @mousedown.prevent.stop="editor.commands.setParagraph()"><span class="fi fi-rs-paragraph"></span></button>
-          <button title="H1" :class="editor.isActive('heading', {level : 1}) ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHeading({level : 1})"><span class="fi fi-rs-h1"></span></button>
-          <button title="H2" :class="editor.isActive('heading', {level : 2}) ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHeading({level : 2})"><span class="fi fi-rs-h2"></span></button>
-          <button title="H3" :class="editor.isActive('heading', {level : 3}) ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHeading({level : 3})"><span class="fi fi-rs-h3"></span></button>
-          <button title="H4" :class="editor.isActive('heading', {level : 4}) ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHeading({level : 4})"><span class="fi fi-rs-h4"></span></button>
-          <button title="Blockquote" :class="editor.isActive('blockquote') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleBlockquote()"><span class="fi fi-rs-block-quote"></span></button>
-        </span>
-        <span class="c-rich-editor__btn-group">
-          <button title="Horizontal rule" @click="editor.commands.setHorizontalRule()"><span class="fi fi-rs-horizontal-rule"></span></button>
-          <button title="Bullet list" :class="editor.isActive('bulletList') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleBulletList()"><span class="fi fi-rs-list"></span></button>
-          <button title="Ordered list" :class="editor.isActive('orderedList') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleOrderedList()"><span class="fi fi-rs-bars-sort"></span></button>
-          <button title="Task list" :class="editor.isActive('taskList') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleTaskList()"><span class="fi fi-rs-list-check"></span></button>
-        </span>
-        <span class="c-rich-editor__btn-group">
-          <button title="Undo" @click="editor.commands.undo()"><span class="fi fi-rs-undo"></span></button>
-          <button title="Redo" @click="editor.commands.redo()"><span class="fi fi-rs-redo"></span></button>
-          <!-- <button title="HTML view" :class="htmlView ? activeClass : null" @click="(htmlView = !htmlView) && (mdView = false)">html</button> -->
-          <button title="Markdown view" :class="mdView ? activeClass : null" @click="(mdView = !mdView) && (htmlView = false)"><span class="fi fi-rs-file-code"></span></button>
-          <template v-if="!autosave">
-            <button :title="!pristine ? 'Saved' : 'Unsaved'" :class="!pristine ? activeClass : null" @click="save"><span class="fi fi-rs-disk"></span></button>
-          </template>
-          <div class="c-rich-editor__autosave c-rich-editor__flag" :class="autosave ? activeClass : null" @click="toggleAutosave">
-            <span v-if="autosave"class="fi fi-rs-toggle-on"></span>
-            <span v-else class="fi fi-rs-toggle-off"></span>
-            <span>Autosave</span>
-          </div>
-          <!--
-          <div class="c-rich-editor__editable c-rich-editor__flag" :class="editor.isEditable ? activeClass : null" @click="toggleEditable">
-            <span v-if="editor.isEditable"class="fi fi-rs-toggle-on"></span>
-            <span v-else class="fi fi-rs-toggle-off"></span>
-            <span>Editable</span>
-          </div>
-          -->
-        </span>
-        <input
-          type="text"
-          v-if="linkUrlVisible"
-          v-model="linkUrl"
-          ref="linkActivator"
-          @keydown.enter.prevent="setLinkUrl(false)"
-          @keydown.esc="setLinkUrl(true)"
-          @blur="setLinkUrl(false)"
-          placeholder="http://"
-        />
-      </div>
+  <div class="fds-c-rich-editor">
+    <div v-if="fromMemory" class="fds-c-rich-editor__memory">Saved on local memory <span @click="$emit('clearMemory')">click here</span> to restore original content.</div>
 
-      <div v-if="fromMemory" class="c-rich-editor__memory">Saved on local memory <span @click="$emit('clearMemory')">click here</span> to restore original content.</div>
+    <div class="fds-c-rich-editor__top">
+      <draggable tag="menu" class="fds-c-rich-editor__sections-tabs fds-c-tabs fds-c-dragable" draggable=".fds-c-draggable__item" :list="sections" @end="onSectionsChange">
+        <li v-for="(section, sectionIndex) in sections" class="fds-c-draggable__item">
+          <span class="fds-c-action v-semi" >
+            <span v-html="section.title || 'Untitled'" @click="loadSection(sectionIndex)"></span>
+            <button class="fds-c-chip" @click.prevent="removeSection(sectionIndex)">
+              <span class="fi fi-rr-cross-small"></span>
+            </button>
+            </span>
+          </span>
+        </li>
+        <template slot="footer">
+          <li><button class="fds-c-action v-semi" @click="addSection">+</button></li>
+          <li class="fds-c-rich-editor__toolbar">
+            <span class="fds-c-rich-editor__btn-group">
+              <button class="fds-c-action" title="Undo" @click="editor.commands.undo()"><span class="fi fi-rs-undo"></span></button>
+              <button class="fds-c-action" title="Redo" @click="editor.commands.redo()"><span class="fi fi-rs-redo"></span></button>
+              <!-- <button title="HTML view" :class="htmlView ? activeClass : null" @click="(htmlView = !htmlView) && (mdView = false)">html</button> -->
+              <button class="fds-c-action" title="Markdown view" :class="mdView ? activeClass : null" @click="(mdView = !mdView) && (htmlView = false)"><span class="fi fi-rs-file-code"></span></button>
+              <template v-if="!autosave">
+                <button class="fds-c-action" :title="!pristine ? 'Saved' : 'Unsaved'" :class="!pristine ? activeClass : null" @click="save"><span class="fi fi-rs-disk"></span></button>
+              </template>
+              <div class="fds-c-rich-editor__autosave fds-c-rich-editor__flag" :class="autosave ? activeClass : null" @click="toggleAutosave">
+                <span v-if="autosave"class="fi fi-rs-toggle-on"></span>
+                <span v-else class="fi fi-rs-toggle-off"></span>
+                <span>Autosave</span>
+              </div>
+              <!--
+              <div class="fds-c-rich-editor__editable fds-c-rich-editor__flag" :class="editor.isEditable ? activeClass : null" @click="toggleEditable">
+                <span v-if="editor.isEditable"class="fi fi-rs-toggle-on"></span>
+                <span v-else class="fi fi-rs-toggle-off"></span>
+                <span>Editable</span>
+              </div>
+              -->
+            </span>
+          </li>
+        </template>
+      </draggable>
+
     </div>
 
-    <draggable tag="menu" class="c-rich-editor__sections-tabs c-tabs c-dragable" draggable=".c-draggable__item" :list="sections" @end="onSectionsChange">
-      <li v-for="(section, sectionIndex) in sections" class="c-draggable__item">
-        <span class="c-action v-semi" >
-          <span v-html="section.title || 'Untitled'" @click="loadSection(sectionIndex)"></span>
-          <button class="c-chip" @click.prevent="removeSection(sectionIndex)">
-            <span class="fi fi-rr-cross-small"></span>
-          </button>
-          </span>
-        </span>
-      </li>
-      <li slot="footer">
-        <button class="c-action v-semi" @click="addSection">+</button>
-      </li>
-    </draggable>
+    <div v-if="!htmlView && !mdView" class="fds-c-rich-editor__document" v-bind="$attrs">
 
-    <div v-if="!htmlView && !mdView" class="c-rich-editor__document" v-bind="$attrs">
-      <editor-content :editor="editor" class="c-rich-editor__page" />
+      <div class="fds-c-rich-editor__floating-toolbar" :style="menuStyle">
+        <div class="fds-c-rich-editor__toolbar v-darkmode u-scrolled">
+          <span class="fds-c-rich-editor__btn-group">
+            <button class="fds-c-action v-semi" title="Bold" :class="editor.isActive('bold') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleBold()"><span class="fi fi-rs-bold"></span></button>
+            <button class="fds-c-action v-semi" title="Italic" :class="editor.isActive('italic') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleItalic()"><span class="fi fi-rs-italic"></span></button>
+            <button class="fds-c-action v-semi" title="Strike" :class="editor.isActive('strike') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleStrike()"><span class="fi fi-rs-strikethrough"></span></button>
+            <button class="fds-c-action v-semi" title="Underline" :class="editor.isActive('underline') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleUnderline()"><span class="fi fi-rs-underline"></span></button>
+            <button class="fds-c-action v-semi" title="Highlight" :class="editor.isActive('highlight') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHighlight()"><span class="fi fi-rs-highlighter-line"></span></button>
+            <button class="fds-c-action v-semi" title="code" :class="editor.isActive('code') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleCode()"><span class="fi fi-rs-code-simple"></span></button>
+            <button class="fds-c-action v-semi" title="link" :class="editor.isActive('link') ? activeClass : null" @mousedown.prevent.stop="toggleLinkUrl"><span class="fi fi-rs-link"></span></button>
+            <!-- <button class="fds-c-action v-semi" :class="editor.isActive('iframe') ? activeClass : null" @mousedown.prevent.stop="addIframe"><span class="fi fi-rs-link"></span></button> -->
+          </span>
+          <span class="fds-c-rich-editor__btn-group">
+            <button class="fds-c-action v-semi" title="Code block" :class="editor.isActive('codeBlock') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleCodeBlock()"><span class="fi fi-rs-rectangle-code"></span></button>
+            <button class="fds-c-action v-semi" title="Paragraph" :class="editor.isActive('paragraph') ? activeClass : null" @mousedown.prevent.stop="editor.commands.setParagraph()"><span class="fi fi-rs-paragraph"></span></button>
+            <button class="fds-c-action v-semi" title="H1" :class="editor.isActive('heading', {level : 1}) ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHeading({level : 1})"><span class="fi fi-rs-h1"></span></button>
+            <button class="fds-c-action v-semi" title="H2" :class="editor.isActive('heading', {level : 2}) ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHeading({level : 2})"><span class="fi fi-rs-h2"></span></button>
+            <button class="fds-c-action v-semi" title="H3" :class="editor.isActive('heading', {level : 3}) ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHeading({level : 3})"><span class="fi fi-rs-h3"></span></button>
+            <button class="fds-c-action v-semi" title="H4" :class="editor.isActive('heading', {level : 4}) ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleHeading({level : 4})"><span class="fi fi-rs-h4"></span></button>
+            <button class="fds-c-action v-semi" title="Blockquote" :class="editor.isActive('blockquote') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleBlockquote()"><span class="fi fi-rs-block-quote"></span></button>
+          </span>
+          <span class="fds-c-rich-editor__btn-group">
+            <button class="fds-c-action v-semi" title="Horizontal rule" @click="editor.commands.setHorizontalRule()"><span class="fi fi-rs-horizontal-rule"></span></button>
+            <button class="fds-c-action v-semi" title="Bullet list" :class="editor.isActive('bulletList') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleBulletList()"><span class="fi fi-rs-list"></span></button>
+            <button class="fds-c-action v-semi" title="Ordered list" :class="editor.isActive('orderedList') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleOrderedList()"><span class="fi fi-rs-bars-sort"></span></button>
+            <button class="fds-c-action v-semi" title="Task list" :class="editor.isActive('taskList') ? activeClass : null" @mousedown.prevent.stop="editor.commands.toggleTaskList()"><span class="fi fi-rs-list-check"></span></button>
+          </span>
+          <input
+            type="text"
+            v-if="linkUrlVisible"
+            v-model="linkUrl"
+            ref="linkActivator"
+            @keydown.enter.prevent="setLinkUrl(false)"
+            @keydown.esc="setLinkUrl(true)"
+            @blur="setLinkUrl(false)"
+            placeholder="http://"
+          />
+        </div>
+      </div>
+
+      <editor-content :editor="editor" class="fds-c-rich-editor__page" />
     </div>
 
     <textarea
-      class="c-rich-editor__textarea"
+      class="fds-c-rich-editor__textarea"
       v-else-if="htmlView"
       v-bind="$attrs"
       @input="$emit('input', $event)"
@@ -91,7 +97,7 @@
     ></textarea>
 
     <textarea
-      class="c-rich-editor__textarea"
+      class="fds-c-rich-editor__textarea"
       v-else-if="mdView"
       v-bind="$attrs"
       @input="$emit('input', $event)"
@@ -163,9 +169,12 @@ export default Vue.component('RichEditor', {
     mdView: false,
     linkUrl: null,
     linkUrlVisible: false,
-    activeClass: 'active',
+    activeClass: 'v-solid',
     sections: [],
-    md: undefined
+    md: undefined,
+    menuStyle: {
+      top: -10000 + 'px'
+    }
   }),
   watch: {
     value: {
@@ -197,12 +206,12 @@ export default Vue.component('RichEditor', {
         Underline,
         TaskList.configure({
           HTMLAttributes: {
-            class: 'c-rich-editor__task-list'
+            class: 'fds-c-rich-editor__task-list'
           }
         }),
         TaskItem.configure({
           HTMLAttributes: {
-            class: 'c-rich-editor__task-item'
+            class: 'fds-c-rich-editor__task-item'
           }
         }),
         // Document,
@@ -229,12 +238,44 @@ export default Vue.component('RichEditor', {
   },
   mounted () {
     this.$el.addEventListener('keydown', this.onKeydown)
+    document.addEventListener('selectionchange', this.onSelectionChange)
   },
   beforeDestroy () {
+    document.removeEventListener('selectionchange', this.onSelectionChange)
     this.$el.removeEventListener('keydown', this.onKeydown)
     this.editor.destroy()
   },
   methods: {
+    onSelectionChange() {
+      const selection = document.getSelection()
+      if (!selection.rangeCount) {
+        this.menuStyle = {
+          top: -10000 + 'px'
+        }
+        return
+      }
+      const range = selection.getRangeAt(0)
+
+      const node = range.commonAncestorContainer
+      const element = node.nodeType === 3 ? node.parentNode : node
+      const rect = element.getBoundingClientRect()
+
+      // console.log('selection change', selection, range, element, rect)
+
+      const outsidePage = !element.closest('.fds-c-rich-editor__page')
+      const onCodeBlock = element.closest('.fds-c-hightlighter')
+
+      if (outsidePage || onCodeBlock) {
+        // console.log('click offside')
+        this.menuStyle = {
+          top: -10000 + 'px'
+        }
+      } else {
+        this.menuStyle = {
+          top: (rect.top - 50) + 'px'
+        }
+      }
+    },
     loadSection(sectionIndex) {
       this.currentSectionIndex = sectionIndex
       this.editor.commands.setContent(this.sections[this.currentSectionIndex].html)
@@ -357,16 +398,18 @@ export default Vue.component('RichEditor', {
 </script>
 
 <style lang="scss">
-.c-rich-editor {
+.fds-c-rich-editor {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.c-rich-editor__btn-group {
+.fds-c-rich-editor__btn-group {
   display: inline-block;
   display: flex;
   gap: 6px;
+
+  /*
   button {
     cursor: pointer;
     border: 1px solid transparent;
@@ -387,9 +430,10 @@ export default Vue.component('RichEditor', {
       background-color: var(--color--dar-3);
     }
   }
+  */
 }
 
-.c-rich-editor__flag {
+.fds-c-rich-editor__flag {
   cursor: pointer;
   align-self: center;
   display: flex;
@@ -406,7 +450,7 @@ export default Vue.component('RichEditor', {
   }
 }
 
-.c-rich-editor__textarea {
+.fds-c-rich-editor__textarea {
   width: 100%;
   padding: 20px;
   resize: vertical;
@@ -419,32 +463,57 @@ export default Vue.component('RichEditor', {
   line-height: 1.4em;
 }
 
-.c-rich-editor__top {
-  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+/* */
+.fds-c-rich-editor__top {
+  background-color: var(--color--light-3);
+  // box-shadow: 0 0 30px rgba(0,0,0,0.4);
   flex-grow: 0;
   z-index: 1;
-  background-color: var(--color--dark-2);
-}
-
-.c-rich-editor__toolbar {
-  border-top: 2px solid var(--color--dark-2);
-  border-bottom: 1px solid var(--color--dark-2);
   display: flex;
-  grid-gap: 12px;
-  gap: 12px;
+}
+/* */
+
+.fds-c-rich-editor__toolbar {
+  // border-top: 2px solid var(--color--dark-2);
+  // border-bottom: 1px solid var(--color--dark-2);
+  display: flex;
+  gap: var(--spacing-s);
   // background-color: var(--color--pale-3);
-  background-color: var(--color--dark-3);
+  // background-color: var(--color--dark-3);
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 18px 18px 18px;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: stretch;
   align-content: flex-start;
   color: var(--color--pale-1);
-  border-radius: 8px 0 0 0;
+  padding: var(--spacing-s) !important;
+
+  &:is(li) {
+    justify-content: flex-end;
+    flex-grow: 1;
+  }
+
 }
 
-.c-rich-editor__memory {
+.fds-c-rich-editor__floating-toolbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10000;
+
+  .fds-c-rich-editor__toolbar {
+    background-color: var(--color--dark-2);
+    border: 1px solid var(--color--dark-3);
+    border-radius: var(--border-radius);
+    gap: var(--spacing-xxl);
+    display: inline-flex;
+    flex-wrap: nowrap;
+    max-width: 100%;
+  }
+}
+
+.fds-c-rich-editor__memory {
   border-bottom: 1px solid rgba(0,0,0,0.1);
   background-color: var(--color-amber);
   padding: 8px;
@@ -460,20 +529,20 @@ export default Vue.component('RichEditor', {
   }
 }
 
-.c-rich-editor__sections-tabs {
+.fds-c-rich-editor__sections-tabs {
   padding-top: var(--spacing-l);
-  background-color: var(--color--light-3);
+  flex-grow: 1;
 }
 
-.c-rich-editor__document {
+.fds-c-rich-editor__document {
   overflow: auto;
-  background-color: var(--color--light-2);
+  // background-color: var(--color--light-2);
   flex-grow: 1;
   position: relative;
   // display: flex;
 }
 
-.c-rich-editor__page {
+.fds-c-rich-editor__page {
   max-width: 920px;
   margin: 0 auto;
   padding: 40px 50px;
@@ -493,7 +562,7 @@ export default Vue.component('RichEditor', {
   flex-grow: 1;
   min-height: 1500px; // REVIEW
   width: 100%;
-  & > :not(.c-hightlighter) { // .c-rich-editor-section__content
+  & > :not(.fds-c-hightlighter) { // .fds-c-rich-editor-section__content
     &,* {
       &:is(
         p,
@@ -622,11 +691,11 @@ export default Vue.component('RichEditor', {
           font-size: 0.8em;
         }
       }
-      &.c-rich-editor__task-list {
+      &.fds-c-rich-editor__task-list {
         list-style-type: none;
         padding: 6px 0px;
         margin-left: 4px;
-        .c-rich-editor__task-item {
+        .fds-c-rich-editor__task-item {
           display: flex;
           flex-direction: row;
           flex-wrap: nowrap;
@@ -683,12 +752,12 @@ export default Vue.component('RichEditor', {
 }
 
 /*
-.c-rich-editor-section {
+.fds-c-rich-editor-section {
   padding: 6px 6px 6px 30px;
   margin: -6px -6px -6px -30px;
   border-radius: 3px;
   position: relative;
-  .c-rich-editor-section__drag-handle {
+  .fds-c-rich-editor-section__drag-handle {
     display: none;
     position: absolute;
     top: 1px;
@@ -699,12 +768,12 @@ export default Vue.component('RichEditor', {
   }
   &:hover {
     background: rgb(136 136 136 / 3%);
-    .c-rich-editor-section__drag-handle {
+    .fds-c-rich-editor-section__drag-handle {
       display: block;
     }
   }
 
-  .c-rich-editor-section__content {
+  .fds-c-rich-editor-section__content {
     flex: 1 1 auto;
   }
 }
@@ -713,14 +782,14 @@ export default Vue.component('RichEditor', {
 // Dark mode
 /*
 .--darkmode {
-  .c-rich-editor__document {
+  .fds-c-rich-editor__document {
     background-color: #161616;
   }
-  .c-rich-editor__page {
+  .fds-c-rich-editor__page {
     border: none;
     background-color: #262626;
   }
-  .tiptap.ProseMirror > :not(.c-hightlighter) { // .c-rich-editor-section__content
+  .tiptap.ProseMirror > :not(.fds-c-hightlighter) { // .fds-c-rich-editor-section__content
     color: var(--color--pale-1);
     &,* {
       &:is(p, h1, h2, h3, h4, h5, h6) {

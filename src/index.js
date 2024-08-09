@@ -5,89 +5,53 @@ import flaticons from '@flaticon/flaticon-uicons/css/all/all.css'
 // Libs and config
 import Vue from 'vue'
 import '#lib/prototype'
-import 'config/vue.config'
+import '#config/vue.config'
+import routes from '#config/routes'
 
 // APP
 import APP from '#services/APP'
-import Scheme from '#services/Scheme'
+import router from '#services/router'
+import API from '#services/API'
+import Entity from '#services/Entity'
 import StaticDB from '#services/StaticDB'
 import i18n, { I18n } from '#services/i18n'
 
 window.$Vue = Vue
-window.APP = APP
+window.$APP = APP
+APP.routes = routes
+APP.router = router
+APP.Entity = Entity
+APP.FrontboardAPI = API
+APP.EntityAPI = API
 
-const contextRequire = import.meta.webpackContext('models', {
+APP.docsContext = ['data/md', import.meta.webpackContext('#data/md', { recursive: true, regExp: /\.md$/, mode: 'lazy' })]
+
+// console.log('Flaticons', {flaticons})
+
+// APP.docsContext = ['data/md', require.context('#data/md', { recursive: true, regExp: /\.md$/, mode: 'lazy' })]
+// require.context('controllers', true, /_controller\.js$/)
+
+import.meta.webpackContext('#models', {
   recursive: true,
   regExp: /\.js$/
-  // mode: 'weak',
-  // exclude: /three/,
 })
 
-initialize()
-
-async function initialize () {
+console.log('Frontboard', APP)
+APP.initialize = async () => {
   mountModels()
   await mountStaticDB()
-  syncSchemeWithStaticDB()
-  syncTranslations()
-  mountFieldsets()
-  mountServices()
-  mountComponents()
-  mountFrontboard()
-}
 
-function mountModels() {
-  const modelsContext = import.meta.webpackContext('models', { recursive: true, regExp: /\.js$/ })
-  APP.models = Object.fromEntries(modelsContext.keys().map(modelPath => {
-    const model = modelsContext(modelPath).default
-    const name = modelPath.split('/').pop().replace(/\.js$/, '')
-    return [name, model]
-  }))
-  Scheme.initialize()
-}
-
-function mountStaticDB() {
-  return new Promise(resolve => {
-    const databasesContext = import.meta.webpackContext('data/json', { recursive: true, regExp: /\.json$/, mode: 'lazy' })
-    const keys = databasesContext.keys()
-
-    Promise.all(
-      keys.map(databasePath => databasesContext(databasePath))
-    ).then(databases => {
-      databases.forEach((data, index) => {
-        const databasePath = keys[index]
-        const path = databasePath.split('/').pop().replace(/\.json$/, '')
-        StaticDB.newDatabase({ path, data })
-      })
-      APP.databases = StaticDB.databases
-      resolve()
-    })
-  })
-}
-
-function syncSchemeWithStaticDB() {
-  Object.defineProperty(Scheme, 'UidIndex', {
+  Object.defineProperty(Entity, 'UidIndex', {
     get() {
-      return APP.databases.internals.collections.config.data.uidIndex
+      return StaticDB.config.uidIndex
     },
     set(value) {
-      APP.databases.internals.collections.config.data.uidIndex = value
+      StaticDB.config.uidIndex = value
     }
   })
-}
 
-function syncTranslations() {
-  /*
-  I18n.translations = [
-    new APP.models.Translation({
-      dotText: 'example.dot.text',
-      texts: ['Example message for ${name}!'],
-      number: false
-    })
-  ]
-  window.i18nTest = i18n('example.dot.text', {name: 'Aitana'}, 'not found :(')
-  */
-  APP.translations = I18n.translations = Object.fromEntries(Object.values(APP.databases.translations.collections).map(language => [language.name, language.data]))
+  APP.translations = I18n.translations = StaticDB.translations
+
   Object.defineProperty(APP, 'language', {
     get() {
       return I18n.language
@@ -96,43 +60,101 @@ function syncTranslations() {
       I18n.language = value
     }
   })
+
+  Entity.initializeFields()
+
+  mountServices()
+  mountComponents()
+
+  router.initialize()
+
+  mountFrontboard()
+
+  Object.assign(Vue.options.components, Vue.options.__components || {})
 }
 
-function mountFieldsets() {
-  Scheme.initializeFields()
+function mountModels() {
+  console.time('mountModels')
+  const modelsContext = import.meta.webpackContext('#models', { recursive: true, regExp: /\.js$/ })
+  APP.models = Object.fromEntries(modelsContext.keys().map(modelPath => {
+    const name = modelPath.split('/').pop().replace(/\.js$/, '')
+    // console.time('New model ' + name)
+    const model = modelsContext(modelPath).default
+    // console.timeEnd('New model ' + name)
+    return [name, model]
+  }))
+  console.timeEnd('mountModels')
+
+  console.time('Entity.initialize()')
+  Entity.initialize()
+  console.timeEnd('Entity.initialize()')
+}
+
+function mountStaticDB() {
+  console.time('mountStaticDB')
+  return new Promise(resolve => {
+    const databasesContext = import.meta.webpackContext('#data/json', { recursive: true, regExp: /\.json$/ }) //, 'lazy')
+    const keys = databasesContext.keys()
+
+    Promise.all(
+      keys.map(async dataPath => {
+        // console.time('New staticDB database ' + dataPath)
+        const database = await databasesContext(dataPath)
+        // console.timeEnd('New staticDB database ' + dataPath)
+        return database
+      })
+    ).then(databases => {
+      databases.forEach((data, index) => {
+        const dataPath = ['data/json', keys[index].split('/').pop()].pathJoin()
+        // console.time('Installing staticDB database ' + dataPath)
+        StaticDB.install(dataPath, data)
+        // console.timeEnd('Installing staticDB database ' + dataPath)
+      })
+      APP.StaticDB = StaticDB
+      console.timeEnd('mountStaticDB')
+      resolve()
+    })
+  })
 }
 
 function mountServices() {
-  const servicesContext = import.meta.webpackContext('services', { recursive: true, regExp: /\.js$/ })
+  console.time('mountServices')
+  const servicesContext = import.meta.webpackContext('#services', { recursive: true, regExp: /\.js$/ })
   APP.services = Object.fromEntries(servicesContext.keys().map(servicePath => {
-    const service = servicesContext(servicePath).default
     const name = servicePath.split('/').pop().replace(/\.js$/, '')
+    // console.time('New service ' + name)
+    const service = servicesContext(servicePath).default
+    // console.timeEnd('New service ' + name)
     return [name, service]
   }).filter(service => service[0] !== 'APP'))
+  console.timeEnd('mountServices')
 }
 
 function mountComponents() {
-  const componentsContext = import.meta.webpackContext('components', { recursive: true, regExp: /\.vue$/ })
+  console.time('mountComponents')
+  const componentsContext = import.meta.webpackContext('#components', { recursive: true, regExp: /\.vue$/ })
   APP.components = Object.fromEntries(componentsContext.keys().map(componentPath => {
     // console.log('component', componentPath)
     const componentModule = componentsContext(componentPath).default
     const component = Vue.component(componentModule.name, componentModule)
     return [componentModule.name, component]
   }))
+  console.timeEnd('mountComponents')
 }
 
 function mountFrontboard() {
-  const mountFrontboard = window.mountFrontboard = path => {
+  console.time('mountFrontboard')
+  const mountFrontboard = window.mountFrontboard = () => {
     if (window.Frontboard) {
       window.Frontboard.toggle()
     } else {
-      import('views/Frontboard').then(module => {
+      import('#views/Frontboard').then(module => {
         const Frontboard = Vue.component(module.default.name, module.default)
         const element = document.createElement('frontboard')
-        const component = new Frontboard({ propsData: { path } })
+        const component = new Frontboard()
         document.body.appendChild(element)
         window.Frontboard = component.$mount(element)
-        console.info('FrontBoard mounted')
+        console.timeEnd('mountFrontboard')
       })
     }
   }
@@ -145,17 +167,17 @@ function mountFrontboard() {
       }
     })
     Vue.nextTick().then(() => {
-      const queryParams = new URLSearchParams(window.location.search)
-      const path = queryParams.get('frontboard')
-      if (path || APP.config.autoLaunchFrontBoard) {
-        mountFrontboard(path || undefined)
+      if (router.current || APP.config.autoLaunchFrontBoard) {
+        mountFrontboard()
       } else {
         console.info('FrontBoard ready')
       }
     })
   }
-
-  console.log('APP init', APP)
 }
 
-// module.export = APP
+APP.initialize()
+
+export default APP
+
+export { Entity }

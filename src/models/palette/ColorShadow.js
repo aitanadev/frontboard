@@ -1,8 +1,8 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import APP from '#services/APP'
 
 let uid = 0
-export default class ColorShadow extends Scheme {
+export default class ColorShadow extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -21,7 +21,10 @@ export default class ColorShadow extends Scheme {
 
   static schema() {
     return {
-      name: { default: '' },
+      name: {
+        default: '',
+        sticky: 'left'
+      },
       hue: {
         type: Number,
         default: 0,

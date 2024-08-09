@@ -1,8 +1,8 @@
-import Scheme from '#services/Scheme'
+import Entity from '#services/Entity'
 import Color from '#models/palette/Color'
 import APP from '#services/APP'
 
-export default class ColorTone extends Scheme {
+export default class ColorTone extends Entity {
   constructor(data) {
     return super().mount(data)
   }
@@ -21,7 +21,10 @@ export default class ColorTone extends Scheme {
 
   static schema() {
     return {
-      name: { default: '' },
+      name: {
+        default: '',
+        sticky: 'left'
+      },
       color: { class: Color }
     }
   }

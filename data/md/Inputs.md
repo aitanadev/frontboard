@@ -1,6 +1,6 @@
 # Inputs
 
-`c-input`
+`fds-c-input`
 
 Inputs uses only CSS classes (not component needed)
 
@@ -21,7 +21,7 @@ The color **tones** depends on Palette colors definitions using `t-colorToneName
           <input
             placeholder="placeholder"
             :class="[
-              'c-input',
+              'fds-c-input',
               {['t-' + colorTone.name]: colorTone.name !== 'default'},
               {['s-' + status]: status !== 'default'},
             ]"

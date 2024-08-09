@@ -10,19 +10,19 @@
         "purchaseLines": [
           {
             "id": "100000",
-            "type": "PurchaseLine"
+            "$type": "PurchaseLine"
           },
           {
             "id": "100001",
-            "type": "PurchaseLine"
+            "$type": "PurchaseLine"
           },
           {
             "id": "100020",
-            "type": "PurchaseLine"
+            "$type": "PurchaseLine"
           },
           {
             "id": "100021",
-            "type": "PurchaseLine"
+            "$type": "PurchaseLine"
           }
         ]
       },
@@ -33,11 +33,11 @@
         "purchaseLines": [
           {
             "id": "100023",
-            "type": "PurchaseLine"
+            "$type": "PurchaseLine"
           },
           {
             "id": "100025",
-            "type": "PurchaseLine"
+            "$type": "PurchaseLine"
           }
         ]
       },
@@ -48,7 +48,7 @@
         "purchaseLines": [
           {
             "id": "100026",
-            "type": "PurchaseLine"
+            "$type": "PurchaseLine"
           }
         ]
       }
@@ -63,7 +63,7 @@
         "id": "100000",
         "asset": {
           "id": "10005",
-          "type": "Asset"
+          "$type": "Asset"
         },
         "amount": 5,
         "price": 12,
@@ -73,32 +73,35 @@
         "id": "100001",
         "asset": {
           "id": "10006",
-          "type": "Asset"
+          "$type": "Asset"
         },
         "amount": 2,
-        "price": 5
+        "price": 5,
+        "bargain": false
       },
       {
         "id": "100020",
         "asset": {
           "id": "100004",
-          "type": "Asset"
+          "$type": "Asset"
         },
-        "amount": 1
+        "amount": 1,
+        "bargain": false
       },
       {
         "id": "100021",
         "asset": {
           "id": "100005",
-          "type": "Asset"
+          "$type": "Asset"
         },
-        "amount": 1
+        "amount": 1,
+        "bargain": false
       },
       {
         "id": "100023",
         "asset": {
           "id": "100002",
-          "type": "Asset"
+          "$type": "Asset"
         },
         "amount": 1,
         "price": 2,
@@ -108,16 +111,17 @@
         "id": "100025",
         "asset": {
           "id": "10007",
-          "type": "Asset"
+          "$type": "Asset"
         },
         "amount": 1,
-        "price": 3
+        "price": 3,
+        "bargain": false
       },
       {
         "id": "100026",
         "asset": {
           "id": "100007",
-          "type": "Asset"
+          "$type": "Asset"
         },
         "amount": 2,
         "price": 2,
@@ -134,24 +138,24 @@
         "name": "Alimentación",
         "tone": {
           "id": "1004",
-          "type": "Color"
+          "$type": "Color"
         },
         "categories": [
           {
             "id": "1061",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1059",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1058",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "100159",
-            "type": "Category"
+            "$type": "Category"
           }
         ]
       },
@@ -160,20 +164,20 @@
         "name": "Limpieza",
         "tone": {
           "id": "1011",
-          "type": "Color"
+          "$type": "Color"
         },
         "categories": [
           {
             "id": "1077",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1078",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1079",
-            "type": "Category"
+            "$type": "Category"
           }
         ]
       },
@@ -182,24 +186,24 @@
         "name": "Medicamentos",
         "tone": {
           "id": "1009",
-          "type": "Color"
+          "$type": "Color"
         },
         "categories": [
           {
             "id": "1083",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1084",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1086",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1087",
-            "type": "Category"
+            "$type": "Category"
           }
         ]
       },
@@ -208,24 +212,24 @@
         "name": "Jardinería",
         "tone": {
           "id": "1008",
-          "type": "Color"
+          "$type": "Color"
         },
         "categories": [
           {
             "id": "1062",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1063",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1064",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1082",
-            "type": "Category"
+            "$type": "Category"
           }
         ]
       }
@@ -316,16 +320,16 @@
         "runOut": 1,
         "taxonomy": {
           "id": "10002",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
         "categories": [
           {
             "id": "1077",
-            "type": "Category"
+            "$type": "Category"
           },
           {
             "id": "1078",
-            "type": "Category"
+            "$type": "Category"
           }
         ]
       },
@@ -339,9 +343,14 @@
         "runOut": 3000,
         "taxonomy": {
           "id": "10001",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
-        "categories": []
+        "categories": [
+          {
+            "id": "1058",
+            "$type": "Category"
+          }
+        ]
       },
       {
         "id": "10007",
@@ -353,9 +362,18 @@
         "runOut": 2,
         "taxonomy": {
           "id": "10002",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
-        "categories": []
+        "categories": [
+          {
+            "id": "1077",
+            "$type": "Category"
+          },
+          {
+            "id": "1079",
+            "$type": "Category"
+          }
+        ]
       },
       {
         "id": "100002",
@@ -367,9 +385,14 @@
         "runOut": 1000,
         "taxonomy": {
           "id": "10001",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
-        "categories": []
+        "categories": [
+          {
+            "id": "1059",
+            "$type": "Category"
+          }
+        ]
       },
       {
         "id": "100003",
@@ -377,12 +400,18 @@
         "unitBase": 1,
         "unitAmount": 1,
         "barcode": "899000340067887602",
+        "note": "",
         "runOut": 1,
         "taxonomy": {
           "id": "10003",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
-        "categories": []
+        "categories": [
+          {
+            "id": "1087",
+            "$type": "Category"
+          }
+        ]
       },
       {
         "id": "100004",
@@ -390,12 +419,18 @@
         "unitBase": 1,
         "unitAmount": 1,
         "barcode": "899000300067887642",
+        "note": "",
         "runOut": 1,
         "taxonomy": {
           "id": "10004",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
-        "categories": []
+        "categories": [
+          {
+            "id": "1063",
+            "$type": "Category"
+          }
+        ]
       },
       {
         "id": "100005",
@@ -407,9 +442,14 @@
         "runOut": 2,
         "taxonomy": {
           "id": "10004",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
-        "categories": []
+        "categories": [
+          {
+            "id": "1064",
+            "$type": "Category"
+          }
+        ]
       },
       {
         "id": "100006",
@@ -421,9 +461,14 @@
         "runOut": 1,
         "taxonomy": {
           "id": "10002",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
-        "categories": []
+        "categories": [
+          {
+            "id": "1077",
+            "$type": "Category"
+          }
+        ]
       },
       {
         "id": "100007",
@@ -431,12 +476,18 @@
         "unitBase": 1,
         "unitAmount": 2,
         "barcode": "899003400067883985",
+        "note": "",
         "runOut": 1,
         "taxonomy": {
           "id": "10004",
-          "type": "Taxonomy"
+          "$type": "Taxonomy"
         },
-        "categories": []
+        "categories": [
+          {
+            "id": "1062",
+            "$type": "Category"
+          }
+        ]
       }
     ]
   }

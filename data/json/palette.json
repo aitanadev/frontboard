@@ -8,120 +8,105 @@
         "name": "red",
         "hue": 344,
         "saturation": 68,
-        "lightness": 51,
-        "users": []
+        "lightness": 51
       },
       {
         "id": "1004",
         "name": "orange",
         "hue": 29,
         "saturation": 81,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       },
       {
         "id": "1005",
         "name": "amber",
         "hue": 42,
         "saturation": 91,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       },
       {
         "id": "1006",
         "name": "yellow",
         "hue": 56,
         "saturation": 83,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       },
       {
         "id": "1007",
         "name": "lime",
         "hue": 77,
         "saturation": 80,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       },
       {
         "id": "1008",
         "name": "green",
         "hue": 100,
         "saturation": 78,
-        "lightness": 51,
-        "users": []
+        "lightness": 51
       },
       {
         "id": "1009",
         "name": "cyan",
         "hue": 164,
         "saturation": 69,
-        "lightness": 49,
-        "users": []
+        "lightness": 49
       },
       {
         "id": "1010",
         "name": "azure",
         "hue": 202,
         "saturation": 79,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       },
       {
         "id": "1011",
         "name": "blue",
         "hue": 219,
         "saturation": 73,
-        "lightness": 51,
-        "users": []
+        "lightness": 51
       },
       {
         "id": "1012",
         "name": "violet",
         "hue": 265,
         "saturation": 61,
-        "lightness": 54,
-        "users": []
+        "lightness": 54
       },
       {
         "id": "1013",
         "name": "purple",
         "hue": 287,
         "saturation": 60,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       },
       {
         "id": "1014",
         "name": "magenta",
         "hue": 310,
         "saturation": 61,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       },
       {
         "id": "1015",
         "name": "rose",
         "hue": 329,
         "saturation": 75,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       },
       {
         "id": "1016",
         "name": "carbon",
         "hue": 190,
         "saturation": 10,
-        "lightness": 53,
-        "users": []
+        "lightness": 53
       },
       {
         "id": "1017",
         "name": "grey",
         "hue": 238,
         "saturation": 6,
-        "lightness": 50,
-        "users": []
+        "lightness": 50
       }
     ]
   },
@@ -310,7 +295,7 @@
         "name": "default",
         "color": {
           "id": "1016",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -318,7 +303,7 @@
         "name": "secondary",
         "color": {
           "id": "1017",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -326,7 +311,7 @@
         "name": "primary",
         "color": {
           "id": "1010",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -334,7 +319,7 @@
         "name": "info",
         "color": {
           "id": "1009",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -342,7 +327,7 @@
         "name": "success",
         "color": {
           "id": "1007",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -350,7 +335,7 @@
         "name": "warning",
         "color": {
           "id": "1005",
-          "type": "Color"
+          "$type": "Color"
         }
       },
       {
@@ -358,7 +343,7 @@
         "name": "error",
         "color": {
           "id": "1003",
-          "type": "Color"
+          "$type": "Color"
         }
       }
     ]

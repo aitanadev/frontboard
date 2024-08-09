@@ -76,7 +76,7 @@
       <li>li</li>
       <li>li</li>
     </ol>
-    <menu class="c-action --link">
+    <menu class="fds-c-action --link">
       <li>li</li>
       <li>li</li>
     </menu>
